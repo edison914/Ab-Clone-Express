@@ -7,11 +7,30 @@ const { User } = require(`../../db/models`);
 
 const router = express.Router();
 
-//login with post method, body should be an obj
-router.post('/', async (req, res, next) => {
+//import check function from exrpess-validator lib.
+const { check } = require('express-validator');
+//import handlevaidationErros middleware from util.
+const { handleValidationErrors } = require('../../utils/validation');
+
+//perform validation on req body using express-validator
+const validateLogin = [
+    check('credential')
+      .exists({ checkFalsy: true })
+      .notEmpty()
+      .withMessage('Please provide a valid email or username.'),
+    check('password')
+      .exists({ checkFalsy: true })
+      .withMessage('Please provide a password.'),
+    //call handleValidationError middleware from util to see wether to go next or next(error)
+    handleValidationErrors
+  ];
+
+
+//login with post method, body should be an obj, validateLogin is checked first before checking to see if there is user exist in database.
+router.post('/', validateLogin, async (req, res, next) => {
     const { credential, password } = req.body;
 
-    //find one user that either username or email equal to credential from req.body. and create a user obj.
+    //find one user that either username or email matches credential from req.body. and create a user obj.
     const user = await User.unscoped().findOne({ //unscoped method is to include all atrributes from the User database. ignore defaultScope and exclude.
         where: {
             [Op.or]: {
@@ -72,5 +91,8 @@ router.get(`/`, async (req, res) => {
         return res.json({user: null});
     }
 })
+
+
+
 
 module.exports = router;
