@@ -12,7 +12,7 @@ router.post('/', async (req, res, next) => {
     const { credential, password } = req.body;
 
     //find one user that either username or email equal to credential from req.body. and create a user obj.
-    const user = await User.unscoped().findOne({ //unscoped method is to include all atrributes from the User database.
+    const user = await User.unscoped().findOne({ //unscoped method is to include all atrributes from the User database. ignore defaultScope and exclude.
         where: {
             [Op.or]: {
                 username: credential,
@@ -37,7 +37,7 @@ router.post('/', async (req, res, next) => {
         username: user.username,
       };
 
-    //create and set a Token cookie for the user that is stored in the browser.
+    //create and set a Token cookie for the user that is stored in the browser. //login
     await setTokenCookie (res, safeUser);
 
     //return a response with user info to confirm login successfully.
@@ -45,6 +45,10 @@ router.post('/', async (req, res, next) => {
 
 })
 
-
+//remove jwtoken stored in browser or log out.
+router.delete(`/`, (_req, res) => {
+    res.clearCookie('token');
+    return res.json({message: 'success'});
+})
 
 module.exports = router;
