@@ -1,21 +1,30 @@
 // backend/routes/api/index.js
 const router = require('express').Router();
 
-
+//connect sections and users middleware to this index.js (aka api router), then api router is then connect index.js that is not nested.
+const sessionRouter = require (`./session.js`);
+const usersRouter = require (`./users.js`);
 const { restoreUser } = require('../../utils/auth.js');
 
 //this is global. check if a user is existed
 router.use(restoreUser);
+
+//if route matches, route to sessionRouter
+router.use(`/session`, sessionRouter)
+
+//if route matches, route to usersRouter
+router.use(`/users`, usersRouter)
+
 
 //all code below is for testing whether middlewares in auth.js is working properly.
 // const { setTokenCookie } = require('../../utils/auth.js');
 // const { User } = require('../../db/models');
 // const { requireAuth } = require('../../utils/auth.js');
 
-// //POST /api/test
-// router.post('/test', function(req, res) {
-//     res.json({ requestBody: req.body });
-//   });
+//POST /api/test
+router.post('/test', function(req, res) {
+    res.json({ requestBody: req.body });
+  });
 
 // //GET /api/set-token-cookie to username: 'Demo-Lition'.
 
