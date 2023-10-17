@@ -51,4 +51,26 @@ router.delete(`/`, (_req, res) => {
     return res.json({message: 'success'});
 })
 
+//Get session user API, /API/session
+//route call order.
+    //app.js, line 45, app.use(routes)
+    //routes/api/index, line 17, router.use('/api', apiRouter)
+    //routes/api/session, line 59, router below is called.
+router.get(`/`, async (req, res) => {
+    const { user } = req;
+
+    // if user exist, send res with user info else send null.
+    if(user) {
+        //create a safeuser obj to exclude password
+        const safeUser = {
+            id: user.id,
+            email: user.email,
+            username: user.username
+        };
+        return res.json({user: safeUser});
+    } else {
+        return res.json({user: null});
+    }
+})
+
 module.exports = router;
