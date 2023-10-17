@@ -1,6 +1,8 @@
 // backend/routes/index.js
 const express = require('express');
 const router = express.Router();
+
+//connect index.js from nested API folder to this index file and named it `apiRouter`.
 const apiRouter = require('./api');
 
 
@@ -11,7 +13,6 @@ router.get("/api/csrf/restore", (req, res) => {
     'XSRF-Token': csrfToken
   });
 });
-
 
 router.use('/api', apiRouter);
 

@@ -42,7 +42,7 @@ if (!isProduction) {
     })
   );
 
-  app.use(routes); // Connect all the routes
+  app.use(routes); // Connect all the routes, this is to use all routes in index.js in the routes folder.
 
   app.use((_req, _res, next) => {
     const err = new Error("The requested resource couldn't be found.");
