@@ -37,7 +37,7 @@ router.post('/', async (req, res, next) => {
         username: user.username,
       };
 
-    //create and set a Token cookie for the user that is stored in the browser.
+    //create and set a Token cookie for the user that is stored in the browser. //login
     await setTokenCookie (res, safeUser);
 
     //return a response with user info to confirm login successfully.
