@@ -16,6 +16,8 @@ router.use(`/session`, sessionRouter)
 router.use(`/users`, usersRouter)
 
 
+
+
 //all code below is for testing whether middlewares in auth.js is working properly.
 // const { setTokenCookie } = require('../../utils/auth.js');
 // const { User } = require('../../db/models');
