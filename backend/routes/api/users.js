@@ -6,8 +6,35 @@ const { User } = require('../../db/models');
 
 const router = express.Router();
 
+////import check function from exrpess-validator lib.
+const { check } = require('express-validator');
+//import handlevaidationErros middleware from util.
+const { handleValidationErrors } = require('../../utils/validation');
+
+//create a signup validator
+const validateSignup = [
+    check('email')
+      .exists({ checkFalsy: true })
+      .isEmail()
+      .withMessage('Please provide a valid email.'),
+    check('username')
+      .exists({ checkFalsy: true })
+      .isLength({ min: 4 })
+      .withMessage('Please provide a username with at least 4 characters.'),
+    check('username')
+      .not()
+      .isEmail()
+      .withMessage('Username cannot be an email.'),
+    check('password')
+      .exists({ checkFalsy: true })
+      .isLength({ min: 6 })
+      .withMessage('Password must be 6 characters or more.'),
+    handleValidationErrors
+];
+
+
 //create a new user, signup
-router.post(`/`, async (req, res, next) => {
+router.post(`/`, validateSignup, async (req, res, next) => {
     const {password, email, username} = req.body;
 
     //create a hashed password
