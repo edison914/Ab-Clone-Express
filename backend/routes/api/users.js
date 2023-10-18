@@ -11,7 +11,7 @@ const { check } = require('express-validator');
 //import handlevaidationErros middleware from util.
 const { handleValidationErrors } = require('../../utils/validation');
 
-//create a signup validator, isnt this kinda redudant with model validation?
+//create a signup validator
 const validateSignup = [
     check('email')
         .exists({ checkFalsy: true })
@@ -59,7 +59,7 @@ router.post(`/`, validateSignup, async (req, res, next) => {
         lastName: newUser.lastName
     };
 
-    //create and set a JWToken with newUser on broswer's cookies so the new user can access the database. //login
+    //create and set a JWToken with newUser on broswer's cookies so the new user can access the database.
     await setTokenCookie(res, safeUser);
 
     return res.json({
