@@ -45,7 +45,7 @@ correct role(s) or permission(s).
     }
     ```
 
-### Get the Current User
+### Get the Current User - Done
 
 Returns the information about the current user that is logged in.
 
@@ -91,7 +91,7 @@ Returns the information about the current user that is logged in.
     }
     ```
 
-### Log In a User
+### Log In a User - Done
 
 Logs in a current user with valid credentials and returns the current user's
 information.
