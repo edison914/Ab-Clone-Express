@@ -40,7 +40,7 @@ router.post('/', validateLogin, async (req, res, next) => {
         }
     });
 
-    //if user is not found or entered password doesnt match after hashing, create a Error, pass to the error to next middleware
+    //if user is not found or entered password doesnt match after hashing, create a Error, pass to the error to next error middleware
     if (!user || !bcrypt.compareSync(password, user.hashedPassword.toString())) {
         const err = new Error('Login failed');
         err.status = 401;

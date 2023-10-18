@@ -42,3 +42,8 @@ npx sequelize model:generate --name SpotImage --attributes spotId:integer,url:st
     //Spot belongsToMany User through Review
 
     //update bookings and reviews migration with referece???? only if you are defining relationship not using association.
+
+    Need to eliminate some redundant relationship
+
+4. create seeder files
+    //npx sequelize seed:generate

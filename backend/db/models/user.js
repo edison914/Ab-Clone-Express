@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
         models.Review,
           {foreignKey: 'userId', onDelete: 'CASCADE', hooks: true}
       ),
-      
+
       //asscociation many to many
       User.belongsToMany (
         models.Spot, {
@@ -96,6 +96,12 @@ module.exports = (sequelize, DataTypes) => {
           exclude: [`hashedPassword`, `email`,`createdAt`,`updatedAt`]
         }
       }
+      // scopes: {
+      //   currentUser: {
+      //     attributes: { exclude: [`hashedPassword`]}
+      //   },
+      //   loginUser: {atrributes: {}}
+      // }
     }
   );
   return User;

@@ -4,6 +4,7 @@ const router = require('express').Router();
 //connect sections and users middleware to this index.js (aka api router), then api router is then connect index.js that is not nested.
 const sessionRouter = require (`./session.js`);
 const usersRouter = require (`./users.js`);
+const spotsRouter = require (`./spots.js`);
 const { restoreUser } = require('../../utils/auth.js');
 
 //this is global. check if a user is existed
@@ -15,6 +16,7 @@ router.use(`/session`, sessionRouter)
 //if route matches, route to usersRouter
 router.use(`/users`, usersRouter)
 
+router.use(`/spots`, spotsRouter)
 
 
 
