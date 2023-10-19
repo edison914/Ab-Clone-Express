@@ -46,7 +46,18 @@ module.exports = {
         description: `A 2B1B condo that is located by the beach`,
         price: 300.25,
       },
-
+      {
+        ownerId: 1,
+        address: '1122 Eddie Drive',
+        city: `Springfield`,
+        state: `Virginia`,
+        country: `United States of America`,
+        lat: 18.8462,
+        lng: 74.3043,
+        name: `Eddie's Crib 2`,
+        description: `Eddie's not so sweet home`,
+        price: 200.02,
+      },
     ], { validate: true });
   },
 
@@ -54,7 +65,7 @@ module.exports = {
     options.tableName = 'Spots';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      name: { [Op.in]: [`Eddie's Crib`, `Jason's Mansion`, `Ashley's home`] }
+      name: { [Op.in]: [`Eddie's Crib`, `Jason's Mansion`, `Ashley's home`, `Eddie's Crib 2`] }
     }, {});
   }
 };

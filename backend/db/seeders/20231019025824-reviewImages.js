@@ -34,6 +34,14 @@ module.exports = {
         reviewId: 6,
         url: `https://www.ab.com/reviews/review6/picture`,
       },
+      {
+        reviewId: 7,
+        url: `https://www.ab.com/reviews/review7/picture`,
+      },
+      {
+        reviewId: 8,
+        url: `https://www.ab.com/reviews/review8/picture`,
+      },
     ], { validate: true });
   },
 

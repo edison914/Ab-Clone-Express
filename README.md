@@ -306,7 +306,7 @@ Returns all the spots. - done
     }
     ```
 
-### Get all Spots owned by the Current User
+### Get all Spots owned by the Current User - done
 
 Returns all the spots owned (created) by the current user.
 
