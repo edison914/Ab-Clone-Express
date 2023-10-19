@@ -504,7 +504,7 @@ Creates and returns a new spot.
     }
     ```
 
-### Add an Image to a Spot based on the Spot's id
+### Add an Image to a Spot based on the Spot's id - working on
 
 Create and return a new image for a spot specified by id.
 
@@ -530,7 +530,7 @@ Create and return a new image for a spot specified by id.
     }
     ```
 
-* Successful Response
+* Successful Response - done
   * Status Code: 200
   * Headers:
     * Content-Type: application/json
@@ -544,7 +544,7 @@ Create and return a new image for a spot specified by id.
     }
     ```
 
-* Error response: Couldn't find a Spot with the specified id
+* Error response: Couldn't find a Spot with the specified id - done
   * Status Code: 404
   * Headers:
     * Content-Type: application/json

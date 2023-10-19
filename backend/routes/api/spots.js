@@ -194,8 +194,38 @@ router.post(`/`, requireAuth, validateSpotInput, async (req, res, next) => {
         name,
         description,
         price
-    })
+    });
     res.status(201).json(newSpot);
+});
+
+//### Add an Image to a Spot based on the Spot's id
+router.post(`/:spotId/images`, requireAuth,  async (req, res, next) => {
+    const { url, preview } = req.body;
+    const id = req.params.spotId;
+
+
+    try {
+        const spot = await Spot.findOne({where: {id}})
+        console.log(spot)
+        let newImg = await SpotImage.create({
+            spotId: spot.id,
+            url,
+            preview
+        });
+
+        //should i use default scoping?
+        newImg = {
+            id: newImg.id,
+            url,
+            preview
+        }
+        res.status(200).json(newImg);
+    } catch (error) {
+        const err = new Error(`Spot couldn't be found`);
+        err.status = 404;
+        return next(err);
+    }
+
 });
 
 module.exports = router;
