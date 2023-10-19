@@ -306,9 +306,9 @@ Returns all the spots. - done
     }
     ```
 
-### Get all Spots owned by the Current User - done
+### Get all Spots owned by the Current User - done, also checked auth me result
 
-Returns all the spots owned (created) by the current user.
+Returns all the spots owned (created) by the current user. - done
 
 * Require Authentication: true
 * Request
@@ -352,7 +352,7 @@ Returns all the spots owned (created) by the current user.
     }
     ```
 
-### Get details of a Spot from an id
+### Get details of a Spot from an id - Not done. need to fix live issue
 
 Returns the details of a spot specified by its id.
 
@@ -369,7 +369,8 @@ Returns the details of a spot specified by its id.
   * Body: none
 
 * Successful Response -
-done for local, live has issue with the data with 2 decimal getting turn into a string.
+done for local
+live has issue with the data with 2 decimal getting turn into a string.
   * Status Code: 200
   * Headers:
     * Content-Type: application/json
@@ -412,7 +413,7 @@ done for local, live has issue with the data with 2 decimal getting turn into a 
     }
     ```
 
-* Error response: Couldn't find a Spot with the specified id -working on
+* Error response: Couldn't find a Spot with the specified id - done
   * Status Code: 404
   * Headers:
     * Content-Type: application/json
@@ -424,7 +425,7 @@ done for local, live has issue with the data with 2 decimal getting turn into a 
     }
     ```
 
-### Create a Spot
+### Create a Spot - done
 
 Creates and returns a new spot.
 
@@ -456,7 +457,7 @@ Creates and returns a new spot.
     }
     ```
 
-* Successful Response
+* Successful Response - done
   * Status Code: 201
   * Headers:
     * Content-Type: application/json
@@ -480,7 +481,7 @@ Creates and returns a new spot.
     }
     ```
 
-* Error Response: Body validation errors
+* Error Response: Body validation errors - done.
   * Status Code: 400
   * Headers:
     * Content-Type: application/json
