@@ -163,7 +163,7 @@ information.
     }
     ```
 
-### Sign Up a User
+### Sign Up a User - Done
 
 Creates a new user, logs them in as the current user, and returns the current
 user's information.
@@ -210,7 +210,7 @@ user's information.
     }
     ```
 
-* Error response: User already exists with the specified email - working here
+* Error response: User already exists with the specified email - Done
   * Status Code: 500
   * Headers:
     * Content-Type: application/json
@@ -225,7 +225,7 @@ user's information.
     }
     ```
 
-* Error response: User already exists with the specified username
+* Error response: User already exists with the specified username - Done
   * Status Code: 500
   * Headers:
     * Content-Type: application/json
@@ -240,7 +240,7 @@ user's information.
     }
     ```
 
-* Error response: Body validation errors - done
+* Error response: Body validation errors - Done
   * Status Code: 400
   * Headers:
     * Content-Type: application/json
