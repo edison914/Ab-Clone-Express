@@ -63,7 +63,7 @@ module.exports = (sequelize, DataTypes) => {
     price: DataTypes.DECIMAL
   }, {
     sequelize,
-    modelName: 'Spot',
+    modelName: 'Spot'
   });
   return Spot;
 };
