@@ -260,7 +260,7 @@ user's information.
 
 ## SPOTS
 
-### Get all Spots
+### Get all Spots - working on this
 
 Returns all the spots.
 
