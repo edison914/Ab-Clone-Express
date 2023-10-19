@@ -48,6 +48,7 @@ const router = express.Router();
 router.get(`/`, async (req, res, next) => {
     const spots = await Spot.findAll({
         include: [{model: Review}, {model:SpotImage}]
+        //alex sugguestion including attributes of model.reviews, pass in the array. to get the averg.
     })
 
     //loop through each spot to find the ratings and preview
@@ -63,6 +64,7 @@ router.get(`/`, async (req, res, next) => {
         //console.log(previewImg)
 
         //create the new spotsWithRatingAndPreview Obj
+        //parse the data into num.
         return {
             id: spot.id,
             ownerId: spot.ownerId,
@@ -271,7 +273,7 @@ router.delete(`/:spotId/`, requireAuth, async (req, res, next) => {
     try {
         const spotSelected = await Spot.findOne({where: {id}})
 
-        //check Authorization comparing ownderId from the current user to the ownerId in the spot selected.
+        //check Authorization by comparing ownderId from the current user to the ownerId in the spot selected.
         if(ownerId !== spotSelected.ownerId) {res.status(403).json({message: `Forbidden`})};
 
         await spotSelected.destroy();
