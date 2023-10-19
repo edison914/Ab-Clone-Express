@@ -368,7 +368,8 @@ Returns the details of a spot specified by its id.
   <!--!!END_ADD -->
   * Body: none
 
-* Successful Response
+* Successful Response -
+done for local, live has issue with the data with 2 decimal getting turn into a string.
   * Status Code: 200
   * Headers:
     * Content-Type: application/json
@@ -411,7 +412,7 @@ Returns the details of a spot specified by its id.
     }
     ```
 
-* Error response: Couldn't find a Spot with the specified id
+* Error response: Couldn't find a Spot with the specified id -working on
   * Status Code: 404
   * Headers:
     * Content-Type: application/json
