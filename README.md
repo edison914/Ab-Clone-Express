@@ -260,9 +260,9 @@ user's information.
 
 ## SPOTS
 
-### Get all Spots - working on this
+### Get all Spots - done
 
-Returns all the spots.
+Returns all the spots. - done
 
 * Require Authentication: false
 * Request
@@ -276,7 +276,7 @@ Returns all the spots.
   <!--!!END_ADD -->
   * Body: none
 
-* Successful Response
+* Successful Response - done
   * Status Code: 200
   * Headers:
     * Content-Type: application/json
