@@ -504,7 +504,7 @@ Creates and returns a new spot.
     }
     ```
 
-### Add an Image to a Spot based on the Spot's id - working on
+### Add an Image to a Spot based on the Spot's id - -done- update 20
 
 Create and return a new image for a spot specified by id.
 
@@ -556,12 +556,13 @@ Create and return a new image for a spot specified by id.
     }
     ```
 
-### Edit a Spot
+### Edit a Spot - done.
+//should i create a validation error for data that doesnt pass the validation?
 
 Updates and returns an existing spot.
 
-* Require Authentication: true
-* Require proper authorization: Spot must belong to the current user
+* Require Authentication: true - done
+* Require proper authorization: Spot must belong to the current user - done
 * Request
   <!--!!START SILENT -->
   * Method: PUT
@@ -589,7 +590,7 @@ Updates and returns an existing spot.
     }
     ```
 
-* Successful Response
+* Successful Response - done
   * Status Code: 200
   * Headers:
     * Content-Type: application/json
@@ -613,7 +614,7 @@ Updates and returns an existing spot.
     }
     ```
 
-* Error Response: Body validation errors
+* Error Response: Body validation errors - done
   * Status Code: 400
   * Headers:
     * Content-Type: application/json
@@ -636,7 +637,7 @@ Updates and returns an existing spot.
     }
     ```
 
-* Error response: Couldn't find a Spot with the specified id
+* Error response: Couldn't find a Spot with the specified id - done
   * Status Code: 404
   * Headers:
     * Content-Type: application/json
@@ -648,7 +649,7 @@ Updates and returns an existing spot.
     }
     ```
 
-### Delete a Spot
+### Delete a Spot - working on this
 
 Deletes an existing spot.
 

@@ -7,6 +7,7 @@ const { User, Spot, Review, SpotImage} = require('../../db/models');
 const { AggregateError } = require('sequelize');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
+const spot = require('../../db/models/spot');
 
 const validateSpotInput = [
     check('address')
@@ -203,10 +204,9 @@ router.post(`/:spotId/images`, requireAuth,  async (req, res, next) => {
     const { url, preview } = req.body;
     const id = req.params.spotId;
 
-
     try {
         const spot = await Spot.findOne({where: {id}})
-        console.log(spot)
+
         let newImg = await SpotImage.create({
             spotId: spot.id,
             url,
@@ -225,7 +225,41 @@ router.post(`/:spotId/images`, requireAuth,  async (req, res, next) => {
         err.status = 404;
         return next(err);
     }
+});
 
+//### Edit a Spot
+router.put(`/:spotId`, requireAuth, validateSpotInput, async (req, res, next) => {
+    const { address, city, state, country, lat, lng, name, description, price } = req.body;
+    const id = req.params.spotId
+    const ownerId = req.user.id
+
+    try {
+        const spotSelected = await Spot.findOne({where: {id}})
+
+        //check Authorization comparing ownderId from the current user to the ownerId in the spot selected.
+        if(ownerId !== spotSelected.ownerId) {res.status(403).json({message: `Forbidden`})};
+        //console.log(`is this called?`)
+        spotSelected.set({
+            ownerId: ownerId,
+            address,
+            city,
+            state,
+            country,
+            lat,
+            lng,
+            name,
+            description,
+            price
+        });
+        //console.log(`is this called 2`)
+        await spotSelected.save()
+        //console.log(`is this called 3`)
+        res.status(200).json(spotSelected);
+    } catch (error) {
+        const err = new Error(`Spot couldn't be found`);
+        err.status = 404;
+        return next(err);
+    }
 });
 
 module.exports = router;
