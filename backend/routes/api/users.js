@@ -16,27 +16,27 @@ const validateSignup = [
     check('email')
         .exists({ checkFalsy: true })
         .isEmail()
-        .withMessage('Please provide a valid email.'),
+        .withMessage('Invalid email'),
     check('username')
         .exists({ checkFalsy: true })
         .isLength({ min: 4 })
-        .withMessage('Please provide a username with at least 4 characters.'),
+        .withMessage('Username is required'),
     check('username')
         .not()
-        .isEmail()
-        .withMessage('Username cannot be an email.'),
+        .isEmail(),
+     //   .withMessage('Username cannot be an email.'),
     check('firstName')
         .exists({ checkFalsy: true })
         .isLength({ min: 2 })
-        .withMessage('Please provide a firstName with at least 2 characters.'),
+        .withMessage('First Name is required'),
     check('lastName')
         .exists({ checkFalsy: true })
         .isLength({ min: 2 })
-        .withMessage('Please provide a lastName with at least 2 characters.'),
+        .withMessage('Last Name is required'),
     check('password')
         .exists({ checkFalsy: true })
-        .isLength({ min: 6 })
-        .withMessage('Password must be 6 characters or more.'),
+        .isLength({ min: 6 }),
+    //    .withMessage('Password must be 6 characters or more.'),
     handleValidationErrors
 ];
 
@@ -48,15 +48,15 @@ router.post(`/`, validateSignup, async (req, res, next) => {
     //create a hashed password
     const hashedPassword = bcrypt.hashSync(password)
     //create a new user with info from the body
-    const newUser = await User.create({ email, firstName, lastName, username, hashedPassword});
 
+    const newUser = await User.create({ email, firstName, lastName, username, hashedPassword});
     //create a safeuser obj with the info in obj without the password
     const safeUser = {
         id: newUser.id,
-        email: newUser.email,
-        username: newUser.username,
         firstName: newUser.firstName,
-        lastName: newUser.lastName
+        lastName: newUser.lastName,
+        email: newUser.email,
+        username: newUser.username
     };
 
     //create and set a JWToken with newUser on broswer's cookies so the new user can access the database.

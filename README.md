@@ -61,7 +61,7 @@ Returns the information about the current user that is logged in.
   <!--!!END_ADD -->
   * Body: none
 
-* Successful Response when there is a logged in user
+* Successful Response when there is a logged in user - Done
   * Status Code: 200
   * Headers:
     * Content-Type: application/json
@@ -79,7 +79,7 @@ Returns the information about the current user that is logged in.
     }
     ```
 
-* Successful Response when there is no logged in user
+* Successful Response when there is no logged in user - done
   * Status Code: 200
   * Headers:
     * Content-Type: application/json
@@ -117,7 +117,7 @@ information.
     }
     ```
 
-* Successful Response
+* Successful Response - Done
   * Status Code: 200
   * Headers:
     * Content-Type: application/json
@@ -135,7 +135,7 @@ information.
     }
     ```
 
-* Error Response: Invalid credentials
+* Error Response: Invalid credentials - Done
   * Status Code: 401
   * Headers:
     * Content-Type: application/json
@@ -147,7 +147,7 @@ information.
     }
     ```
 
-* Error response: Body validation errors
+* Error response: Body validation errors - Done
   * Status Code: 400
   * Headers:
     * Content-Type: application/json
@@ -192,7 +192,7 @@ user's information.
     }
     ```
 
-* Successful Response
+* Successful Response - done
   * Status Code: 200
   * Headers:
     * Content-Type: application/json
@@ -210,7 +210,7 @@ user's information.
     }
     ```
 
-* Error response: User already exists with the specified email
+* Error response: User already exists with the specified email - working here
   * Status Code: 500
   * Headers:
     * Content-Type: application/json
@@ -240,7 +240,7 @@ user's information.
     }
     ```
 
-* Error response: Body validation errors
+* Error response: Body validation errors - done
   * Status Code: 400
   * Headers:
     * Content-Type: application/json
