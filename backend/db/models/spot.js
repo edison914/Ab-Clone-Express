@@ -53,14 +53,14 @@ module.exports = (sequelize, DataTypes) => {
     city: DataTypes.STRING,
     state: DataTypes.STRING,
     country: DataTypes.STRING,
-    lat: DataTypes.DECIMAL,
-    lng: DataTypes.DECIMAL,
+    lat: DataTypes.NUMERIC,
+    lng: DataTypes.NUMERIC,
     name: {
       type: DataTypes.STRING,
       unique: true,
     },
     description: DataTypes.STRING,
-    price: DataTypes.DECIMAL
+    price: DataTypes.NUMERIC
   }, {
     sequelize,
     modelName: 'Spot'
