@@ -53,10 +53,10 @@ router.post('/', validateLogin, async (req, res, next) => {
     //otherwise, create a safeuser obj, with id, email and username from the verified user obj.
     const safeUser = {
         id: user.id,
-        email: user.email,
-        username: user.username,
         firstName: user.firstName,
-        lastName: user.lastName
+        lastName: user.lastName,
+        email: user.email,
+        username: user.username
       };
 
     //create and set a Token cookie for the user that is stored in the browser. //login
@@ -86,6 +86,8 @@ router.get(`/`, async (req, res) => {
         //create a safeuser obj to exclude password
         const safeUser = {
             id: user.id,
+            firstName: user.firstName,
+            lastName: user.lastName,
             email: user.email,
             username: user.username
         };
