@@ -653,8 +653,8 @@ Updates and returns an existing spot.
 
 Deletes an existing spot.
 
-* Require Authentication: true
-* Require proper authorization: Spot must belong to the current user
+* Require Authentication: true - done, status 403
+* Require proper authorization: Spot must belong to the current user - done
 * Request
   <!--!!START SILENT -->
   * Method: DELETE
@@ -666,7 +666,7 @@ Deletes an existing spot.
   <!--!!END_ADD -->
   * Body: none
 
-* Successful Response
+* Successful Response - done
   * Status Code: 200
   * Headers:
     * Content-Type: application/json
@@ -678,7 +678,7 @@ Deletes an existing spot.
     }
     ```
 
-* Error response: Couldn't find a Spot with the specified id
+* Error response: Couldn't find a Spot with the specified id - done
   * Status Code: 404
   * Headers:
     * Content-Type: application/json
