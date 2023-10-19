@@ -38,7 +38,6 @@ const validateSpotInput = [
     check('price')
       .isFloat({ gt:0 })
       .withMessage('Price per day must be a positive number'),
-    //call handleValidationError middleware from util to see wether to go next or next(error)
     handleValidationErrors
   ];
 
@@ -180,7 +179,7 @@ router.get(`/:spotId`, async (req, res, next) => {
 
 });
 
-//### Create a Spot
+//### Create a Spot, should i use validation through model or custom validate?
 router.post(`/`, requireAuth, validateSpotInput, async (req, res, next) => {
     const { address, city, state, country, lat, lng, name, description, price } = req.body;
     const ownerId = req.user.id;
