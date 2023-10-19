@@ -16,16 +16,40 @@ module.exports = {
         preview: true,
       },
       {
+        spotId: 1,
+        url: `https://www.ab.com/eddie-home-2`,
+        preview: false,
+      },
+      {
         spotId: 2,
         url: `https://www.ab.com/jason-mansion`,
         preview: true,
       },
       {
-        spotId: 3,
-        url: `https://www.ab.com/ashley-beach-house`,
+        spotId: 2,
+        url: `https://www.ab.com/jason-mansion2`,
         preview: true,
       },
-
+      {
+        spotId: 3,
+        url: `https://www.ab.com/ashley-beach-house1`,
+        preview: true,
+      },
+      {
+        spotId: 3,
+        url: `https://www.ab.com/ashley-beach-house2`,
+        preview: true,
+      },
+      {
+        spotId: 4,
+        url: `https://www.ab.com/eddie-secondhome`,
+        preview: true,
+      },
+      {
+        spotId: 4,
+        url: `https://www.ab.com/eddie-secondhome2`,
+        preview: true,
+      },
     ], { validate: true });
   },
 
@@ -33,7 +57,7 @@ module.exports = {
     options.tableName = 'SpotImages';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      spotId: { [Op.in]: [1, 2, 3] }
+      spotId: { [Op.in]: [1, 2, 3, 4] }
     }, {});
   }
 };
