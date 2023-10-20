@@ -7,7 +7,8 @@ const { User, Spot, Review, SpotImage} = require('../../db/models');
 const { AggregateError } = require('sequelize');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
-const spot = require('../../db/models/spot');
+
+const router = express.Router();
 
 const validateSpotInput = [
     check('address')
@@ -41,8 +42,6 @@ const validateSpotInput = [
       .withMessage('Price per day must be a positive number'),
     handleValidationErrors
   ];
-
-const router = express.Router();
 
 //### Get all Spots - done
 router.get(`/`, async (req, res, next) => {

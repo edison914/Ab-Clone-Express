@@ -649,7 +649,7 @@ Updates and returns an existing spot.
     }
     ```
 
-### Delete a Spot - working on this
+### Delete a Spot - done
 
 Deletes an existing spot.
 
@@ -692,7 +692,7 @@ Deletes an existing spot.
 
 ## REVIEWS
 
-### Get all Reviews of the Current User
+### Get all Reviews of the Current User - working on this
 
 Returns all the reviews written by the current user.
 
