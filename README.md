@@ -754,9 +754,9 @@ Returns all the reviews written by the current user.
     }
     ```
 
-### Get all Reviews by a Spot's id
+### Get all Reviews by a Spot's id - done
 
-Returns all the reviews that belong to a spot specified by id.
+Returns all the reviews that belong to a spot specified by id. - done
 
 * Require Authentication: false
 * Request
@@ -803,7 +803,7 @@ Returns all the reviews that belong to a spot specified by id.
     }
     ```
 
-* Error response: Couldn't find a Spot with the specified id
+* Error response: Couldn't find a Spot with the specified id - done
   * Status Code: 404
   * Headers:
     * Content-Type: application/json
@@ -815,11 +815,11 @@ Returns all the reviews that belong to a spot specified by id.
     }
     ```
 
-### Create a Review for a Spot based on the Spot's id
+### Create a Review for a Spot based on the Spot's id - working on
 
 Create and return a new review for a spot specified by id.
 
-* Require Authentication: true
+* Require Authentication: true - done
 * Request
   <!--!!START SILENT -->
   * Method: POST
@@ -840,7 +840,7 @@ Create and return a new review for a spot specified by id.
     }
     ```
 
-* Successful Response
+* Successful Response - done
   * Status Code: 201
   * Headers:
     * Content-Type: application/json
@@ -858,7 +858,7 @@ Create and return a new review for a spot specified by id.
     }
     ```
 
-* Error Response: Body validation errors
+* Error Response: Body validation errors - done
   * Status Code: 400
   * Headers:
     * Content-Type: application/json
@@ -874,7 +874,7 @@ Create and return a new review for a spot specified by id.
     }
     ```
 
-* Error response: Couldn't find a Spot with the specified id
+* Error response: Couldn't find a Spot with the specified id - done
   * Status Code: 404
   * Headers:
     * Content-Type: application/json
@@ -886,7 +886,7 @@ Create and return a new review for a spot specified by id.
     }
     ```
 
-* Error response: Review from the current user already exists for the Spot
+* Error response: Review from the current user already exists for the Spot - done
   * Status Code: 500
   * Headers:
     * Content-Type: application/json

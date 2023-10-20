@@ -4,44 +4,41 @@ const { Op } = require (`sequelize`);
 
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
 const { User, Spot, Review} = require('../../db/models');
-const { ReviewImage } = require (`../../db/models`)
+const { ReviewImage, SpotImage } = require (`../../db/models`)
 const { AggregateError } = require('sequelize');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 
 const router = express.Router()
 
+//### Get all Reviews of the Current User
 router.get(`/current`, requireAuth, async (req, res, next) => {
 
     const userId = req.user.id
 
-    // const testResult = await ReviewImage.findAll(
-    //     //include: [{model: Review}]
-    //  )
-    // // console.log(`is this called1`)
-    //  console.log(testResult)
-
-    // const currentReview = await Review.findOne({ where: {userId}})
-    // console.log(currentReview)
-    // const reviewImg = await currentReview.getReviewImage()
-    // console.log(reviewImg)
-    // try {
-
+    try {
         const reviews = await Review.findAll({
-            where: { userId }, // Adjust this to match your database schema.
+
+            where: { userId },
             include: [
-                {model: Spot},
-                {model: User},
-                {model: ReviewImage}
+                {model: User, attributes: { exclude: [`username`, `email`, `hashedPassword`, `createdAt`, `updatedAt`]}},
+                {model: Spot, attributes: { exclude: [`description`, `createdAt`, `updatedAt`]},
+                                            include: [{
+                                                    model: SpotImage,
+                                                    attributes: [`url`], //how do i display only the url without display the spotImage obj?
+                                            }]
+                },
+                {model: ReviewImage, attributes: { exclude: [`reviewId`, `createdAt`, `updatedAt`]}}
             ]
         });
 
         res.status(200).json({reviews});
-    // } catch (error) {
-    //     const err = new Error(`Spot couldn't be found`);
-    //     err.status = 404;
-    //     return next(err);
-    // }
+    } catch (error) {
+        const err = new Error(`Spot couldn't be found`);
+        err.status = 404;
+        return next(err);
+    }
 });
+
 
 module.exports = router;
