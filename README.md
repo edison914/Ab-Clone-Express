@@ -961,12 +961,12 @@ Create and return a new image for a review specified by id.
     }
     ```
 
-### Edit a Review
+### Edit a Review - working
 
 Update and return an existing review.
 
-* Require Authentication: true
-* Require proper authorization: Review must belong to the current user
+* Require Authentication: true - done
+* Require proper authorization: Review must belong to the current user - done
 * Request
   <!--!!START SILENT -->
   * Method: PUT
@@ -987,7 +987,7 @@ Update and return an existing review.
     }
     ```
 
-* Successful Response
+* Successful Response - done
   * Status Code: 200
   * Headers:
     * Content-Type: application/json
@@ -1005,7 +1005,7 @@ Update and return an existing review.
     }
     ```
 
-* Error Response: Body validation errors
+* Error Response: Body validation errors - done
   * Status Code: 400
   * Headers:
     * Content-Type: application/json
@@ -1021,7 +1021,7 @@ Update and return an existing review.
     }
     ```
 
-* Error response: Couldn't find a Review with the specified id
+* Error response: Couldn't find a Review with the specified id - done
   * Status Code: 404
   * Headers:
     * Content-Type: application/json
@@ -1037,8 +1037,8 @@ Update and return an existing review.
 
 Delete an existing review.
 
-* Require Authentication: true
-* Require proper authorization: Review must belong to the current user
+* Require Authentication: true -
+* Require proper authorization: Review must belong to the current user - done
 * Request
   <!--!!START SILENT -->
   * Method: DELETE
@@ -1062,7 +1062,7 @@ Delete an existing review.
     }
     ```
 
-* Error response: Couldn't find a Review with the specified id
+* Error response: Couldn't find a Review with the specified id - done
   * Status Code: 404
   * Headers:
     * Content-Type: application/json

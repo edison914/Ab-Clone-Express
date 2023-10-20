@@ -41,9 +41,9 @@ const validateSpotInput = [
       .isFloat({ gt:0 })
       .withMessage('Price per day must be a positive number'),
     handleValidationErrors
-  ];
+];
 
-  const validateReviewInput = [
+const validateReviewInput = [
     check('review')
       .exists({ checkFalsy: true })
       .notEmpty()
@@ -52,7 +52,7 @@ const validateSpotInput = [
       .isInt({ min: 1, max: 5})
       .withMessage('Stars must be an integer from 1 to 5'),
     handleValidationErrors
-  ];
+];
 
 //### Get all Spots - done
 router.get(`/`, async (req, res, next) => {

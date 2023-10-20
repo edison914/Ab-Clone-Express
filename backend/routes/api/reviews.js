@@ -11,6 +11,19 @@ const { handleValidationErrors } = require('../../utils/validation');
 
 const router = express.Router()
 
+const validateReviewInput = [
+    check('review')
+      .exists({ checkFalsy: true })
+      .notEmpty()
+      .withMessage('Review text is required'),
+    check('stars')
+      .isInt({ min: 1, max: 5})
+      .withMessage('Stars must be an integer from 1 to 5'),
+    handleValidationErrors
+];
+
+
+
 //### Get all Reviews of the Current User
 router.get(`/current`, requireAuth, async (req, res, next) => {
 
@@ -73,6 +86,53 @@ router.post(`/:reviewId/images`, requireAuth, async (req, res, next) => {
     }
     res.status(200).json(safeNewReviewImage);
 
+})
+
+router.put(`/:reviewId`, requireAuth, validateReviewInput, async (req, res, next) => {
+    const reviewId = req.params.reviewId;
+    const userId = req.user.id;
+    const { review, stars } = req.body;
+    const reviewSelected = await Review.findByPk(reviewId);
+
+    //check if the reviewSelected exist
+    if(!reviewSelected) {
+        const err = new Error(`Review couldn't be found`);
+        err.status = 404;
+        return next(err);
+    }
+
+    //check Authorization comparing userId from the current user to the review's userId selected.
+    if(userId !== reviewSelected.userId) {res.status(403).json({message: `Forbidden`})};
+
+    reviewSelected.set({
+        review,
+        stars
+    })
+
+    await reviewSelected.save();
+
+    res.status(200).json(reviewSelected);
+} )
+
+router.delete(`/:reviewId`, requireAuth, async (req, res, next) => {
+    const reviewId = req.params.reviewId;
+    const userId = req.user.id
+    const reviewSelected = await Review.findByPk(reviewId);
+
+    //check if the reviewSelected exist
+    if(!reviewSelected) {
+        const err = new Error(`Review couldn't be found`);
+        err.status = 404;
+        return next(err);
+    }
+
+    //check Authorization comparing userId from the current user to the review's userId selected.
+    if(userId !== reviewSelected.userId) {res.status(403).json({message: `Forbidden`})};
+
+
+    await Review.destroy({where: {id: reviewId}})
+
+    res.status(200).json({message: `Successfully deleted`})
 })
 
 module.exports = router;
