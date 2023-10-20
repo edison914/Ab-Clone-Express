@@ -210,7 +210,7 @@ user's information.
     }
     ```
 
-* Error response: User already exists with the specified email - not working
+* Error response: User already exists with the specified email - done
   * Status Code: 500
   * Headers:
     * Content-Type: application/json
@@ -225,7 +225,7 @@ user's information.
     }
     ```
 
-* Error response: User already exists with the specified username - not working
+* Error response: User already exists with the specified username - done
   * Status Code: 500
   * Headers:
     * Content-Type: application/json

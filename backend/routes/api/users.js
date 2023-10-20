@@ -51,6 +51,7 @@ router.post(`/`, validateSignup, async (req, res, next) => {
 
     const newUser = await User.create({ email, firstName, lastName, username, hashedPassword});
     //create a safeuser obj with the info in obj without the password
+
     const safeUser = {
         id: newUser.id,
         firstName: newUser.firstName,
