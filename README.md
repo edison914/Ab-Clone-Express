@@ -815,7 +815,7 @@ Returns all the reviews that belong to a spot specified by id. - done
     }
     ```
 
-### Create a Review for a Spot based on the Spot's id - working on
+### Create a Review for a Spot based on the Spot's id - done
 
 Create and return a new review for a spot specified by id.
 
@@ -898,11 +898,11 @@ Create and return a new review for a spot specified by id.
     }
     ```
 
-### Add an Image to a Review based on the Review's id
+### Add an Image to a Review based on the Review's id - done
 
 Create and return a new image for a review specified by id.
 
-* Require Authentication: true
+* Require Authentication: true - done
 * Require proper authorization: Review must belong to the current user
 * Request
   <!--!!START SILENT -->
@@ -923,7 +923,7 @@ Create and return a new image for a review specified by id.
     }
     ```
 
-* Successful Response
+* Successful Response - done
   * Status Code: 200
   * Headers:
     * Content-Type: application/json
@@ -936,7 +936,7 @@ Create and return a new image for a review specified by id.
     }
     ```
 
-* Error response: Couldn't find a Review with the specified id
+* Error response: Couldn't find a Review with the specified id - done
   * Status Code: 404
   * Headers:
     * Content-Type: application/json
@@ -948,7 +948,7 @@ Create and return a new image for a review specified by id.
     }
     ```
 
-* Error response: Cannot add any more images because there is a maximum of 10
+* Error response: Cannot add any more images because there is a maximum of 10 - done
   images per resource
   * Status Code: 403
   * Headers:

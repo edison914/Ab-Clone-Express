@@ -346,7 +346,6 @@ router.post(`/:spotId/reviews`, requireAuth, validateReviewInput, async (req, re
         return next(err);
     }
 
-
     //check to see if current user has a review for the spotSelected
     const existingReview = await Review.findOne({where: {userId, spotId}})
 
@@ -367,5 +366,8 @@ router.post(`/:spotId/reviews`, requireAuth, validateReviewInput, async (req, re
     res.status(201).json(newReview);
 
 });
+
+
+
 
 module.exports = router;
