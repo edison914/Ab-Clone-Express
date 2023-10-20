@@ -14,37 +14,37 @@ module.exports = (sequelize, DataTypes) => {
       Spot.hasMany(
         models.Review,
           {foreignKey: 'spotId', onDelete: 'CASCADE', hooks: true}
-      ),
+      );
       Spot.belongsTo(
         models.User,
           {foreignKey: 'ownerId'}
-      ),
+      );
       Spot.hasMany(
         models.SpotImage,
           {foreignKey: 'spotId', onDelete: 'CASCADE', hooks: true}
-      ),
+      );
       Spot.hasMany(
         models.Booking,
           {foreignKey: 'spotId', onDelete: 'CASCADE', hooks: true}
-      ),
+      );
 
       //asscociation many to many
-      Spot.belongsToMany (
-        models.User, {
-          through: 'Booking', //model name referencing join table
-          foreignKey: 'spotId',
-          otherKey: 'userId',
-          onDelete: 'CASCADE',
-        }
-      ),
-      Spot.belongsToMany (
-        models.User, {
-          through: 'Review', //model name referencing join table
-          foreignKey: 'spotId',
-          otherKey: 'userId',
-          onDelete: 'CASCADE',
-        }
-      )
+      // Spot.belongsToMany (
+      //   models.User, {
+      //     through: 'Booking', //model name referencing join table
+      //     foreignKey: 'spotId',
+      //     otherKey: 'userId',
+      //     onDelete: 'CASCADE',
+      //   }
+      // ),
+      // Spot.belongsToMany (
+      //   models.User, {
+      //     through: 'Review', //model name referencing join table
+      //     foreignKey: 'spotId',
+      //     otherKey: 'userId',
+      //     onDelete: 'CASCADE',
+      //   }
+      // )
     }
   }
   Spot.init({

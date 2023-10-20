@@ -9,34 +9,34 @@ module.exports = (sequelize, DataTypes) => {
       User.hasMany(
         models.Spot,
           {foreignKey: 'ownerId', onDelete: 'CASCADE', hooks: true}
-      ),
+      );
       User.hasMany(
         models.Booking,
           {foreignKey: 'userId', onDelete: 'CASCADE', hooks: true}
-      ),
+      );
       User.hasMany(
         models.Review,
           {foreignKey: 'userId', onDelete: 'CASCADE', hooks: true}
-      ),
+      )
 
       //asscociation many to many
-      User.belongsToMany (
-        models.Spot, {
-          through: 'Booking', //model name referencing join table
-          foreignKey: 'userId',
-          otherKey: 'spotId',
-          onDelete: 'CASCADE',
-        }
-      ),
+      // User.belongsToMany (
+      //   models.Spot, {
+      //     through: 'Booking', //model name referencing join table
+      //     foreignKey: 'userId',
+      //     otherKey: 'spotId',
+      //     onDelete: 'CASCADE',
+      //   }
+      // ),
 
-      User.belongsToMany (
-        models.Spot, {
-          through: 'Review', //model name referencing join table
-          foreignKey: 'userId',
-          otherKey: 'spotId',
-          onDelete: 'CASCADE',
-        }
-      )
+      // User.belongsToMany (
+      //   models.Spot, {
+      //     through: 'Review', //model name referencing join table
+      //     foreignKey: 'userId',
+      //     otherKey: 'spotId',
+      //     onDelete: 'CASCADE',
+      //   }
+      // )
 
     }
   };

@@ -15,11 +15,11 @@ router.get(`/current`, requireAuth, async (req, res, next) => {
 
     const userId = req.user.id
 
-    const testResult = await ReviewImage.findAll(
-        //include: [{model: Review}]
-     )
-    // console.log(`is this called1`)
-     console.log(testResult)
+    // const testResult = await ReviewImage.findAll(
+    //     //include: [{model: Review}]
+    //  )
+    // // console.log(`is this called1`)
+    //  console.log(testResult)
 
     // const currentReview = await Review.findOne({ where: {userId}})
     // console.log(currentReview)
@@ -30,9 +30,9 @@ router.get(`/current`, requireAuth, async (req, res, next) => {
         const reviews = await Review.findAll({
             where: { userId }, // Adjust this to match your database schema.
             include: [
-                //{model: Spot},
-                //{model: ReviewImage},
-                {model: User}
+                {model: Spot},
+                {model: User},
+                {model: ReviewImage}
             ]
         });
 
