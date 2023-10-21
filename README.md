@@ -961,7 +961,7 @@ Create and return a new image for a review specified by id.
     }
     ```
 
-### Edit a Review - working
+### Edit a Review - done
 
 Update and return an existing review.
 
@@ -1033,11 +1033,11 @@ Update and return an existing review.
     }
     ```
 
-### Delete a Review
+### Delete a Review - done
 
 Delete an existing review.
 
-* Require Authentication: true -
+* Require Authentication: true - done
 * Require proper authorization: Review must belong to the current user - done
 * Request
   <!--!!START SILENT -->
@@ -1050,7 +1050,7 @@ Delete an existing review.
   <!--!!END_ADD -->
   * Body: none
 
-* Successful Response
+* Successful Response - done
   * Status Code: 200
   * Headers:
     * Content-Type: application/json
@@ -1074,11 +1074,11 @@ Delete an existing review.
     }
     ```
 
-## BOOKINGS
+## BOOKINGS -
 
-### Get all of the Current User's Bookings
+### Get all of the Current User's Bookings - working on this
 
-Return all the bookings that the current user has made.
+Return all the bookings that the current user has made. - working on. can't get preview img.
 
 * Require Authentication: true
 * Request

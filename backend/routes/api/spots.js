@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 const { Op } = require (`sequelize`);
 
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
-const { User, Spot, Review, SpotImage, ReviewImage} = require('../../db/models');
+const { User, Spot, Review, SpotImage, ReviewImage, Booking} = require('../../db/models');
 const { AggregateError } = require('sequelize');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
@@ -368,6 +368,25 @@ router.post(`/:spotId/reviews`, requireAuth, validateReviewInput, async (req, re
 });
 
 
+//### Get all Bookings for a Spot based on the Spot's id
+router.get(`/:spotId/bookings`, requireAuth, async (req, res, next) => {
+
+    const spotId = req.params.spotId;
+
+    try {
+        const bookings = await Booking.findAll({
+            where: { spotId },
+            attributes: { exclude: [`id`, `userId`, `createdAt`, `updatedAt`] },
+
+        });
+
+        res.status(200).json({bookings});
+    } catch (error) {
+        const err = new Error(`Booking couldn't be found`);
+        err.status = 404;
+        return next(err);
+    }
+});
 
 
 module.exports = router;

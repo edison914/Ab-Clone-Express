@@ -57,14 +57,14 @@ if (!isProduction) {
     if (err instanceof ValidationError) {
       let errors = {};
       for (let error of err.errors) {
-        console.log(error)
+        //console.log(error)
         if(error.message === "username must be unique") {
-          console.log(`is this called2`)
+
           error.message = "User with that username already exists"
           err.message = "User already exists"
         }
         else if(error.message === "email must be unique") {
-          console.log(`is this called3`)
+
           error.message = "User with that email already exists"
           err.message = "User already exists"
         }

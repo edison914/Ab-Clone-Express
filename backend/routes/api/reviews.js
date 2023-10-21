@@ -31,7 +31,6 @@ router.get(`/current`, requireAuth, async (req, res, next) => {
 
     try {
         const reviews = await Review.findAll({
-
             where: { userId },
             include: [
                 {model: User, attributes: { exclude: [`username`, `email`, `hashedPassword`, `createdAt`, `updatedAt`]}},
@@ -114,6 +113,8 @@ router.put(`/:reviewId`, requireAuth, validateReviewInput, async (req, res, next
     res.status(200).json(reviewSelected);
 } )
 
+
+//### Delete a Review
 router.delete(`/:reviewId`, requireAuth, async (req, res, next) => {
     const reviewId = req.params.reviewId;
     const userId = req.user.id
@@ -131,6 +132,7 @@ router.delete(`/:reviewId`, requireAuth, async (req, res, next) => {
 
 
     await Review.destroy({where: {id: reviewId}})
+    //or await reviewSelected.destroy()
 
     res.status(200).json({message: `Successfully deleted`})
 })

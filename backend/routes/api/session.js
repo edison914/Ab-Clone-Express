@@ -31,7 +31,8 @@ router.post('/', validateLogin, async (req, res, next) => {
     const { credential, password } = req.body;
 
     //find one user that either username or email matches credential from req.body. and create a user obj.
-    const user = await User.unscoped().findOne({ //unscoped method is to include all atrributes from the User database. ignore defaultScope and exclude.
+    //unscoped method is to include all atrributes from the User database. ignore defaultScope and exclude.
+    const user = await User.unscoped().findOne({
         where: {
             [Op.or]: {
                 username: credential,
