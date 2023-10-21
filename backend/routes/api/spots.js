@@ -12,47 +12,74 @@ const router = express.Router();
 
 const validateSpotInput = [
     check('address')
-      .exists({ checkFalsy: true })
-      .notEmpty()
-      .withMessage('Street address is required'),
+        .exists({ checkFalsy: true })
+        .notEmpty()
+        .withMessage('Street address is required'),
     check('city')
-      .exists({ checkFalsy: true })
-      .withMessage('city is required'),
+        .exists({ checkFalsy: true })
+        .withMessage('city is required'),
     check('state')
-      .exists({ checkFalsy: true })
-      .withMessage('state is required'),
+        .exists({ checkFalsy: true })
+        .withMessage('state is required'),
     check('country')
-      .exists({ checkFalsy: true })
-      .withMessage('Country is required'),
+        .exists({ checkFalsy: true })
+        .withMessage('Country is required'),
     check('lat')
-      .isFloat({ min: -90, max: 90})
-      .withMessage('Latitude must be within -90 and 90'),
+        .isFloat({ min: -90, max: 90})
+        .withMessage('Latitude must be within -90 and 90'),
     check('lng')
-      .isFloat({ min: -180, max: 180})
-      .withMessage('Longitude must be within -180 and 180'),
+        .isFloat({ min: -180, max: 180})
+        .withMessage('Longitude must be within -180 and 180'),
     check('name')
-      .isLength({ max: 50 })
-      .withMessage('Name must be less than 50 characters'),
+        .isLength({ max: 50 })
+        .withMessage('Name must be less than 50 characters'),
     check('description')
-      .exists({ checkFalsy: true })
-      .notEmpty()
-      .withMessage('Description is required'),
+        .exists({ checkFalsy: true })
+        .notEmpty()
+        .withMessage('Description is required'),
     check('price')
-      .isFloat({ gt:0 })
-      .withMessage('Price per day must be a positive number'),
+        .isFloat({ gt:0 })
+        .withMessage('Price per day must be a positive number'),
     handleValidationErrors
 ];
 
 const validateReviewInput = [
     check('review')
-      .exists({ checkFalsy: true })
-      .notEmpty()
-      .withMessage('Review text is required'),
+        .exists({ checkFalsy: true })
+        .notEmpty()
+        .withMessage('Review text is required'),
     check('stars')
-      .isInt({ min: 1, max: 5})
-      .withMessage('Stars must be an integer from 1 to 5'),
+        .isInt({ min: 1, max: 5})
+        .withMessage('Stars must be an integer from 1 to 5'),
     handleValidationErrors
 ];
+
+const validateDatesInput = [
+    check('startDate')
+        .exists({ checkFalsy: true })
+        .notEmpty()
+        .custom((value) => {
+            const today = new Date();
+            const selectedStartDate = new Date(value);
+            if (selectedStartDate < today) {
+                throw new Error('startDate cannot be in the past');
+            }
+            return true;
+        }),
+    check('endDate')
+        .exists({ checkFalsy: true })
+        .notEmpty()
+        .custom((value, { req }) => {
+            const selectedStartDate = new Date(req.body.startDate);
+            const selectedEndDate = new Date(value);
+            if (selectedEndDate <= selectedStartDate) {
+                throw new Error('endDate cannot be on or before startDate');
+            }
+            return true;
+        }),
+    handleValidationErrors
+];
+
 
 //### Get all Spots - done
 router.get(`/`, async (req, res, next) => {
@@ -402,36 +429,67 @@ router.get(`/:spotId/bookings`, requireAuth, async (req, res, next) => {
 });
 
 //### Create a Booking from a Spot based on the Spot's id
-router.post(`/:spotId/bookings`, requireAuth, async (req, res, next) => {
+router.post(`/:spotId/bookings`, requireAuth, validateDatesInput,  async (req, res, next) => {
 
     const spotId = req.params.spotId;
     const userId = req.user.id;
+    const {startDate, endDate} = req.body
     const spotSelected = await Spot.findByPk(spotId)
 
-    try {
+    //check if the spot exist
+    if(!spotSelected) { res.status(404).json({message: `Spot couldn't be found`})}
 
-        if(userId !== spotSelected.ownerId) {
-            const bookings = await Booking.findAll({
-                where: { spotId },
-                attributes: { exclude: [`id`, `userId`, `createdAt`, `updatedAt`] },
+    //authorization
+    if(userId === spotSelected.ownerId) {res.status(403).json({message: `Forbidden`})};
 
+    //check for booking conflicts.
+    const existingBookings = await Booking.findAll({where : {spotId}})
+    const selectedStartDate = new Date(startDate);
+    const selectedEndDate = new Date(endDate);
+
+    for (const existingBooking of existingBookings) {
+        const existingStartDate = new Date(existingBooking.startDate);
+        const existingEndDate = new Date(existingBooking.endDate);
+
+        if ((selectedStartDate <= existingEndDate && selectedStartDate >= existingStartDate) ||
+            (selectedEndDate >= existingStartDate && selectedEndDate <= existingEndDate)){
+            return res.status(403).json({
+                message: "Sorry, this spot is already booked for the specified dates",
+                errors: {
+                    "startDate": "Start date conflicts with an existing booking",
+                    "endDate": "End date conflicts with an existing booking"
+                }
             });
-
-            res.status(200).json({bookings});
-        };
-
-        if (userId === spotSelected.ownerId) {
-            const bookings = await Booking.findAll({
-                where: { spotId },
-                include: [{ model: User, attributes: { exclude: [`username`, `hashedPassword`, `createdAt`, `updatedAt`, `email`] } }],
-            });
-            res.status(200).json({ bookings });
         }
-    } catch (error) {
-        const err = new Error(`Spot couldn't be found`);
-        err.status = 404;
-        return next(err);
     }
+
+    // const conflictingBooking = await Booking.findOne( {
+    //     where: {
+    //         spotId: spotId,
+    //         from: {
+    //             $lte: selectedEndDate
+    //         },
+    //         to: {
+    //             $gte: selectedStartDate
+    //         }
+    //     }
+    // })
+
+    // if (conflictingBooking) {
+    //     return res.status(403).json({
+    //         message: "Sorry, this spot is already booked for the specified dates",
+    //         errors: {
+    //             "startDate": "Start date conflicts with an existing booking",
+    //             "endDate": "End date conflicts with an existing booking"
+    //         }
+    //     })
+    // };
+
+    //if the req.body start and end date passes auth, validatedateinput, the spot exist, authorization, and no booking conflick, then create a new Booking
+    const newBooking = await Booking.create({startDate, endDate, spotId, userId})
+
+    return res.json(newBooking)
+
 });
 
 

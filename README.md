@@ -1078,7 +1078,7 @@ Delete an existing review.
 
 ### Get all of the Current User's Bookings - working on this
 
-Return all the bookings that the current user has made. - working on. can't get preview img.
+Return all the bookings that the current user has made. -. can't get preview img.
 
 * Require Authentication: true
 * Request
@@ -1200,12 +1200,12 @@ Return all the bookings for a spot specified by id.
     }
     ```
 
-### Create a Booking from a Spot based on the Spot's id - working on this
+### Create a Booking from a Spot based on the Spot's id - done
 
 Create and return a new booking from a spot specified by id.
 
-* Require Authentication: true
-* Require proper authorization: Spot must NOT belong to the current user
+* Require Authentication: true - done
+* Require proper authorization: Spot must NOT belong to the current user - done
 * Request
   <!--!!START SILENT -->
   * Method: POST
@@ -1226,7 +1226,7 @@ Create and return a new booking from a spot specified by id.
     }
     ```
 
-* Successful Response
+* Successful Response - done
   * Status Code: 200
   * Headers:
     * Content-Type: application/json
@@ -1244,7 +1244,7 @@ Create and return a new booking from a spot specified by id.
     }
     ```
 
-* Error response: Body validation errors
+* Error response: Body validation errors  - done
   * Status Code: 400
   * Headers:
     * Content-Type: application/json
@@ -1260,7 +1260,7 @@ Create and return a new booking from a spot specified by id.
     }
     ```
 
-* Error response: Couldn't find a Spot with the specified id
+* Error response: Couldn't find a Spot with the specified id - done
   * Status Code: 404
   * Headers:
     * Content-Type: application/json
@@ -1272,7 +1272,7 @@ Create and return a new booking from a spot specified by id.
     }
     ```
 
-* Error response: Booking conflict
+* Error response: Booking conflict --- done
   * Status Code: 403
   * Headers:
     * Content-Type: application/json
@@ -1288,12 +1288,12 @@ Create and return a new booking from a spot specified by id.
     }
     ```
 
-### Edit a Booking
+### Edit a Booking - working on this
 
 Update and return an existing booking.
 
-* Require Authentication: true
-* Require proper authorization: Booking must belong to the current user
+* Require Authentication: true - done
+* Require proper authorization: Booking must belong to the current user 
 * Request
   <!--!!START SILENT -->
   * Method: PUT
@@ -1332,7 +1332,7 @@ Update and return an existing booking.
     }
     ```
 
-* Error response: Body validation errors
+* Error response: Body validation errors -
   * Status Code: 400
   * Headers:
     * Content-Type: application/json
