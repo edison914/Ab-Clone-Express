@@ -74,14 +74,49 @@ router.put(`/:bookingId`, requireAuth, validateDatesInput,  async (req, res, nex
     const {startDate, endDate} = req.body
 
     const bookingSelected = await Booking.findByPk(bookingId)
-    console.log(bookingSelected)
+    const spotId = bookingSelected.spotId
 
-    //check if the current booking belong sto current user
+    const selectedStartDate = new Date(startDate);
+    const selectedEndDate = new Date(endDate);
+
+    //check to see if the booking is found
+    if(!bookingSelected) {res.status(404).json({message: `Booking couldn't be found`})}
+
+    //check if the current booking belongs to current user
     if(bookingSelected.userId !== userId) {res.status(403).json({message: `Forbidden`})}
 
-    if(!bookingSelected) {}
+    //check to see if the selected booking. StartDate is in the past
+    const today = new Date();
+    const bookingSelectedStartDate = new Date(bookingSelected.startDate)
+    if (bookingSelectedStartDate < today) {res.status(403).json({message: `Past bookings can't be modified`})}
 
-    return res.json(bookingSelected)
+    //checking for booking conflict
+    const existingBookings = await Booking.findAll({where : {spotId}})
+
+    for (const existingBooking of existingBookings) {
+        const existingStartDate = new Date(existingBooking.startDate);
+        const existingEndDate = new Date(existingBooking.endDate);
+
+        if ((selectedStartDate <= existingEndDate && selectedStartDate >= existingStartDate) ||
+            (selectedEndDate >= existingStartDate && selectedEndDate <= existingEndDate)){
+            return res.status(403).json({
+                message: "Sorry, this spot is already booked for the specified dates",
+                errors: {
+                    "startDate": "Start date conflicts with an existing booking",
+                    "endDate": "End date conflicts with an existing booking"
+                }
+            });
+        }
+
+    }
+
+    //set new Booking Date
+    bookingSelected.set({
+        startDate,
+        endDate
+    });
+    await bookingSelected.save()
+    res.status(200).json(bookingSelected);
 
 });
 

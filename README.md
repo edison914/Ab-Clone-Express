@@ -1288,12 +1288,12 @@ Create and return a new booking from a spot specified by id.
     }
     ```
 
-### Edit a Booking - working on this
+### Edit a Booking - done
 
 Update and return an existing booking.
 
 * Require Authentication: true - done
-* Require proper authorization: Booking must belong to the current user 
+* Require proper authorization: Booking must belong to the current user  - done
 * Request
   <!--!!START SILENT -->
   * Method: PUT
@@ -1314,7 +1314,7 @@ Update and return an existing booking.
     }
     ```
 
-* Successful Response
+* Successful Response - done
   * Status Code: 200
   * Headers:
     * Content-Type: application/json
@@ -1332,7 +1332,7 @@ Update and return an existing booking.
     }
     ```
 
-* Error response: Body validation errors -
+* Error response: Body validation errors - done
   * Status Code: 400
   * Headers:
     * Content-Type: application/json
@@ -1348,7 +1348,7 @@ Update and return an existing booking.
     }
     ```
 
-* Error response: Couldn't find a Booking with the specified id
+* Error response: Couldn't find a Booking with the specified id - done
   * Status Code: 404
   * Headers:
     * Content-Type: application/json
@@ -1360,7 +1360,7 @@ Update and return an existing booking.
     }
     ```
 
-* Error response: Can't edit a booking that's past the end date
+* Error response: Can't edit a booking that's past the end date - done
   * Status Code: 403
   * Headers:
     * Content-Type: application/json
@@ -1372,7 +1372,7 @@ Update and return an existing booking.
     }
     ```
 
-* Error response: Booking conflict
+* Error response: Booking conflict - done
   * Status Code: 403
   * Headers:
     * Content-Type: application/json
