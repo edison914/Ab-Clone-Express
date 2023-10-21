@@ -74,7 +74,7 @@ router.put(`/:bookingId`, requireAuth, validateDatesInput,  async (req, res, nex
     const {startDate, endDate} = req.body
 
     const bookingSelected = await Booking.findByPk(bookingId)
-    const spotId = bookingSelected.spotId
+
 
     const selectedStartDate = new Date(startDate);
     const selectedEndDate = new Date(endDate);
@@ -91,6 +91,7 @@ router.put(`/:bookingId`, requireAuth, validateDatesInput,  async (req, res, nex
     if (bookingSelectedStartDate < today) {res.status(403).json({message: `Past bookings can't be modified`})}
 
     //checking for booking conflict
+    const spotId = bookingSelected.spotId
     const existingBookings = await Booking.findAll({where : {spotId}})
 
     for (const existingBooking of existingBookings) {
@@ -110,7 +111,7 @@ router.put(`/:bookingId`, requireAuth, validateDatesInput,  async (req, res, nex
 
     }
 
-    //set new Booking Date
+    //set new Booking Date one all tests above are passed
     bookingSelected.set({
         startDate,
         endDate
