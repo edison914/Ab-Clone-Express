@@ -1127,7 +1127,7 @@ Return all the bookings that the current user has made. - working on. can't get 
     }
     ```
 
-### Get all Bookings for a Spot based on the Spot's id
+### Get all Bookings for a Spot based on the Spot's id - done
 
 Return all the bookings for a spot specified by id.
 
@@ -1143,7 +1143,7 @@ Return all the bookings for a spot specified by id.
   <!--!!END_ADD -->
   * Body: none
 
-* Successful Response: If you ARE NOT the owner of the spot.
+* Successful Response: If you ARE NOT the owner of the spot. - done
   * Status Code: 200
   * Headers:
     * Content-Type: application/json
@@ -1161,7 +1161,7 @@ Return all the bookings for a spot specified by id.
     }
     ```
 
-* Successful Response: If you ARE the owner of the spot.
+* Successful Response: If you ARE the owner of the spot. - done
   * Status Code: 200
   * Headers:
     * Content-Type: application/json
@@ -1188,7 +1188,7 @@ Return all the bookings for a spot specified by id.
     }
     ```
 
-* Error response: Couldn't find a Spot with the specified id
+* Error response: Couldn't find a Spot with the specified id - done
   * Status Code: 404
   * Headers:
     * Content-Type: application/json
@@ -1200,7 +1200,7 @@ Return all the bookings for a spot specified by id.
     }
     ```
 
-### Create a Booking from a Spot based on the Spot's id
+### Create a Booking from a Spot based on the Spot's id - working on this
 
 Create and return a new booking from a spot specified by id.
 

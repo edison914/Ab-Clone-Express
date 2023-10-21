@@ -372,17 +372,63 @@ router.post(`/:spotId/reviews`, requireAuth, validateReviewInput, async (req, re
 router.get(`/:spotId/bookings`, requireAuth, async (req, res, next) => {
 
     const spotId = req.params.spotId;
+    const userId = req.user.id;
+    const spotSelected = await Spot.findByPk(spotId)
 
     try {
-        const bookings = await Booking.findAll({
-            where: { spotId },
-            attributes: { exclude: [`id`, `userId`, `createdAt`, `updatedAt`] },
 
-        });
+        if(userId !== spotSelected.ownerId) {
+            const bookings = await Booking.findAll({
+                where: { spotId },
+                attributes: { exclude: [`id`, `userId`, `createdAt`, `updatedAt`] },
 
-        res.status(200).json({bookings});
+            });
+
+            res.status(200).json({bookings});
+        };
+
+        if (userId === spotSelected.ownerId) {
+            const bookings = await Booking.findAll({
+                where: { spotId },
+                include: [{ model: User, attributes: { exclude: [`username`, `hashedPassword`, `createdAt`, `updatedAt`, `email`] } }],
+            });
+            res.status(200).json({ bookings });
+        }
     } catch (error) {
-        const err = new Error(`Booking couldn't be found`);
+        const err = new Error(`Spot couldn't be found`);
+        err.status = 404;
+        return next(err);
+    }
+});
+
+//### Create a Booking from a Spot based on the Spot's id
+router.post(`/:spotId/bookings`, requireAuth, async (req, res, next) => {
+
+    const spotId = req.params.spotId;
+    const userId = req.user.id;
+    const spotSelected = await Spot.findByPk(spotId)
+
+    try {
+
+        if(userId !== spotSelected.ownerId) {
+            const bookings = await Booking.findAll({
+                where: { spotId },
+                attributes: { exclude: [`id`, `userId`, `createdAt`, `updatedAt`] },
+
+            });
+
+            res.status(200).json({bookings});
+        };
+
+        if (userId === spotSelected.ownerId) {
+            const bookings = await Booking.findAll({
+                where: { spotId },
+                include: [{ model: User, attributes: { exclude: [`username`, `hashedPassword`, `createdAt`, `updatedAt`, `email`] } }],
+            });
+            res.status(200).json({ bookings });
+        }
+    } catch (error) {
+        const err = new Error(`Spot couldn't be found`);
         err.status = 404;
         return next(err);
     }
