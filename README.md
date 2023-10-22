@@ -694,7 +694,7 @@ Deletes an existing spot.
 
 ### Get all Reviews of the Current User - working on this
 
-Returns all the reviews written by the current user.
+Returns all the reviews written by the current user. cant get preview
 
 * Require Authentication: true
 * Request
@@ -1388,13 +1388,12 @@ Update and return an existing booking.
     }
     ```
 
-### Delete a Booking
+### Delete a Booking - done
 
 Delete an existing booking.
 
-* Require Authentication: true
-* Require proper authorization: Booking must belong to the current user or the
-  Spot must belong to the current user
+* Require Authentication: true - done
+* Require proper authorization: Booking must belong to the current user or the Spot must belong to the current user - done
 * Request
   <!--!!START SILENT -->
   * Method: DELETE
@@ -1418,7 +1417,7 @@ Delete an existing booking.
     }
     ```
 
-* Error response: Couldn't find a Booking with the specified id
+* Error response: Couldn't find a Booking with the specified id - done
   * Status Code: 404
   * Headers:
     * Content-Type: application/json
@@ -1430,7 +1429,7 @@ Delete an existing booking.
     }
     ```
 
-* Error response: Bookings that have been started can't be deleted
+* Error response: Bookings that have been started can't be deleted - done
   * Status Code: 403
   * Headers:
     * Content-Type: application/json

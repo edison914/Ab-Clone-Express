@@ -68,22 +68,20 @@ router.get(`/current`, requireAuth, async (req, res, next) => {
 
 //### Edit a Booking
 router.put(`/:bookingId`, requireAuth, validateDatesInput,  async (req, res, next) => {
-    console.log(`is this called`)
     const bookingId = req.params.bookingId;
     const userId = req.user.id;
     const {startDate, endDate} = req.body
 
     const bookingSelected = await Booking.findByPk(bookingId)
 
-
     const selectedStartDate = new Date(startDate);
     const selectedEndDate = new Date(endDate);
 
-    //check to see if the booking is found
-    if(!bookingSelected) {res.status(404).json({message: `Booking couldn't be found`})}
-
     //check if the current booking belongs to current user
     if(bookingSelected.userId !== userId) {res.status(403).json({message: `Forbidden`})}
+
+    //check to see if the booking is found
+    if(!bookingSelected) {res.status(404).json({message: `Booking couldn't be found`})}
 
     //check to see if the selected booking. StartDate is in the past
     const today = new Date();
@@ -110,7 +108,6 @@ router.put(`/:bookingId`, requireAuth, validateDatesInput,  async (req, res, nex
         }
 
     }
-
     //set new Booking Date one all tests above are passed
     bookingSelected.set({
         startDate,
@@ -119,6 +116,42 @@ router.put(`/:bookingId`, requireAuth, validateDatesInput,  async (req, res, nex
     await bookingSelected.save()
     res.status(200).json(bookingSelected);
 
+});
+
+//### Delete a Booking
+router.delete(`/:bookingId`, requireAuth,  async (req, res, next) => {
+    const bookingId = req.params.bookingId;
+    const userId = req.user.id;
+    const bookingSelected = await Booking.findByPk(bookingId);
+
+    //check to see if the booking exist
+     if(!bookingSelected) {res.status(404).json({message: `Booking couldn't be found`})}
+
+    //check if booking selected's belongs to current user or bookingselected spotId belongs to current user.
+    const spotId = bookingSelected.spotId;
+    const spotSelected = await Spot.findByPk(spotId);
+    if (bookingSelected.userId !== userId && spotSelected.ownerId !== userId) {
+        // console.log(`current Booking userId`, bookingSelected.userId)
+        // console.log(`login userId`, userId)
+        // console.log(`ownerId`, spotSelected.ownerId)
+        res.status(403).json({message: `Forbidden`}
+        )
+    }
+
+    //check to see if today's date is within the booking startDate and endDate
+    const today = new Date ();
+    const bookingWithinToday = await Booking.findOne( {
+        where: {
+            startDate: { [Op.lte]: today },
+            endDate: { [Op.gte]: today }
+        }
+    })
+
+    if(bookingWithinToday) {res.status(403).json({message: `Bookings that have been started can't be deleted`})}
+
+    await bookingSelected.destroy();
+
+    res.status(200).json({message: `Successfully deleted`});
 });
 
 module.exports = router;
