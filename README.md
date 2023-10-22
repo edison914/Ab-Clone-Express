@@ -1484,12 +1484,12 @@ Delete an existing image for a Spot.
     }
     ```
 
-### Delete a Review Image
+### Delete a Review Image - done
 
 Delete an existing image for a Review.
 
-* Require Authentication: true
-* Require proper authorization: Review must belong to the current user
+* Require Authentication: true - done
+* Require proper authorization: Review must belong to the current user - done
 * Request
   <!--!!START SILENT -->
   * Method: DELETE
@@ -1513,7 +1513,7 @@ Delete an existing image for a Review.
     }
     ```
 
-* Error response: Couldn't find a Review Image with the specified id
+* Error response: Couldn't find a Review Image with the specified id - done
   * Status Code: 404
   * Headers:
     * Content-Type: application/json
