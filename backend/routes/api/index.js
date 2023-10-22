@@ -7,6 +7,8 @@ const usersRouter = require (`./users.js`);
 const spotsRouter = require (`./spots.js`);
 const reviewsRouter = require (`./reviews.js`);
 const bookingsRouter = require (`./bookings.js`);
+const reviewImagesRouter = require (`./review-images.js`);
+const spotImagesRouter = require (`./spot-images.js`);
 const { restoreUser } = require('../../utils/auth.js');
 
 //this is global. check if a user is existed
@@ -17,12 +19,11 @@ router.use(`/session`, sessionRouter)
 
 //if route matches, route to usersRouter
 router.use(`/users`, usersRouter)
-
 router.use(`/spots`, spotsRouter)
-
 router.use(`/reviews`, reviewsRouter)
-
 router.use(`/bookings`, bookingsRouter)
+router.use(`/review-images`, reviewImagesRouter)
+router.use(`/spot-images`, spotImagesRouter)
 
 
 //all code below is for testing whether middlewares in auth.js is working properly.
