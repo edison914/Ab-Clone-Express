@@ -352,7 +352,7 @@ Returns all the spots owned (created) by the current user. - done
     }
     ```
 
-### Get details of a Spot from an id - Not done. need to fix live issue
+### Get details of a Spot from an id - working. need to fix all the decimcal showing as string when run in live server
 
 Returns the details of a spot specified by its id.
 
@@ -692,7 +692,7 @@ Deletes an existing spot.
 
 ## REVIEWS
 
-### Get all Reviews of the Current User - working on this
+### Get all Reviews of the Current User - done
 
 Returns all the reviews written by the current user. cant get preview
 

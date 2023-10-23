@@ -36,15 +36,25 @@ router.get(`/current`, requireAuth, async (req, res, next) => {
                 {model: User, attributes: { exclude: [`username`, `email`, `hashedPassword`, `createdAt`, `updatedAt`]}},
                 {model: Spot, attributes: { exclude: [`description`, `createdAt`, `updatedAt`]},
                                             include: [{
-                                                    model: SpotImage, //alias and whereclause where preview is true.
-                                                    attributes: [`url`], //how do i display only the url without display the spotImage obj?
-                                            }]
-                },
-                {model: ReviewImage, attributes: { exclude: [`reviewId`, `createdAt`, `updatedAt`]}}
+                                                model: SpotImage,
+                                                attributes: [`url`]
+                }]},
+                {model: ReviewImage, attributes: { exclude: [`reviewId`, `createdAt`, `updatedAt`]}},
             ]
         });
 
-        res.status(200).json({Reviews: reviews});
+        let reviewsList = [];
+        reviews.forEach(review => {
+            reviewsList.push(review.toJSON())
+        })
+
+        reviewsList.forEach(review => {
+            review.Spot.previewImage = review.Spot.SpotImages[0].url;
+
+        delete review.Spot.SpotImages;
+        })
+
+        res.status(200).json({Reviews: reviewsList});
     } catch (error) {
         const err = new Error(`Spot couldn't be found`);
         err.status = 404;

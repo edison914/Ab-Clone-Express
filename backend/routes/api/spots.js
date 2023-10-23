@@ -123,7 +123,7 @@ router.get(`/`, validateSpotQuery, async (req, res, next) => {
 
     //required query params, use page and size if url contains page and size query
     if (page && size) {
-        
+
         let offset = (page -1) * size;
         //optinal query params
         // if either minLat or maxLat param is given
@@ -252,7 +252,9 @@ router.get(`/:spotId`, async (req, res, next) => {
     //find spots where ownerId = current user, also include associated model review and spotimage.
     try {
         let spot = await Spot.findOne({
-            include: [{model: SpotImage}, {model:Review}, {model:User}],
+            include: [
+                {model: SpotImage, attributes: { exclude: [`spotId`, `createdAt`, `updatedAt`]}},
+                {model:Review}, {model:User}],
             where: {id}
         })
 
