@@ -118,14 +118,13 @@ const validateSpotQuery = [
 //### Get all Spots - done
 router.get(`/`, validateSpotQuery, async (req, res, next) => {
     let { page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice } = req.query;
-    //where is all the query parameter
+    //create a where obj where it contains all the params from URL
     const where = {};
 
-    //required query params
+    //required query params, use page and size if url contains page and size query
     if (page && size) {
-
+        
         let offset = (page -1) * size;
-
         //optinal query params
         // if either minLat or maxLat param is given
         if(minLat || maxLat) {
@@ -179,34 +178,35 @@ router.get(`/`, validateSpotQuery, async (req, res, next) => {
             delete spot.Reviews;
             delete spot.SpotImages;
         })
-
         return res.json({Spots: spotsList, page, size})
+    } else {
+         // if (page && size doesnt exist)
+        const spots = await Spot.findAll({
+            include: [{model: Review}, {model:SpotImage}]
+        })
+        let spotsList = [];
+
+        spots.forEach(spot => { spotsList.push(spot.toJSON())})
+
+        spotsList.forEach(spot => {
+            const reviews = spot.Reviews;
+            const totalRating = reviews.reduce((acc, review) => acc + review.stars, 0);
+            const avgRating = totalRating / reviews.length;
+            spot.avgRating = avgRating;
+
+            if(spot.SpotImages[0].preview) {
+                const previewImg = spot.SpotImages[0].url
+                spot.previewImage = previewImg
+            } else {
+                spot.previewImage = 'Preview is not allowed'
+            }
+            delete spot.Reviews;
+            delete spot.SpotImages;
+        })
+
+        res.json({Spots: spotsList})
     }
-    // if (page && size doesnt exist)
-    const spots = await Spot.findAll({
-        include: [{model: Review}, {model:SpotImage}]
-    })
-    let spotsList = [];
 
-    spots.forEach(spot => { spotsList.push(spot.toJSON())})
-
-    spotsList.forEach(spot => {
-        const reviews = spot.Reviews;
-        const totalRating = reviews.reduce((acc, review) => acc + review.stars, 0);
-        const avgRating = totalRating / reviews.length;
-        spot.avgRating = avgRating;
-
-        if(spot.SpotImages[0].preview) {
-            const previewImg = spot.SpotImages[0].url
-            spot.previewImage = previewImg
-        } else {
-            spot.previewImage = 'Preview is not allowed'
-        }
-        delete spot.Reviews;
-        delete spot.SpotImages;
-    })
-
-    res.json({Spots: spotsList})
 
 });
 
