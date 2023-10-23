@@ -81,47 +81,77 @@ const validateDatesInput = [
 ];
 
 
+
 //### Get all Spots - done
 router.get(`/`, async (req, res, next) => {
+    let { page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice } = req.query;
+    //where is all the query parameter
+    const where = {};
+
+    if (page && size) {
+        let offset = (page -1) * size;
+        const spots = await Spot.findAll({
+            where ,
+            limit: size,
+            offset,
+            include: [{model: Review}, {model:SpotImage}]
+        })
+
+        //loop through each spot to find the ratings and preview
+        //create an empty arr
+        let spotsList = [];
+        //loop through spots, change each spot to JSON, then add them to the spotsList
+        spots.forEach(spot => { spotsList.push(spot.toJSON())})
+        //loop through spotsList
+        spotsList.forEach(spot => {
+            //find reviews for spot, calculate the avg rating, then assign the avg rating to each.
+            const reviews = spot.Reviews;
+            const totalRating = reviews.reduce((acc, review) => acc + review.stars, 0);
+            const avgRating = totalRating / reviews.length;
+            spot.avgRating = avgRating;
+            //find the FIRST image for spot, if FIRST img preview is true, then assign previewImage to url
+            if(spot.SpotImages[0].preview) {
+                const previewImg = spot.SpotImages[0].url
+                spot.previewImage = previewImg
+            //else, if img preview is false, then assign previewImage with comment
+            } else {
+                spot.previewImage = 'Preview is not allowed'
+            }
+            //remove the include of Reviews and SpotImages
+            delete spot.Reviews;
+            delete spot.SpotImages;
+        })
+
+        return res.json({Spots: spotsList, page, size})
+    }
+    // if (page && size doesnt exist)
     const spots = await Spot.findAll({
         include: [{model: Review}, {model:SpotImage}]
-        //alex sugguestion including attributes of model.reviews, pass in the array. to get the averg.
     })
 
-    //loop through each spot to find the ratings and preview
-    const spotsWithAvgRatingAndPreview = spots.map((spot) => {
+    let spotsList = [];
+
+    spots.forEach(spot => { spotsList.push(spot.toJSON())})
+
+    spotsList.forEach(spot => {
+
         const reviews = spot.Reviews;
-        //console.log(reviews)
-        //loop throgh reviews array, add all the review.stars together in each review/element
         const totalRating = reviews.reduce((acc, review) => acc + review.stars, 0);
-        //calculate the average
-        const avgRating = totalRating / reviews.length
-        //extract preview url from spotImage obj
-        const previewImg = spot.SpotImages[0].url
-        //console.log(previewImg)
+        const avgRating = totalRating / reviews.length;
+        spot.avgRating = avgRating;
 
-        //create the new spotsWithRatingAndPreview Obj
-        //parse the data into num.
-        return {
-            id: spot.id,
-            ownerId: spot.ownerId,
-            address: spot.address,
-            city: spot.city,
-            state: spot.state,
-            country: spot.country,
-            lat: spot.lat,
-            lng: spot.lng,
-            name: spot.name,
-            description: spot.description,
-            price: spot.price,
-            createdAt: spot.createdAt,
-            updatedAt: spot.updatedAt,
-            avgRating: avgRating,
-            previewImage: previewImg
-        };
+        if(spot.SpotImages[0].preview) {
+            const previewImg = spot.SpotImages[0].url
+            spot.previewImage = previewImg
+        } else {
+            spot.previewImage = 'Preview is not allowed'
+        }
+        delete spot.Reviews;
+        delete spot.SpotImages;
     })
 
-    res.json({spots: spotsWithAvgRatingAndPreview});
+    res.json({Spots: spotsList})
+
 });
 
 //### Get all Spots owned by the Current User
