@@ -1525,7 +1525,7 @@ Delete an existing image for a Review.
     }
     ```
 
-## Add Query Filters to Get All Spots - working on thisj
+## Add Query Filters to Get All Spots - done
 Return spots filtered by query parameters.
 
 * Require Authentication: false
