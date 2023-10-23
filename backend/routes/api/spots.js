@@ -17,10 +17,10 @@ const validateSpotInput = [
         .withMessage('Street address is required'),
     check('city')
         .exists({ checkFalsy: true })
-        .withMessage('city is required'),
+        .withMessage('City is required'),
     check('state')
         .exists({ checkFalsy: true })
-        .withMessage('state is required'),
+        .withMessage('State is required'),
     check('country')
         .exists({ checkFalsy: true })
         .withMessage('Country is required'),
