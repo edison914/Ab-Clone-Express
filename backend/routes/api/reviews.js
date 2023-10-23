@@ -49,6 +49,7 @@ router.get(`/current`, requireAuth, async (req, res, next) => {
         })
 
         reviewsList.forEach(review => {
+            //do you want to search for img tht only allow preview and return them?
             review.Spot.previewImage = review.Spot.SpotImages[0].url;
 
         delete review.Spot.SpotImages;

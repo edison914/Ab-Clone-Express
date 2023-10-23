@@ -694,7 +694,7 @@ Deletes an existing spot.
 
 ### Get all Reviews of the Current User - done
 
-Returns all the reviews written by the current user. cant get preview
+Returns all the reviews written by the current user. 
 
 * Require Authentication: true
 * Request

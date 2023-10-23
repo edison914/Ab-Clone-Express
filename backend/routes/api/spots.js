@@ -115,7 +115,8 @@ const validateSpotQuery = [
 ];
 
 
-//### Get all Spots - done
+//### Get all Spots
+//## Add Query Filters to Get All Spots
 router.get(`/`, validateSpotQuery, async (req, res, next) => {
     let { page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice } = req.query;
     //create a where obj where it contains all the params from URL
@@ -435,7 +436,7 @@ router.get(`/:spotId/reviews`, async (req, res, next) => {
             ]
         });
 
-        res.status(200).json({reviews});
+        res.status(200).json({Reviews: reviews});
     } catch (error) {
         const err = new Error(`Spot couldn't be found`);
         err.status = 404;
@@ -499,7 +500,7 @@ router.get(`/:spotId/bookings`, requireAuth, async (req, res, next) => {
 
             });
 
-            res.status(200).json({bookings});
+            res.status(200).json({Bookings: bookings});
         };
 
         if (userId === spotSelected.ownerId) {
@@ -507,7 +508,7 @@ router.get(`/:spotId/bookings`, requireAuth, async (req, res, next) => {
                 where: { spotId },
                 include: [{ model: User, attributes: { exclude: [`username`, `hashedPassword`, `createdAt`, `updatedAt`, `email`] } }],
             });
-            res.status(200).json({ bookings });
+            res.status(200).json({Bookings: bookings });
         }
     } catch (error) {
         const err = new Error(`Spot couldn't be found`);

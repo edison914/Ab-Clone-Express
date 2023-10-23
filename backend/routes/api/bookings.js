@@ -38,6 +38,7 @@ const validateDatesInput = [
 const router = express.Router()
 
 //### Get all of the Current User's Bookings
+
 router.get(`/current`, requireAuth, async (req, res, next) => {
 
     const userId = req.user.id;
@@ -57,7 +58,19 @@ router.get(`/current`, requireAuth, async (req, res, next) => {
             ]
         });
 
-        res.status(200).json({bookings});
+        let bookingsList = [];
+        bookings.forEach(booking => {
+            bookingsList.push(booking.toJSON())
+        })
+
+        bookingsList.forEach(booking => {
+            //do you want to search for img tht only allow preview and return them?
+            booking.Spot.previewImage = booking.Spot.SpotImages[0].url;
+
+        delete booking.Spot.SpotImages;
+        });
+
+        res.status(200).json({Bookings: bookingsList});
     } catch (error) {
         const err = new Error(`Booking couldn't be found`);
         err.status = 404;
