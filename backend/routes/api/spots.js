@@ -168,12 +168,11 @@ router.get(`/`, validateSpotQuery, async (req, res, next) => {
             const avgRating = totalRating / reviews.length;
             spot.avgRating = avgRating;
             //find the FIRST image for spot, if FIRST img preview is true, then assign previewImage to url
-            if(spot.SpotImages[0].preview) {
-                const previewImg = spot.SpotImages[0].url
-                spot.previewImage = previewImg
-            //else, if img preview is false, then assign previewImage with comment
+            if (spot.SpotImages && spot.SpotImages[0] && spot.SpotImages[0].url) {
+                const previewImg = spot.SpotImages[0].url;
+                spot.previewImage = previewImg;
             } else {
-                spot.previewImage = 'Preview is not allowed'
+                spot.previewImage = null;
             }
             //remove the include of Reviews and SpotImages
             delete spot.Reviews;
@@ -194,12 +193,12 @@ router.get(`/`, validateSpotQuery, async (req, res, next) => {
             const totalRating = reviews.reduce((acc, review) => acc + review.stars, 0);
             const avgRating = totalRating / reviews.length;
             spot.avgRating = avgRating;
-
-            if(spot.SpotImages[0].preview) {
-                const previewImg = spot.SpotImages[0].url
-                spot.previewImage = previewImg
+            //console.log(spot.SpotImages[0])
+            if (spot.SpotImages && spot.SpotImages[0] && spot.SpotImages[0].url) {
+                const previewImg = spot.SpotImages[0].url;
+                spot.previewImage = previewImg;
             } else {
-                spot.previewImage = 'Preview is not allowed'
+                spot.previewImage = null;
             }
             delete spot.Reviews;
             delete spot.SpotImages;
@@ -224,7 +223,14 @@ router.get(`/current`, requireAuth, async (req, res, next) => {
         const reviews = spot.Reviews;
         const totalRating = reviews.reduce((acc, review) => acc + review.stars, 0);
         const avgRating = totalRating / reviews.length
-        const previewImg = spot.SpotImages[0].url
+
+        let previewImg = ''
+        if (spot.SpotImages && spot.SpotImages[0] && spot.SpotImages[0].url) {
+            previewImg = spot.SpotImages[0].url;
+        } else {
+            previewImg = null;
+        }
+
         return {
             id: spot.id,
             ownerId: spot.ownerId,
