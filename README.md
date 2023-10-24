@@ -694,7 +694,7 @@ Deletes an existing spot.
 
 ### Get all Reviews of the Current User - done
 
-Returns all the reviews written by the current user. 
+Returns all the reviews written by the current user.
 
 * Require Authentication: true
 * Request
@@ -1076,9 +1076,9 @@ Delete an existing review.
 
 ## BOOKINGS -
 
-### Get all of the Current User's Bookings - working on this
+### Get all of the Current User's Bookings - done
 
-Return all the bookings that the current user has made. -. can't get preview img.
+Return all the bookings that the current user has made.
 
 * Require Authentication: true
 * Request
