@@ -48,10 +48,8 @@ router.post(`/`, validateSignup, async (req, res, next) => {
     //create a hashed password
     const hashedPassword = bcrypt.hashSync(password)
     //create a new user with info from the body
-
     const newUser = await User.create({ email, firstName, lastName, username, hashedPassword});
     //create a safeuser obj with the info in obj without the password
-
     const safeUser = {
         id: newUser.id,
         firstName: newUser.firstName,
@@ -66,6 +64,17 @@ router.post(`/`, validateSignup, async (req, res, next) => {
     return res.json({
         user: safeUser
     });
+})
+
+//testing users route
+router.get(`/`, async (req, res, next) => {
+
+    const AllUsers = await User.findAll()
+
+
+    return res.json(
+        {Users: AllUsers}
+    );
 })
 
 module.exports = router;
