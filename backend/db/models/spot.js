@@ -71,11 +71,11 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
     lat: {
-      type:DECIMAL(20,10),
+      type: DataTypes.DECIMAL(20,10),
       allowNull: false,
     },
     lng: {
-      type:DECIMAL(20,10),
+      type: DataTypes.DECIMAL(20,10),
       allowNull: false,
     },
     name: {
@@ -88,18 +88,16 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
     price: {
-      type:DECIMAL(20,10),
+      type: DataTypes.DECIMAL(20,10),
       allowNull: false,
     },
     createdAt: {
       allowNull: false,
       type: DataTypes.DATE,
-      defaultValue: DataTypes.literal('CURRENT_TIMESTAMP')
     },
     updatedAt: {
       allowNull: false,
       type: DataTypes.DATE,
-      defaultValue: DataTypes.literal('CURRENT_TIMESTAMP')
     }
   }, {
     sequelize,
