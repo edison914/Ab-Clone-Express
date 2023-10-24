@@ -66,6 +66,7 @@ router.get(`/current`, requireAuth, async (req, res, next) => {
 //### Add an Image to a Review based on the Review's id
 router.post(`/:reviewId/images`, requireAuth, async (req, res, next) => {
     const reviewId = req.params.reviewId;
+    const userId = req.user.id;
     const {url} = req.body
 
     //check if the a review with posted reviewId existed in the db
@@ -75,6 +76,9 @@ router.post(`/:reviewId/images`, requireAuth, async (req, res, next) => {
         err.status = 404;
         return next(err);
     }
+
+    //check Authorization comparing userId from the current user to the review's userId selected.
+    if(userId !== existingReview.userId) {return res.status(403).json({message: `Forbidden`})};
 
     //check to see if the current review has more than 10
     const imgArr = await ReviewImage.findAll({where: {reviewId}})
