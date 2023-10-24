@@ -31,30 +31,10 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       autoIncrement: true,
     },
-    spotId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-    userId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-    review: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    stars: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-    createdAt: {
-      allowNull: false,
-      type: DataTypes.DATE,
-    },
-    updatedAt: {
-      allowNull: false,
-      type: DataTypes.DATE,
-    }
+    spotId: DataTypes.INTEGER,
+    userId: DataTypes.INTEGER,
+    review: DataTypes.STRING,
+    stars: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Review',

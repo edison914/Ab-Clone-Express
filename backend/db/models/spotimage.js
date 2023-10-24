@@ -23,25 +23,9 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       autoIncrement: true,
     },
-    spotId: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
-    url: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    preview: {
-      type: DataTypes.BOOLEAN,
-    },
-    createdAt: {
-      allowNull: false,
-      type: DataTypes.DATE,
-    },
-    updatedAt: {
-      allowNull: false,
-      type: DataTypes.DATE,
-    }
+    spotId: DataTypes.INTEGER,
+    url: DataTypes.STRING,
+    preview: DataTypes.BOOLEAN
   }, {
     sequelize,
     modelName: 'SpotImage',

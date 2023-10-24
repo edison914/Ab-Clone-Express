@@ -27,21 +27,10 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       autoIncrement: true,
     },
-    spotId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
+    spotId: DataTypes.INTEGER,
     userId: DataTypes.INTEGER,
     startDate: DataTypes.DATEONLY,
-    endDate: DataTypes.DATEONLY,
-    createdAt: {
-      allowNull: false,
-      type: DataTypes.DATE,
-    },
-    updatedAt: {
-      allowNull: false,
-      type: DataTypes.DATE,
-    }
+    endDate: DataTypes.DATEONLY
   }, {
     sequelize,
     modelName: 'Booking',

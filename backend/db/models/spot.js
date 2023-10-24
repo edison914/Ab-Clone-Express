@@ -53,23 +53,11 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       autoIncrement: true,
     },
-    ownerId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
+    ownerId: DataTypes.INTEGER,
     address: DataTypes.STRING,
-    city: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    state: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    country: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
+    city: DataTypes.STRING,
+    state: DataTypes.STRING,
+    country: DataTypes.STRING,
     lat: {
       type: DataTypes.DECIMAL(20,10),
       allowNull: false,
@@ -81,24 +69,12 @@ module.exports = (sequelize, DataTypes) => {
     name: {
       type: DataTypes.STRING,
       unique: true,
-      allowNull: false,
     },
-    description: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
+    description: DataTypes.STRING,
     price: {
       type: DataTypes.DECIMAL(20,10),
       allowNull: false,
     },
-    createdAt: {
-      allowNull: false,
-      type: DataTypes.DATE,
-    },
-    updatedAt: {
-      allowNull: false,
-      type: DataTypes.DATE,
-    }
   }, {
     sequelize,
     modelName: 'Spot'
