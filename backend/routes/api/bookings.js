@@ -46,15 +46,13 @@ router.get(`/current`, requireAuth, async (req, res, next) => {
     try {
         const bookings = await Booking.findAll({
             where: { userId },
-            attributes: { exclude: [`userId`, `startDate`, `endDate`, `createdAt`, `updatedAt`] },
             include: [
                 {model: Spot, attributes: { exclude: [`description`, `createdAt`, `updatedAt`]},
                                             include: [{
                                                 model: SpotImage,
                                                 attributes: [`url`], //how do i display only the url without display the spotImage obj?
                                             }]
-                },
-                {model: User, attributes: { exclude: [`username`, `email`, `hashedPassword`]}},
+                }
             ]
         });
 
@@ -87,39 +85,88 @@ router.put(`/:bookingId`, requireAuth, validateDatesInput,  async (req, res, nex
 
     const bookingSelected = await Booking.findByPk(bookingId)
 
+    //check to see if the booking is found
+    if(!bookingSelected) {res.status(404).json({message: `Booking couldn't be found`})}
+
     const selectedStartDate = new Date(startDate);
     const selectedEndDate = new Date(endDate);
 
     //check if the current booking belongs to current user
-    if(bookingSelected.userId !== userId) {res.status(403).json({message: `Forbidden`})}
+    if(bookingSelected.userId !== userId) {return res.status(403).json({message: `Forbidden`})}
 
-    //check to see if the booking is found
-    if(!bookingSelected) {res.status(404).json({message: `Booking couldn't be found`})}
 
     //check to see if the selected booking. StartDate is in the past
     const today = new Date();
     const bookingSelectedStartDate = new Date(bookingSelected.startDate)
-    if (bookingSelectedStartDate < today) {res.status(403).json({message: `Past bookings can't be modified`})}
+
+    if (bookingSelectedStartDate < today) {return res.status(403).json({message: `Past bookings can't be modified`})}
 
     //checking for booking conflict
     const spotId = bookingSelected.spotId
-    const existingBookings = await Booking.findAll({where : {spotId}})
 
+    //find all existing bookings by spotId. Not INCLUDING the current Book selected!!!!!
+    const existingBookings = await Booking.findAll({where : {spotId, id: {[Op.not]: bookingSelected.id}}}, )
+
+    //loop through all existing booking to check if the new booking dates conflict with any of them.
     for (const existingBooking of existingBookings) {
         const existingStartDate = new Date(existingBooking.startDate);
         const existingEndDate = new Date(existingBooking.endDate);
 
-        if ((selectedStartDate <= existingEndDate && selectedStartDate >= existingStartDate) ||
-            (selectedEndDate >= existingStartDate && selectedEndDate <= existingEndDate)){
+        // if (
+        //     //if new startDate is before current EndDate && new startDate after current startDate - startDate Error
+        //     (selectedStartDate <= existingEndDate && selectedStartDate >= existingStartDate) ||
+        //     //if new endDate is after current startDate && new endDate is before current endDate - endDate Error
+        //     (selectedEndDate >= existingStartDate && selectedEndDate <= existingEndDate) ||
+        //     //if new startDate is before current StartDate && new endDate is after current endDate - endDate and startDate Erorr
+        //     (selectedStartDate <= existingStartDate && selectedEndDate >= existingEndDate)
+        // ){
+        //     return res.status(403).json({
+        //         message: "Sorry, this spot is already booked for the specified dates",
+        //         errors: {
+        //             "startDate": "Start date conflicts with an existing booking",
+        //             "endDate": "End date conflicts with an existing booking"
+        //         }
+        //     });
+        // }
+
+        //if new startDate is before current StartDate && new endDate is after current endDate - endDate and startDate within Erorr
+        if(selectedStartDate >= existingStartDate && selectedEndDate <= existingEndDate) {
+        return res.status(403).json({
+        message: "Sorry, this spot is already booked for the specified dates",
+        errors: {
+            "endDate": "End date conflicts with an existing booking",
+            "startDate": "Start date conflicts with an existing booking"
+            }
+        });
+        }
+        //if new startDate is before current EndDate && new startDate after current startDate - startDate Error
+        if(selectedStartDate <= existingEndDate && selectedStartDate >= existingStartDate) {
             return res.status(403).json({
-                message: "Sorry, this spot is already booked for the specified dates",
-                errors: {
-                    "startDate": "Start date conflicts with an existing booking",
-                    "endDate": "End date conflicts with an existing booking"
+            message: "Sorry, this spot is already booked for the specified dates",
+            errors: {
+                "startDate": "Start date conflicts with an existing booking",
                 }
             });
         }
-
+        //if new endDate is after current startDate && new endDate is before current endDate - endDate Error
+        if(selectedEndDate >= existingStartDate && selectedEndDate <= existingEndDate) {
+            return res.status(403).json({
+            message: "Sorry, this spot is already booked for the specified dates",
+            errors: {
+                "endDate": "End date conflicts with an existing booking",
+                }
+            });
+        }
+        //if new startDate is before current StartDate && new endDate is after current endDate - endDate and startDate surrounding Erorr
+        if(selectedStartDate <= existingStartDate && selectedEndDate >= existingEndDate) {
+            return res.status(403).json({
+            message: "Sorry, this spot is already booked for the specified dates",
+            errors: {
+                "endDate": "End date conflicts with an existing booking",
+                "startDate": "Start date conflicts with an existing booking"
+                }
+            });
+        }
     }
     //set new Booking Date one all tests above are passed
     bookingSelected.set({
@@ -127,7 +174,7 @@ router.put(`/:bookingId`, requireAuth, validateDatesInput,  async (req, res, nex
         endDate
     });
     await bookingSelected.save()
-    res.status(200).json(bookingSelected);
+    return res.status(200).json(bookingSelected);
 
 });
 
@@ -147,7 +194,7 @@ router.delete(`/:bookingId`, requireAuth,  async (req, res, next) => {
         // console.log(`current Booking userId`, bookingSelected.userId)
         // console.log(`login userId`, userId)
         // console.log(`ownerId`, spotSelected.ownerId)
-        res.status(403).json({message: `Forbidden`}
+        return res.status(403).json({message: `Forbidden`}
         )
     }
 
@@ -156,15 +203,16 @@ router.delete(`/:bookingId`, requireAuth,  async (req, res, next) => {
     const bookingWithinToday = await Booking.findOne( {
         where: {
             startDate: { [Op.lte]: today },
-            endDate: { [Op.gte]: today }
+            endDate: { [Op.gte]: today },
+            id: bookingId
         }
     })
-
-    if(bookingWithinToday) {res.status(403).json({message: `Bookings that have been started can't be deleted`})}
+    //console.log(bookingWithinToday)
+    if(bookingWithinToday) {return res.status(403).json({message: `Bookings that have been started can't be deleted`})}
 
     await bookingSelected.destroy();
 
-    res.status(200).json({message: `Successfully deleted`});
+    return res.status(200).json({message: `Successfully deleted`});
 });
 
 module.exports = router;

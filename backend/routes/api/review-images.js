@@ -24,7 +24,7 @@ router.delete(`/:imageId`, requireAuth, async (req, res, next) => {
     //check if image selected belongs to current user
     const reviewSelected = await Review.findByPk(reviewId);
     if (reviewSelected.userId !== userId) {
-        res.status(403).json({message: `Forbidden`}
+        return res.status(403).json({message: `Forbidden`}
         )
     }
 

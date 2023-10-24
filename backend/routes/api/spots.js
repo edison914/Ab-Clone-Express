@@ -31,7 +31,7 @@ const validateSpotInput = [
         .isFloat({ min: -180, max: 180})
         .withMessage('Longitude must be within -180 and 180'),
     check('name')
-        .isLength({ max: 50 })
+        .isLength({ min: 1, max: 50 })
         .withMessage('Name must be less than 50 characters'),
     check('description')
         .exists({ checkFalsy: true })
@@ -82,10 +82,10 @@ const validateDatesInput = [
 
 const validateSpotQuery = [
     check('page')
-        .isInt({min: 1})
+        .isInt({min: 1, max:10})
         .withMessage('Page must be greater than or equal to 1'),
     check('size')
-        .isInt({min: 1})
+        .isInt({min: 1, max:20})
         .withMessage('Size must be greater than or equal to 1'),
     check('maxLat')
         .optional()
@@ -168,12 +168,11 @@ router.get(`/`, validateSpotQuery, async (req, res, next) => {
             const avgRating = totalRating / reviews.length;
             spot.avgRating = avgRating;
             //find the FIRST image for spot, if FIRST img preview is true, then assign previewImage to url
-            if(spot.SpotImages[0].preview) {
-                const previewImg = spot.SpotImages[0].url
-                spot.previewImage = previewImg
-            //else, if img preview is false, then assign previewImage with comment
+            if (spot.SpotImages && spot.SpotImages[0] && spot.SpotImages[0].url) {
+                const previewImg = spot.SpotImages[0].url;
+                spot.previewImage = previewImg;
             } else {
-                spot.previewImage = 'Preview is not allowed'
+                spot.previewImage = null;
             }
             //remove the include of Reviews and SpotImages
             delete spot.Reviews;
@@ -194,12 +193,12 @@ router.get(`/`, validateSpotQuery, async (req, res, next) => {
             const totalRating = reviews.reduce((acc, review) => acc + review.stars, 0);
             const avgRating = totalRating / reviews.length;
             spot.avgRating = avgRating;
-
-            if(spot.SpotImages[0].preview) {
-                const previewImg = spot.SpotImages[0].url
-                spot.previewImage = previewImg
+            //console.log(spot.SpotImages[0])
+            if (spot.SpotImages && spot.SpotImages[0] && spot.SpotImages[0].url) {
+                const previewImg = spot.SpotImages[0].url;
+                spot.previewImage = previewImg;
             } else {
-                spot.previewImage = 'Preview is not allowed'
+                spot.previewImage = null;
             }
             delete spot.Reviews;
             delete spot.SpotImages;
@@ -224,7 +223,15 @@ router.get(`/current`, requireAuth, async (req, res, next) => {
         const reviews = spot.Reviews;
         const totalRating = reviews.reduce((acc, review) => acc + review.stars, 0);
         const avgRating = totalRating / reviews.length
-        const previewImg = spot.SpotImages[0].url
+
+        let previewImg;
+        if (spot.SpotImages && spot.SpotImages[0] && spot.SpotImages[0].url) {
+            previewImg = spot.SpotImages[0].url;
+
+        } else {
+            previewImg = null;
+        }
+
         return {
             id: spot.id,
             ownerId: spot.ownerId,
@@ -335,8 +342,8 @@ router.post(`/:spotId/images`, requireAuth,  async (req, res, next) => {
 
     try {
         const spot = await Spot.findOne({where: {id}})
-        console.log(spot)
-        if(userId !== spot.ownerId) {res.status(403).json({message: `Forbidden`})};
+        //console.log(spot)
+        if(userId !== spot.ownerId) {return res.status(403).json({message: `Forbidden`})};
 
         let newImg = await SpotImage.create({
             spotId: spot.id,
@@ -351,7 +358,7 @@ router.post(`/:spotId/images`, requireAuth,  async (req, res, next) => {
             preview
         }
         res.status(200).json(newImg);
-        
+
     } catch (error) {
         const err = new Error(`Spot couldn't be found`);
         err.status = 404;
@@ -369,7 +376,7 @@ router.put(`/:spotId`, requireAuth, validateSpotInput, async (req, res, next) =>
         const spotSelected = await Spot.findOne({where: {id}})
 
         //check Authorization comparing ownderId from the current user to the ownerId in the spot selected.
-        if(ownerId !== spotSelected.ownerId) {res.status(403).json({message: `Forbidden`})};
+        if(ownerId !== spotSelected.ownerId) {return res.status(403).json({message: `Forbidden`})};
         //console.log(`is this called?`)
         spotSelected.set({
             ownerId: ownerId,
@@ -404,7 +411,7 @@ router.delete(`/:spotId/`, requireAuth, async (req, res, next) => {
         const spotSelected = await Spot.findOne({where: {id}})
 
         //check Authorization by comparing ownderId from the current user to the ownerId in the spot selected.
-        if(ownerId !== spotSelected.ownerId) {res.status(403).json({message: `Forbidden`})};
+        if(ownerId !== spotSelected.ownerId) {return res.status(403).json({message: `Forbidden`})};
 
         await spotSelected.destroy();
 
@@ -533,7 +540,7 @@ router.post(`/:spotId/bookings`, requireAuth, validateDatesInput,  async (req, r
     if(!spotSelected) { res.status(404).json({message: `Spot couldn't be found`})}
 
     //authorization
-    if(userId === spotSelected.ownerId) {res.status(403).json({message: `Forbidden`})};
+    if(userId === spotSelected.ownerId) {return res.status(403).json({message: `Forbidden`})};
 
     //check for booking conflicts.
     const existingBookings = await Booking.findAll({where : {spotId}})
@@ -544,8 +551,11 @@ router.post(`/:spotId/bookings`, requireAuth, validateDatesInput,  async (req, r
         const existingStartDate = new Date(existingBooking.startDate);
         const existingEndDate = new Date(existingBooking.endDate);
 
-        if ((selectedStartDate <= existingEndDate && selectedStartDate >= existingStartDate) ||
-            (selectedEndDate >= existingStartDate && selectedEndDate <= existingEndDate)){
+        if (
+            (selectedStartDate <= existingEndDate && selectedStartDate >= existingStartDate) ||
+            (selectedEndDate >= existingStartDate && selectedEndDate <= existingEndDate) ||
+            (selectedStartDate <= existingStartDate && selectedEndDate >= existingEndDate)
+        ) {
             return res.status(403).json({
                 message: "Sorry, this spot is already booked for the specified dates",
                 errors: {

@@ -504,12 +504,12 @@ Creates and returns a new spot.
     }
     ```
 
-### Add an Image to a Spot based on the Spot's id - working on this.
+### Add an Image to a Spot based on the Spot's id - done / live checked
 
 Create and return a new image for a spot specified by id.
 
 * Require Authentication: true
-* Require proper authorization: Spot must belong to the current user - working on this.
+* Require proper authorization: Spot must belong to the current user - done / live checked
 * Request
   <!--!!START SILENT -->
   * Method: POST
@@ -530,7 +530,7 @@ Create and return a new image for a spot specified by id.
     }
     ```
 
-* Successful Response - done
+* Successful Response - done / live checekd
   * Status Code: 200
   * Headers:
     * Content-Type: application/json
@@ -544,7 +544,7 @@ Create and return a new image for a spot specified by id.
     }
     ```
 
-* Error response: Couldn't find a Spot with the specified id - done
+* Error response: Couldn't find a Spot with the specified id - done / live checked
   * Status Code: 404
   * Headers:
     * Content-Type: application/json
@@ -557,7 +557,7 @@ Create and return a new image for a spot specified by id.
     ```
 
 ### Edit a Spot - done.
-//should i create a validation error for data that doesnt pass the validation?
+//should i create a validation error for data that doesnt pass the validation?.
 
 Updates and returns an existing spot.
 
@@ -1272,7 +1272,7 @@ Create and return a new booking from a spot specified by id.
     }
     ```
 
-* Error response: Booking conflict --- done
+* Error response: Booking conflict --- working need to revise create a booking checking method
   * Status Code: 403
   * Headers:
     * Content-Type: application/json
