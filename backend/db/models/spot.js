@@ -58,14 +58,23 @@ module.exports = (sequelize, DataTypes) => {
     city: DataTypes.STRING,
     state: DataTypes.STRING,
     country: DataTypes.STRING,
-    lat: DataTypes.NUMERIC,
-    lng: DataTypes.NUMERIC,
+    lat: {
+      type: DataTypes.DECIMAL(20,10),
+      allowNull: false,
+    },
+    lng: {
+      type: DataTypes.DECIMAL(20,10),
+      allowNull: false,
+    },
     name: {
       type: DataTypes.STRING,
       unique: true,
     },
     description: DataTypes.STRING,
-    price: DataTypes.NUMERIC
+    price: {
+      type: DataTypes.DECIMAL(20,10),
+      allowNull: false,
+    },
   }, {
     sequelize,
     modelName: 'Spot'
