@@ -335,8 +335,8 @@ router.post(`/:spotId/images`, requireAuth,  async (req, res, next) => {
 
     try {
         const spot = await Spot.findOne({where: {id}})
-        console.log(spot)
-        if(userId !== spot.ownerId) {res.status(403).json({message: `Forbidden`})};
+        //console.log(spot)
+        if(userId !== spot.ownerId) {return res.status(403).json({message: `Forbidden`})};
 
         let newImg = await SpotImage.create({
             spotId: spot.id,
@@ -351,7 +351,7 @@ router.post(`/:spotId/images`, requireAuth,  async (req, res, next) => {
             preview
         }
         res.status(200).json(newImg);
-        
+
     } catch (error) {
         const err = new Error(`Spot couldn't be found`);
         err.status = 404;
@@ -369,7 +369,7 @@ router.put(`/:spotId`, requireAuth, validateSpotInput, async (req, res, next) =>
         const spotSelected = await Spot.findOne({where: {id}})
 
         //check Authorization comparing ownderId from the current user to the ownerId in the spot selected.
-        if(ownerId !== spotSelected.ownerId) {res.status(403).json({message: `Forbidden`})};
+        if(ownerId !== spotSelected.ownerId) {return res.status(403).json({message: `Forbidden`})};
         //console.log(`is this called?`)
         spotSelected.set({
             ownerId: ownerId,
@@ -404,7 +404,7 @@ router.delete(`/:spotId/`, requireAuth, async (req, res, next) => {
         const spotSelected = await Spot.findOne({where: {id}})
 
         //check Authorization by comparing ownderId from the current user to the ownerId in the spot selected.
-        if(ownerId !== spotSelected.ownerId) {res.status(403).json({message: `Forbidden`})};
+        if(ownerId !== spotSelected.ownerId) {return res.status(403).json({message: `Forbidden`})};
 
         await spotSelected.destroy();
 
@@ -533,7 +533,7 @@ router.post(`/:spotId/bookings`, requireAuth, validateDatesInput,  async (req, r
     if(!spotSelected) { res.status(404).json({message: `Spot couldn't be found`})}
 
     //authorization
-    if(userId === spotSelected.ownerId) {res.status(403).json({message: `Forbidden`})};
+    if(userId === spotSelected.ownerId) {return res.status(403).json({message: `Forbidden`})};
 
     //check for booking conflicts.
     const existingBookings = await Booking.findAll({where : {spotId}})

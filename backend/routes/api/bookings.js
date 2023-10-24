@@ -91,7 +91,7 @@ router.put(`/:bookingId`, requireAuth, validateDatesInput,  async (req, res, nex
     const selectedEndDate = new Date(endDate);
 
     //check if the current booking belongs to current user
-    if(bookingSelected.userId !== userId) {res.status(403).json({message: `Forbidden`})}
+    if(bookingSelected.userId !== userId) {return res.status(403).json({message: `Forbidden`})}
 
     //check to see if the booking is found
     if(!bookingSelected) {res.status(404).json({message: `Booking couldn't be found`})}
@@ -99,7 +99,7 @@ router.put(`/:bookingId`, requireAuth, validateDatesInput,  async (req, res, nex
     //check to see if the selected booking. StartDate is in the past
     const today = new Date();
     const bookingSelectedStartDate = new Date(bookingSelected.startDate)
-    if (bookingSelectedStartDate < today) {res.status(403).json({message: `Past bookings can't be modified`})}
+    if (bookingSelectedStartDate < today) {return res.status(403).json({message: `Past bookings can't be modified`})}
 
     //checking for booking conflict
     const spotId = bookingSelected.spotId
@@ -147,7 +147,7 @@ router.delete(`/:bookingId`, requireAuth,  async (req, res, next) => {
         // console.log(`current Booking userId`, bookingSelected.userId)
         // console.log(`login userId`, userId)
         // console.log(`ownerId`, spotSelected.ownerId)
-        res.status(403).json({message: `Forbidden`}
+        return res.status(403).json({message: `Forbidden`}
         )
     }
 
@@ -160,7 +160,7 @@ router.delete(`/:bookingId`, requireAuth,  async (req, res, next) => {
         }
     })
 
-    if(bookingWithinToday) {res.status(403).json({message: `Bookings that have been started can't be deleted`})}
+    if(bookingWithinToday) {return res.status(403).json({message: `Bookings that have been started can't be deleted`})}
 
     await bookingSelected.destroy();
 

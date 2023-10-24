@@ -509,7 +509,7 @@ Creates and returns a new spot.
 Create and return a new image for a spot specified by id.
 
 * Require Authentication: true
-* Require proper authorization: Spot must belong to the current user - working on this.
+* Require proper authorization: Spot must belong to the current user - done
 * Request
   <!--!!START SILENT -->
   * Method: POST

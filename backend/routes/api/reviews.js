@@ -112,7 +112,7 @@ router.put(`/:reviewId`, requireAuth, validateReviewInput, async (req, res, next
     }
 
     //check Authorization comparing userId from the current user to the review's userId selected.
-    if(userId !== reviewSelected.userId) {res.status(403).json({message: `Forbidden`})};
+    if(userId !== reviewSelected.userId) {return res.status(403).json({message: `Forbidden`})};
 
     reviewSelected.set({
         review,
@@ -139,7 +139,7 @@ router.delete(`/:reviewId`, requireAuth, async (req, res, next) => {
     }
 
     //check Authorization comparing userId from the current user to the review's userId selected.
-    if(userId !== reviewSelected.userId) {res.status(403).json({message: `Forbidden`})};
+    if(userId !== reviewSelected.userId) {return res.status(403).json({message: `Forbidden`})};
 
 
     await Review.destroy({where: {id: reviewId}})
