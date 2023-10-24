@@ -352,7 +352,7 @@ Returns all the spots owned (created) by the current user. - done
     }
     ```
 
-### Get details of a Spot from an id - Not done. need to fix live issue
+### Get details of a Spot from an id - working. need to fix all the decimcal showing as string when run in live server
 
 Returns the details of a spot specified by its id.
 
@@ -692,9 +692,9 @@ Deletes an existing spot.
 
 ## REVIEWS
 
-### Get all Reviews of the Current User - working on this
+### Get all Reviews of the Current User - done
 
-Returns all the reviews written by the current user. cant get preview
+Returns all the reviews written by the current user.
 
 * Require Authentication: true
 * Request
@@ -1076,9 +1076,9 @@ Delete an existing review.
 
 ## BOOKINGS -
 
-### Get all of the Current User's Bookings - working on this
+### Get all of the Current User's Bookings - done
 
-Return all the bookings that the current user has made. -. can't get preview img.
+Return all the bookings that the current user has made.
 
 * Require Authentication: true
 * Request
@@ -1484,12 +1484,12 @@ Delete an existing image for a Spot.
     }
     ```
 
-### Delete a Review Image
+### Delete a Review Image - done
 
 Delete an existing image for a Review.
 
-* Require Authentication: true
-* Require proper authorization: Review must belong to the current user
+* Require Authentication: true - done
+* Require proper authorization: Review must belong to the current user - done
 * Request
   <!--!!START SILENT -->
   * Method: DELETE
@@ -1513,7 +1513,7 @@ Delete an existing image for a Review.
     }
     ```
 
-* Error response: Couldn't find a Review Image with the specified id
+* Error response: Couldn't find a Review Image with the specified id - done
   * Status Code: 404
   * Headers:
     * Content-Type: application/json
@@ -1525,8 +1525,7 @@ Delete an existing image for a Review.
     }
     ```
 
-## Add Query Filters to Get All Spots
-
+## Add Query Filters to Get All Spots - done
 Return spots filtered by query parameters.
 
 * Require Authentication: false

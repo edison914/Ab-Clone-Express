@@ -6,7 +6,7 @@ const { setTokenCookie, requireAuth } = require('../../utils/auth');
 const { User, Spot, Review, SpotImage, ReviewImage, Booking} = require('../../db/models');
 const { AggregateError } = require('sequelize');
 const { check } = require('express-validator');
-const { handleValidationErrors } = require('../../utils/validation');
+const { handleValidationErrors, handleValidationQueryErrors } = require('../../utils/validation');
 
 const router = express.Router();
 
@@ -17,10 +17,10 @@ const validateSpotInput = [
         .withMessage('Street address is required'),
     check('city')
         .exists({ checkFalsy: true })
-        .withMessage('city is required'),
+        .withMessage('City is required'),
     check('state')
         .exists({ checkFalsy: true })
-        .withMessage('state is required'),
+        .withMessage('State is required'),
     check('country')
         .exists({ checkFalsy: true })
         .withMessage('Country is required'),
@@ -80,48 +80,135 @@ const validateDatesInput = [
     handleValidationErrors
 ];
 
+const validateSpotQuery = [
+    check('page')
+        .isInt({min: 1})
+        .withMessage('Page must be greater than or equal to 1'),
+    check('size')
+        .isInt({min: 1})
+        .withMessage('Size must be greater than or equal to 1'),
+    check('maxLat')
+        .optional()
+        .isFloat({max: 90})
+        .withMessage('Maximum latitude is invalid'),
+    check('minLat')
+        .optional()
+        .isFloat({min: -90})
+        .withMessage('Minimum latitude is invalid'),
+    check('maxLng')
+        .optional()
+        .isFloat({max: 180})
+        .withMessage('Maximum longitude is invalid'),
+    check('minLng')
+        .optional()
+        .isFloat({min: -180})
+        .withMessage('Minimum longitude is invalid'),
+    check('minPrice')
+        .optional()
+        .isFloat({min: 0})
+        .withMessage('Minimum price must be greater than or equal to 0'),
+    check('maxPrice')
+        .optional()
+        .isFloat({min: 0})
+        .withMessage('Maximum price must be greater than or equal to 0'),
+    handleValidationQueryErrors
+];
 
-//### Get all Spots - done
-router.get(`/`, async (req, res, next) => {
-    const spots = await Spot.findAll({
-        include: [{model: Review}, {model:SpotImage}]
-        //alex sugguestion including attributes of model.reviews, pass in the array. to get the averg.
-    })
 
-    //loop through each spot to find the ratings and preview
-    const spotsWithAvgRatingAndPreview = spots.map((spot) => {
-        const reviews = spot.Reviews;
-        //console.log(reviews)
-        //loop throgh reviews array, add all the review.stars together in each review/element
-        const totalRating = reviews.reduce((acc, review) => acc + review.stars, 0);
-        //calculate the average
-        const avgRating = totalRating / reviews.length
-        //extract preview url from spotImage obj
-        const previewImg = spot.SpotImages[0].url
-        //console.log(previewImg)
+//### Get all Spots
+//## Add Query Filters to Get All Spots
+router.get(`/`, validateSpotQuery, async (req, res, next) => {
+    let { page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice } = req.query;
+    //create a where obj where it contains all the params from URL
+    const where = {};
 
-        //create the new spotsWithRatingAndPreview Obj
-        //parse the data into num.
-        return {
-            id: spot.id,
-            ownerId: spot.ownerId,
-            address: spot.address,
-            city: spot.city,
-            state: spot.state,
-            country: spot.country,
-            lat: spot.lat,
-            lng: spot.lng,
-            name: spot.name,
-            description: spot.description,
-            price: spot.price,
-            createdAt: spot.createdAt,
-            updatedAt: spot.updatedAt,
-            avgRating: avgRating,
-            previewImage: previewImg
-        };
-    })
+    //required query params, use page and size if url contains page and size query
+    if (page && size) {
 
-    res.json({spots: spotsWithAvgRatingAndPreview});
+        let offset = (page -1) * size;
+        //optinal query params
+        // if either minLat or maxLat param is given
+        if(minLat || maxLat) {
+            //set where claus attribute, lat is between minLat and maxLat. Set a default min or Lat if one is not given
+            if(!minLat) minLat = -90;
+            if(!maxLat) maxLat = 90
+            where.lat = { [Op.between]: [minLat, maxLat]}
+            console.log(where.lat);
+        }
+
+        if(minLng || maxLng) {
+            if(!minLng) minLng = -180;
+            if(!maxLng) maxLng = 180
+            where.lng = { [Op.between]: [minLng, maxLng]}
+            console.log(where.lng);
+        }
+
+        if(minPrice || maxPrice) {
+            if(!minPrice) minPrice = 0;
+            if(!maxPrice) maxPrice = Number.MAX_VALUE
+            where.price = { [Op.between]: [minPrice, maxPrice]}
+        }
+
+        const spots = await Spot.findAll({
+            where,
+            limit: size,
+            offset,
+            include: [{model: Review}, {model:SpotImage}]
+        })
+        //loop through each spot to find the ratings and preview
+        //create an empty arr
+        let spotsList = [];
+        //loop through spots, change each spot to JSON, then add them to the spotsList
+        spots.forEach(spot => { spotsList.push(spot.toJSON())})
+        //loop through spotsList
+        spotsList.forEach(spot => {
+            //find reviews for spot, calculate the avg rating, then assign the avg rating to each.
+            const reviews = spot.Reviews;
+            const totalRating = reviews.reduce((acc, review) => acc + review.stars, 0);
+            const avgRating = totalRating / reviews.length;
+            spot.avgRating = avgRating;
+            //find the FIRST image for spot, if FIRST img preview is true, then assign previewImage to url
+            if(spot.SpotImages[0].preview) {
+                const previewImg = spot.SpotImages[0].url
+                spot.previewImage = previewImg
+            //else, if img preview is false, then assign previewImage with comment
+            } else {
+                spot.previewImage = 'Preview is not allowed'
+            }
+            //remove the include of Reviews and SpotImages
+            delete spot.Reviews;
+            delete spot.SpotImages;
+        })
+        return res.json({Spots: spotsList, page, size})
+    } else {
+         // if (page && size doesnt exist)
+        const spots = await Spot.findAll({
+            include: [{model: Review}, {model:SpotImage}]
+        })
+        let spotsList = [];
+
+        spots.forEach(spot => { spotsList.push(spot.toJSON())})
+
+        spotsList.forEach(spot => {
+            const reviews = spot.Reviews;
+            const totalRating = reviews.reduce((acc, review) => acc + review.stars, 0);
+            const avgRating = totalRating / reviews.length;
+            spot.avgRating = avgRating;
+
+            if(spot.SpotImages[0].preview) {
+                const previewImg = spot.SpotImages[0].url
+                spot.previewImage = previewImg
+            } else {
+                spot.previewImage = 'Preview is not allowed'
+            }
+            delete spot.Reviews;
+            delete spot.SpotImages;
+        })
+
+        res.json({Spots: spotsList})
+    }
+
+
 });
 
 //### Get all Spots owned by the Current User
@@ -157,7 +244,7 @@ router.get(`/current`, requireAuth, async (req, res, next) => {
         };
     })
 
-    res.json({spots: spotsWithAvgRatingAndPreview});
+    res.json({Spots: spotsWithAvgRatingAndPreview});
 });
 
 //### Get details of a Spot from an id
@@ -166,7 +253,9 @@ router.get(`/:spotId`, async (req, res, next) => {
     //find spots where ownerId = current user, also include associated model review and spotimage.
     try {
         let spot = await Spot.findOne({
-            include: [{model: SpotImage}, {model:Review}, {model:User}],
+            include: [
+                {model: SpotImage, attributes: { exclude: [`spotId`, `createdAt`, `updatedAt`]}},
+                {model:Review}, {model:User}],
             where: {id}
         })
 
@@ -347,7 +436,7 @@ router.get(`/:spotId/reviews`, async (req, res, next) => {
             ]
         });
 
-        res.status(200).json({reviews});
+        res.status(200).json({Reviews: reviews});
     } catch (error) {
         const err = new Error(`Spot couldn't be found`);
         err.status = 404;
@@ -411,7 +500,7 @@ router.get(`/:spotId/bookings`, requireAuth, async (req, res, next) => {
 
             });
 
-            res.status(200).json({bookings});
+            res.status(200).json({Bookings: bookings});
         };
 
         if (userId === spotSelected.ownerId) {
@@ -419,7 +508,7 @@ router.get(`/:spotId/bookings`, requireAuth, async (req, res, next) => {
                 where: { spotId },
                 include: [{ model: User, attributes: { exclude: [`username`, `hashedPassword`, `createdAt`, `updatedAt`, `email`] } }],
             });
-            res.status(200).json({ bookings });
+            res.status(200).json({Bookings: bookings });
         }
     } catch (error) {
         const err = new Error(`Spot couldn't be found`);
