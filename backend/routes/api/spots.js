@@ -31,7 +31,7 @@ const validateSpotInput = [
         .isFloat({ min: -180, max: 180})
         .withMessage('Longitude must be within -180 and 180'),
     check('name')
-        .isLength({ max: 50 })
+        .isLength({ min: 1, max: 50 })
         .withMessage('Name must be less than 50 characters'),
     check('description')
         .exists({ checkFalsy: true })
@@ -224,9 +224,10 @@ router.get(`/current`, requireAuth, async (req, res, next) => {
         const totalRating = reviews.reduce((acc, review) => acc + review.stars, 0);
         const avgRating = totalRating / reviews.length
 
-        let previewImg = ''
+        let previewImg;
         if (spot.SpotImages && spot.SpotImages[0] && spot.SpotImages[0].url) {
             previewImg = spot.SpotImages[0].url;
+
         } else {
             previewImg = null;
         }
@@ -550,8 +551,11 @@ router.post(`/:spotId/bookings`, requireAuth, validateDatesInput,  async (req, r
         const existingStartDate = new Date(existingBooking.startDate);
         const existingEndDate = new Date(existingBooking.endDate);
 
-        if ((selectedStartDate <= existingEndDate && selectedStartDate >= existingStartDate) ||
-            (selectedEndDate >= existingStartDate && selectedEndDate <= existingEndDate)){
+        if (
+            (selectedStartDate <= existingEndDate && selectedStartDate >= existingStartDate) ||
+            (selectedEndDate >= existingStartDate && selectedEndDate <= existingEndDate) ||
+            (selectedStartDate <= existingStartDate && selectedEndDate >= existingEndDate)
+        ) {
             return res.status(403).json({
                 message: "Sorry, this spot is already booked for the specified dates",
                 errors: {

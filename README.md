@@ -557,8 +557,7 @@ Create and return a new image for a spot specified by id.
     ```
 
 ### Edit a Spot - done.
-//should i create a validation error for data that doesnt pass the validation?
-//not working. after creating spots, query has issues. need to look into newly created spots.
+//should i create a validation error for data that doesnt pass the validation?.
 
 Updates and returns an existing spot.
 
@@ -1273,7 +1272,7 @@ Create and return a new booking from a spot specified by id.
     }
     ```
 
-* Error response: Booking conflict --- done
+* Error response: Booking conflict --- working need to revise create a booking checking method
   * Status Code: 403
   * Headers:
     * Content-Type: application/json
