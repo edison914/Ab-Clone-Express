@@ -45,7 +45,7 @@ correct role(s) or permission(s).
     }
     ```
 
-### Get the Current User - Done
+### Get the Current User - Done / live checked
 
 Returns the information about the current user that is logged in.
 
@@ -61,7 +61,7 @@ Returns the information about the current user that is logged in.
   <!--!!END_ADD -->
   * Body: none
 
-* Successful Response when there is a logged in user - Done
+* Successful Response when there is a logged in user - Done / live checked
   * Status Code: 200
   * Headers:
     * Content-Type: application/json
@@ -79,7 +79,7 @@ Returns the information about the current user that is logged in.
     }
     ```
 
-* Successful Response when there is no logged in user - done
+* Successful Response when there is no logged in user - done / live checked
   * Status Code: 200
   * Headers:
     * Content-Type: application/json
@@ -91,7 +91,7 @@ Returns the information about the current user that is logged in.
     }
     ```
 
-### Log In a User - Done
+### Log In a User - Done / live checked
 
 Logs in a current user with valid credentials and returns the current user's
 information.
@@ -117,7 +117,7 @@ information.
     }
     ```
 
-* Successful Response - Done
+* Successful Response - Done - live checked
   * Status Code: 200
   * Headers:
     * Content-Type: application/json
@@ -135,7 +135,7 @@ information.
     }
     ```
 
-* Error Response: Invalid credentials - Done
+* Error Response: Invalid credentials - Done - live checked
   * Status Code: 401
   * Headers:
     * Content-Type: application/json
@@ -147,7 +147,7 @@ information.
     }
     ```
 
-* Error response: Body validation errors - Done
+* Error response: Body validation errors - Done - live checked
   * Status Code: 400
   * Headers:
     * Content-Type: application/json
@@ -163,7 +163,7 @@ information.
     }
     ```
 
-### Sign Up a User - Done
+### Sign Up a User - Done / live checked
 
 Creates a new user, logs them in as the current user, and returns the current
 user's information.
@@ -192,7 +192,7 @@ user's information.
     }
     ```
 
-* Successful Response - done
+* Successful Response - done / live checked
   * Status Code: 200
   * Headers:
     * Content-Type: application/json
@@ -210,7 +210,7 @@ user's information.
     }
     ```
 
-* Error response: User already exists with the specified email - done
+* Error response: User already exists with the specified email - done / live checked
   * Status Code: 500
   * Headers:
     * Content-Type: application/json
@@ -225,7 +225,7 @@ user's information.
     }
     ```
 
-* Error response: User already exists with the specified username - done
+* Error response: User already exists with the specified username - done / live checked
   * Status Code: 500
   * Headers:
     * Content-Type: application/json
@@ -240,7 +240,7 @@ user's information.
     }
     ```
 
-* Error response: Body validation errors - Done
+* Error response: Body validation errors - Done / live checked
   * Status Code: 400
   * Headers:
     * Content-Type: application/json
@@ -263,7 +263,7 @@ user's information.
 ### Get all Spots - done
 
 Returns all the spots. - done
-
+//Issue Live, "previewImage" is not picking the first Img from the array table.
 * Require Authentication: false
 * Request
   <!--!!START SILENT -->
@@ -308,7 +308,7 @@ Returns all the spots. - done
 
 ### Get all Spots owned by the Current User - done, also checked auth me result
 
-Returns all the spots owned (created) by the current user. - done
+Returns all the spots owned (created) by the current user. - done / live checked
 
 * Require Authentication: true
 * Request
@@ -369,7 +369,7 @@ Returns the details of a spot specified by its id.
   * Body: none
 
 * Successful Response -
-done for local
+done for local / live checked
 live has issue with the data with 2 decimal getting turn into a string.
   * Status Code: 200
   * Headers:
@@ -413,7 +413,7 @@ live has issue with the data with 2 decimal getting turn into a string.
     }
     ```
 
-* Error response: Couldn't find a Spot with the specified id - done
+* Error response: Couldn't find a Spot with the specified id - done /live checked
   * Status Code: 404
   * Headers:
     * Content-Type: application/json
@@ -425,7 +425,7 @@ live has issue with the data with 2 decimal getting turn into a string.
     }
     ```
 
-### Create a Spot - done
+### Create a Spot - done / live checked
 
 Creates and returns a new spot.
 
@@ -457,7 +457,7 @@ Creates and returns a new spot.
     }
     ```
 
-* Successful Response - done
+* Successful Response - done / live checked
   * Status Code: 201
   * Headers:
     * Content-Type: application/json
@@ -481,7 +481,7 @@ Creates and returns a new spot.
     }
     ```
 
-* Error Response: Body validation errors - done.
+* Error Response: Body validation errors - done. / live checked
   * Status Code: 400
   * Headers:
     * Content-Type: application/json
@@ -504,12 +504,12 @@ Creates and returns a new spot.
     }
     ```
 
-### Add an Image to a Spot based on the Spot's id - -done- update 20
+### Add an Image to a Spot based on the Spot's id - working on this.
 
 Create and return a new image for a spot specified by id.
 
 * Require Authentication: true
-* Require proper authorization: Spot must belong to the current user
+* Require proper authorization: Spot must belong to the current user - working on this.
 * Request
   <!--!!START SILENT -->
   * Method: POST
@@ -1077,7 +1077,7 @@ Delete an existing review.
 ## BOOKINGS -
 
 ### Get all of the Current User's Bookings - done
-
+//working on live, preview extract different image from local.
 Return all the bookings that the current user has made.
 
 * Require Authentication: true

@@ -35,12 +35,6 @@ npx sequelize model:generate --name SpotImage --attributes spotId:integer,url:st
     //Spot hasMany Booking
     //Booking belongsto Spot
 
-    //User belongsToMany Spot through booking
-    //Spot belongsToMany User through booking
-
-    //User belongsToMany Spot through Review
-    //Spot belongsToMany User through Review
-
     //update bookings and reviews migration with referece???? only if you are defining relationship not using association.
 
     Need to eliminate some redundant relationship
