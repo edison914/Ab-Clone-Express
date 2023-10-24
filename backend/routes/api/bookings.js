@@ -46,15 +46,13 @@ router.get(`/current`, requireAuth, async (req, res, next) => {
     try {
         const bookings = await Booking.findAll({
             where: { userId },
-            attributes: { exclude: [`userId`, `startDate`, `endDate`, `createdAt`, `updatedAt`] },
             include: [
                 {model: Spot, attributes: { exclude: [`description`, `createdAt`, `updatedAt`]},
                                             include: [{
                                                 model: SpotImage,
                                                 attributes: [`url`], //how do i display only the url without display the spotImage obj?
                                             }]
-                },
-                {model: User, attributes: { exclude: [`username`, `email`, `hashedPassword`]}},
+                }
             ]
         });
 
@@ -109,8 +107,11 @@ router.put(`/:bookingId`, requireAuth, validateDatesInput,  async (req, res, nex
         const existingStartDate = new Date(existingBooking.startDate);
         const existingEndDate = new Date(existingBooking.endDate);
 
-        if ((selectedStartDate <= existingEndDate && selectedStartDate >= existingStartDate) ||
-            (selectedEndDate >= existingStartDate && selectedEndDate <= existingEndDate)){
+        if (
+            (selectedStartDate <= existingEndDate && selectedStartDate >= existingStartDate) ||
+            (selectedEndDate >= existingStartDate && selectedEndDate <= existingEndDate) ||
+            (selectedStartDate <= existingStartDate && selectedEndDate >= existingEndDate)
+        ){
             return res.status(403).json({
                 message: "Sorry, this spot is already booked for the specified dates",
                 errors: {
