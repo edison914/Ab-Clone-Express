@@ -331,9 +331,12 @@ router.post(`/`, requireAuth, validateSpotInput, async (req, res, next) => {
 router.post(`/:spotId/images`, requireAuth,  async (req, res, next) => {
     const { url, preview } = req.body;
     const id = req.params.spotId;
+    const userId = req.user.id;
 
     try {
         const spot = await Spot.findOne({where: {id}})
+        console.log(spot)
+        if(userId !== spot.ownerId) {res.status(403).json({message: `Forbidden`})};
 
         let newImg = await SpotImage.create({
             spotId: spot.id,
@@ -348,6 +351,7 @@ router.post(`/:spotId/images`, requireAuth,  async (req, res, next) => {
             preview
         }
         res.status(200).json(newImg);
+        
     } catch (error) {
         const err = new Error(`Spot couldn't be found`);
         err.status = 404;

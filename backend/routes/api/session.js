@@ -26,7 +26,7 @@ const validateLogin = [
   ];
 
 
-//login with post method, body should be an obj, validateLogin is checked first before checking to see if there is user exist in database.
+//Log in a User, post method, body should be an obj, validateLogin is checked first before checking to see if there is user exist in database.
 router.post('/', validateLogin, async (req, res, next) => {
     const { credential, password } = req.body;
 
