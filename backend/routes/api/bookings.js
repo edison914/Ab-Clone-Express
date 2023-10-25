@@ -50,7 +50,7 @@ router.get(`/current`, requireAuth, async (req, res, next) => {
                 {model: Spot, attributes: { exclude: [`description`, `createdAt`, `updatedAt`]},
                                             include: [{
                                                 model: SpotImage,
-                                                attributes: [`url`], //how do i display only the url without display the spotImage obj?
+                                                attributes: [`url`],
                                             }]
                 }
             ]
@@ -62,7 +62,7 @@ router.get(`/current`, requireAuth, async (req, res, next) => {
         })
 
         bookingsList.forEach(booking => {
-            //do you want to search for img tht only allow preview and return them?
+            
             booking.Spot.previewImage = booking.Spot.SpotImages[0].url;
 
         delete booking.Spot.SpotImages;

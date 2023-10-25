@@ -133,14 +133,14 @@ router.get(`/`, validateSpotQuery, async (req, res, next) => {
             if(!minLat) minLat = -90;
             if(!maxLat) maxLat = 90
             where.lat = { [Op.between]: [minLat, maxLat]}
-            console.log(where.lat);
+            //console.log(where.lat);
         }
 
         if(minLng || maxLng) {
             if(!minLng) minLng = -180;
             if(!maxLng) maxLng = 180
             where.lng = { [Op.between]: [minLng, maxLng]}
-            console.log(where.lng);
+            //console.log(where.lng);
         }
 
         if(minPrice || maxPrice) {
