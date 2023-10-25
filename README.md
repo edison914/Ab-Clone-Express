@@ -45,7 +45,7 @@ correct role(s) or permission(s).
     }
     ```
 
-### Get the Current User - Done / live checked
+### Get the Current User
 
 Returns the information about the current user that is logged in.
 
@@ -61,7 +61,7 @@ Returns the information about the current user that is logged in.
   <!--!!END_ADD -->
   * Body: none
 
-* Successful Response when there is a logged in user - Done / live checked
+* Successful Response when there is a logged in user
   * Status Code: 200
   * Headers:
     * Content-Type: application/json
@@ -79,7 +79,7 @@ Returns the information about the current user that is logged in.
     }
     ```
 
-* Successful Response when there is no logged in user - done / live checked
+* Successful Response when there is no logged in user
   * Status Code: 200
   * Headers:
     * Content-Type: application/json
@@ -91,7 +91,7 @@ Returns the information about the current user that is logged in.
     }
     ```
 
-### Log In a User - Done / live checked
+### Log In a User
 
 Logs in a current user with valid credentials and returns the current user's
 information.
@@ -117,7 +117,7 @@ information.
     }
     ```
 
-* Successful Response - Done - live checked
+* Successful Response
   * Status Code: 200
   * Headers:
     * Content-Type: application/json
@@ -135,7 +135,8 @@ information.
     }
     ```
 
-* Error Response: Invalid credentials - Done - live checked
+
+* Error Response: Invalid credentials
   * Status Code: 401
   * Headers:
     * Content-Type: application/json
@@ -147,7 +148,7 @@ information.
     }
     ```
 
-* Error response: Body validation errors - Done - live checked
+* Error response: Body validation errors
   * Status Code: 400
   * Headers:
     * Content-Type: application/json
@@ -163,7 +164,7 @@ information.
     }
     ```
 
-### Sign Up a User - Done / live checked
+### Sign Up a User
 
 Creates a new user, logs them in as the current user, and returns the current
 user's information.
@@ -192,7 +193,7 @@ user's information.
     }
     ```
 
-* Successful Response - done / live checked
+* Successful Response
   * Status Code: 200
   * Headers:
     * Content-Type: application/json
@@ -210,7 +211,7 @@ user's information.
     }
     ```
 
-* Error response: User already exists with the specified email - done / live checked
+* Error response: User already exists with the specified email
   * Status Code: 500
   * Headers:
     * Content-Type: application/json
@@ -225,7 +226,7 @@ user's information.
     }
     ```
 
-* Error response: User already exists with the specified username - done / live checked
+* Error response: User already exists with the specified username
   * Status Code: 500
   * Headers:
     * Content-Type: application/json
@@ -240,7 +241,7 @@ user's information.
     }
     ```
 
-* Error response: Body validation errors - Done / live checked
+* Error response: Body validation errors
   * Status Code: 400
   * Headers:
     * Content-Type: application/json
@@ -260,10 +261,10 @@ user's information.
 
 ## SPOTS
 
-### Get all Spots - done
+### Get all Spots
 
-Returns all the spots. - done
-//Issue Live, "previewImage" is not picking the first Img from the array table.
+Returns all the spots.
+
 * Require Authentication: false
 * Request
   <!--!!START SILENT -->
@@ -276,7 +277,7 @@ Returns all the spots. - done
   <!--!!END_ADD -->
   * Body: none
 
-* Successful Response - done
+* Successful Response
   * Status Code: 200
   * Headers:
     * Content-Type: application/json
@@ -306,9 +307,9 @@ Returns all the spots. - done
     }
     ```
 
-### Get all Spots owned by the Current User - done, also checked auth me result
+### Get all Spots owned by the Current User
 
-Returns all the spots owned (created) by the current user. - done / live checked
+Returns all the spots owned (created) by the current user.
 
 * Require Authentication: true
 * Request
@@ -352,7 +353,7 @@ Returns all the spots owned (created) by the current user. - done / live checked
     }
     ```
 
-### Get details of a Spot from an id - working. need to fix all the decimcal showing as string when run in live server
+### Get details of a Spot from an id
 
 Returns the details of a spot specified by its id.
 
@@ -368,9 +369,7 @@ Returns the details of a spot specified by its id.
   <!--!!END_ADD -->
   * Body: none
 
-* Successful Response -
-done for local / live checked
-live has issue with the data with 2 decimal getting turn into a string.
+* Successful Response
   * Status Code: 200
   * Headers:
     * Content-Type: application/json
@@ -413,7 +412,7 @@ live has issue with the data with 2 decimal getting turn into a string.
     }
     ```
 
-* Error response: Couldn't find a Spot with the specified id - done /live checked
+* Error response: Couldn't find a Spot with the specified id
   * Status Code: 404
   * Headers:
     * Content-Type: application/json
@@ -425,7 +424,7 @@ live has issue with the data with 2 decimal getting turn into a string.
     }
     ```
 
-### Create a Spot - done / live checked
+### Create a Spot
 
 Creates and returns a new spot.
 
@@ -457,7 +456,7 @@ Creates and returns a new spot.
     }
     ```
 
-* Successful Response - done / live checked
+* Successful Response
   * Status Code: 201
   * Headers:
     * Content-Type: application/json
@@ -481,7 +480,7 @@ Creates and returns a new spot.
     }
     ```
 
-* Error Response: Body validation errors - done. / live checked
+* Error Response: Body validation error
   * Status Code: 400
   * Headers:
     * Content-Type: application/json
@@ -495,21 +494,21 @@ Creates and returns a new spot.
         "city": "City is required",
         "state": "State is required",
         "country": "Country is required",
-        "lat": "Latitude must be within -90 and 90",
-        "lng": "Longitude must be within -180 and 180",
+        "lat": "Latitude is not valid",
+        "lng": "Longitude is not valid",
         "name": "Name must be less than 50 characters",
         "description": "Description is required",
-        "price": "Price per day must be a positive number"
+        "price": "Price per day is required"
       }
     }
     ```
 
-### Add an Image to a Spot based on the Spot's id - done / live checked
+### Add an Image to a Spot based on the Spot's id
 
 Create and return a new image for a spot specified by id.
 
 * Require Authentication: true
-* Require proper authorization: Spot must belong to the current user - done / live checked
+* Require proper authorization: Spot must belong to the current user
 * Request
   <!--!!START SILENT -->
   * Method: POST
@@ -530,7 +529,7 @@ Create and return a new image for a spot specified by id.
     }
     ```
 
-* Successful Response - done / live checekd
+* Successful Response
   * Status Code: 200
   * Headers:
     * Content-Type: application/json
@@ -544,7 +543,7 @@ Create and return a new image for a spot specified by id.
     }
     ```
 
-* Error response: Couldn't find a Spot with the specified id - done / live checked
+* Error response: Couldn't find a Spot with the specified id
   * Status Code: 404
   * Headers:
     * Content-Type: application/json
@@ -556,13 +555,12 @@ Create and return a new image for a spot specified by id.
     }
     ```
 
-### Edit a Spot - done.
-//should i create a validation error for data that doesnt pass the validation?.
+### Edit a Spot
 
 Updates and returns an existing spot.
 
-* Require Authentication: true - done
-* Require proper authorization: Spot must belong to the current user - done
+* Require Authentication: true
+* Require proper authorization: Spot must belong to the current user
 * Request
   <!--!!START SILENT -->
   * Method: PUT
@@ -590,7 +588,7 @@ Updates and returns an existing spot.
     }
     ```
 
-* Successful Response - done
+* Successful Response
   * Status Code: 200
   * Headers:
     * Content-Type: application/json
@@ -614,7 +612,7 @@ Updates and returns an existing spot.
     }
     ```
 
-* Error Response: Body validation errors - done
+* Error Response: Body validation error
   * Status Code: 400
   * Headers:
     * Content-Type: application/json
@@ -628,16 +626,16 @@ Updates and returns an existing spot.
         "city": "City is required",
         "state": "State is required",
         "country": "Country is required",
-        "lat": "Latitude must be within -90 and 90",
-        "lng": "Longitude must be within -180 and 180",
+        "lat": "Latitude is not valid",
+        "lng": "Longitude is not valid",
         "name": "Name must be less than 50 characters",
         "description": "Description is required",
-        "price": "Price per day must be a positive number"
+        "price": "Price per day is required"
       }
     }
     ```
 
-* Error response: Couldn't find a Spot with the specified id - done
+* Error response: Couldn't find a Spot with the specified id
   * Status Code: 404
   * Headers:
     * Content-Type: application/json
@@ -649,12 +647,12 @@ Updates and returns an existing spot.
     }
     ```
 
-### Delete a Spot - done
+### Delete a Spot
 
 Deletes an existing spot.
 
-* Require Authentication: true - done, status 403
-* Require proper authorization: Spot must belong to the current user - done
+* Require Authentication: true
+* Require proper authorization: Spot must belong to the current user
 * Request
   <!--!!START SILENT -->
   * Method: DELETE
@@ -666,7 +664,7 @@ Deletes an existing spot.
   <!--!!END_ADD -->
   * Body: none
 
-* Successful Response - done
+* Successful Response
   * Status Code: 200
   * Headers:
     * Content-Type: application/json
@@ -678,7 +676,7 @@ Deletes an existing spot.
     }
     ```
 
-* Error response: Couldn't find a Spot with the specified id - done
+* Error response: Couldn't find a Spot with the specified id
   * Status Code: 404
   * Headers:
     * Content-Type: application/json
@@ -692,7 +690,7 @@ Deletes an existing spot.
 
 ## REVIEWS
 
-### Get all Reviews of the Current User - done
+### Get all Reviews of the Current User
 
 Returns all the reviews written by the current user.
 
@@ -754,9 +752,9 @@ Returns all the reviews written by the current user.
     }
     ```
 
-### Get all Reviews by a Spot's id - done
+### Get all Reviews by a Spot's id
 
-Returns all the reviews that belong to a spot specified by id. - done
+Returns all the reviews that belong to a spot specified by id.
 
 * Require Authentication: false
 * Request
@@ -803,7 +801,7 @@ Returns all the reviews that belong to a spot specified by id. - done
     }
     ```
 
-* Error response: Couldn't find a Spot with the specified id - done
+* Error response: Couldn't find a Spot with the specified id
   * Status Code: 404
   * Headers:
     * Content-Type: application/json
@@ -815,11 +813,11 @@ Returns all the reviews that belong to a spot specified by id. - done
     }
     ```
 
-### Create a Review for a Spot based on the Spot's id - done
+### Create a Review for a Spot based on the Spot's id
 
 Create and return a new review for a spot specified by id.
 
-* Require Authentication: true - done
+* Require Authentication: true
 * Request
   <!--!!START SILENT -->
   * Method: POST
@@ -840,7 +838,7 @@ Create and return a new review for a spot specified by id.
     }
     ```
 
-* Successful Response - done
+* Successful Response
   * Status Code: 201
   * Headers:
     * Content-Type: application/json
@@ -858,7 +856,7 @@ Create and return a new review for a spot specified by id.
     }
     ```
 
-* Error Response: Body validation errors - done
+* Error Response: Body validation errors
   * Status Code: 400
   * Headers:
     * Content-Type: application/json
@@ -874,7 +872,7 @@ Create and return a new review for a spot specified by id.
     }
     ```
 
-* Error response: Couldn't find a Spot with the specified id - done
+* Error response: Couldn't find a Spot with the specified id
   * Status Code: 404
   * Headers:
     * Content-Type: application/json
@@ -886,7 +884,7 @@ Create and return a new review for a spot specified by id.
     }
     ```
 
-* Error response: Review from the current user already exists for the Spot - done
+* Error response: Review from the current user already exists for the Spot
   * Status Code: 500
   * Headers:
     * Content-Type: application/json
@@ -898,11 +896,11 @@ Create and return a new review for a spot specified by id.
     }
     ```
 
-### Add an Image to a Review based on the Review's id - done
+### Add an Image to a Review based on the Review's id
 
 Create and return a new image for a review specified by id.
 
-* Require Authentication: true - done
+* Require Authentication: true
 * Require proper authorization: Review must belong to the current user
 * Request
   <!--!!START SILENT -->
@@ -923,7 +921,7 @@ Create and return a new image for a review specified by id.
     }
     ```
 
-* Successful Response - done
+* Successful Response
   * Status Code: 200
   * Headers:
     * Content-Type: application/json
@@ -936,7 +934,7 @@ Create and return a new image for a review specified by id.
     }
     ```
 
-* Error response: Couldn't find a Review with the specified id - done
+* Error response: Couldn't find a Review with the specified id
   * Status Code: 404
   * Headers:
     * Content-Type: application/json
@@ -948,7 +946,7 @@ Create and return a new image for a review specified by id.
     }
     ```
 
-* Error response: Cannot add any more images because there is a maximum of 10 - done
+* Error response: Cannot add any more images because there is a maximum of 10
   images per resource
   * Status Code: 403
   * Headers:
@@ -961,12 +959,12 @@ Create and return a new image for a review specified by id.
     }
     ```
 
-### Edit a Review - done
+### Edit a Review
 
 Update and return an existing review.
 
-* Require Authentication: true - done
-* Require proper authorization: Review must belong to the current user - done
+* Require Authentication: true
+* Require proper authorization: Review must belong to the current user
 * Request
   <!--!!START SILENT -->
   * Method: PUT
@@ -987,7 +985,7 @@ Update and return an existing review.
     }
     ```
 
-* Successful Response - done
+* Successful Response
   * Status Code: 200
   * Headers:
     * Content-Type: application/json
@@ -1005,7 +1003,7 @@ Update and return an existing review.
     }
     ```
 
-* Error Response: Body validation errors - done
+* Error Response: Body validation errors
   * Status Code: 400
   * Headers:
     * Content-Type: application/json
@@ -1021,7 +1019,7 @@ Update and return an existing review.
     }
     ```
 
-* Error response: Couldn't find a Review with the specified id - done
+* Error response: Couldn't find a Review with the specified id
   * Status Code: 404
   * Headers:
     * Content-Type: application/json
@@ -1033,12 +1031,12 @@ Update and return an existing review.
     }
     ```
 
-### Delete a Review - done
+### Delete a Review
 
 Delete an existing review.
 
-* Require Authentication: true - done
-* Require proper authorization: Review must belong to the current user - done
+* Require Authentication: true
+* Require proper authorization: Review must belong to the current user
 * Request
   <!--!!START SILENT -->
   * Method: DELETE
@@ -1050,7 +1048,7 @@ Delete an existing review.
   <!--!!END_ADD -->
   * Body: none
 
-* Successful Response - done
+* Successful Response
   * Status Code: 200
   * Headers:
     * Content-Type: application/json
@@ -1062,7 +1060,7 @@ Delete an existing review.
     }
     ```
 
-* Error response: Couldn't find a Review with the specified id - done
+* Error response: Couldn't find a Review with the specified id
   * Status Code: 404
   * Headers:
     * Content-Type: application/json
@@ -1074,10 +1072,10 @@ Delete an existing review.
     }
     ```
 
-## BOOKINGS -
+## BOOKINGS
 
-### Get all of the Current User's Bookings - done
-//working on live, preview extract different image from local.
+### Get all of the Current User's Bookings
+
 Return all the bookings that the current user has made.
 
 * Require Authentication: true
@@ -1127,7 +1125,7 @@ Return all the bookings that the current user has made.
     }
     ```
 
-### Get all Bookings for a Spot based on the Spot's id - done
+### Get all Bookings for a Spot based on the Spot's id
 
 Return all the bookings for a spot specified by id.
 
@@ -1143,7 +1141,7 @@ Return all the bookings for a spot specified by id.
   <!--!!END_ADD -->
   * Body: none
 
-* Successful Response: If you ARE NOT the owner of the spot. - done
+* Successful Response: If you ARE NOT the owner of the spot.
   * Status Code: 200
   * Headers:
     * Content-Type: application/json
@@ -1161,7 +1159,7 @@ Return all the bookings for a spot specified by id.
     }
     ```
 
-* Successful Response: If you ARE the owner of the spot. - done
+* Successful Response: If you ARE the owner of the spot.
   * Status Code: 200
   * Headers:
     * Content-Type: application/json
@@ -1188,7 +1186,7 @@ Return all the bookings for a spot specified by id.
     }
     ```
 
-* Error response: Couldn't find a Spot with the specified id - done
+* Error response: Couldn't find a Spot with the specified id
   * Status Code: 404
   * Headers:
     * Content-Type: application/json
@@ -1200,12 +1198,12 @@ Return all the bookings for a spot specified by id.
     }
     ```
 
-### Create a Booking from a Spot based on the Spot's id - done
+### Create a Booking from a Spot based on the Spot's id
 
 Create and return a new booking from a spot specified by id.
 
-* Require Authentication: true - done
-* Require proper authorization: Spot must NOT belong to the current user - done
+* Require Authentication: true
+* Require proper authorization: Spot must NOT belong to the current user
 * Request
   <!--!!START SILENT -->
   * Method: POST
@@ -1226,7 +1224,7 @@ Create and return a new booking from a spot specified by id.
     }
     ```
 
-* Successful Response - done
+* Successful Response
   * Status Code: 200
   * Headers:
     * Content-Type: application/json
@@ -1244,7 +1242,7 @@ Create and return a new booking from a spot specified by id.
     }
     ```
 
-* Error response: Body validation errors  - done
+* Error response: Body validation errors
   * Status Code: 400
   * Headers:
     * Content-Type: application/json
@@ -1254,13 +1252,12 @@ Create and return a new booking from a spot specified by id.
     {
       "message": "Bad Request", // (or "Validation error" if generated by Sequelize),
       "errors": {
-        "startDate": "startDate cannot be in the past",
         "endDate": "endDate cannot be on or before startDate"
       }
     }
     ```
 
-* Error response: Couldn't find a Spot with the specified id - done
+* Error response: Couldn't find a Spot with the specified id
   * Status Code: 404
   * Headers:
     * Content-Type: application/json
@@ -1272,7 +1269,7 @@ Create and return a new booking from a spot specified by id.
     }
     ```
 
-* Error response: Booking conflict --- working need to revise create a booking checking method
+* Error response: Booking conflict
   * Status Code: 403
   * Headers:
     * Content-Type: application/json
@@ -1288,12 +1285,12 @@ Create and return a new booking from a spot specified by id.
     }
     ```
 
-### Edit a Booking - done
+### Edit a Booking
 
 Update and return an existing booking.
 
-* Require Authentication: true - done
-* Require proper authorization: Booking must belong to the current user  - done
+* Require Authentication: true
+* Require proper authorization: Booking must belong to the current user
 * Request
   <!--!!START SILENT -->
   * Method: PUT
@@ -1314,7 +1311,7 @@ Update and return an existing booking.
     }
     ```
 
-* Successful Response - done
+* Successful Response
   * Status Code: 200
   * Headers:
     * Content-Type: application/json
@@ -1332,7 +1329,7 @@ Update and return an existing booking.
     }
     ```
 
-* Error response: Body validation errors - done
+* Error response: Body validation errors
   * Status Code: 400
   * Headers:
     * Content-Type: application/json
@@ -1342,13 +1339,12 @@ Update and return an existing booking.
     {
       "message": "Bad Request", // (or "Validation error" if generated by Sequelize),
       "errors": {
-        "startDate": "startDate cannot be in the past",
-        "endDate": "endDate cannot be on or before startDate"
+        "endDate": "endDate cannot come before startDate"
       }
     }
     ```
 
-* Error response: Couldn't find a Booking with the specified id - done
+* Error response: Couldn't find a Booking with the specified id
   * Status Code: 404
   * Headers:
     * Content-Type: application/json
@@ -1360,7 +1356,7 @@ Update and return an existing booking.
     }
     ```
 
-* Error response: Can't edit a booking that's past the end date - done
+* Error response: Can't edit a booking that's past the end date
   * Status Code: 403
   * Headers:
     * Content-Type: application/json
@@ -1372,7 +1368,7 @@ Update and return an existing booking.
     }
     ```
 
-* Error response: Booking conflict - done
+* Error response: Booking conflict
   * Status Code: 403
   * Headers:
     * Content-Type: application/json
@@ -1388,12 +1384,13 @@ Update and return an existing booking.
     }
     ```
 
-### Delete a Booking - done
+### Delete a Booking
 
 Delete an existing booking.
 
-* Require Authentication: true - done
-* Require proper authorization: Booking must belong to the current user or the Spot must belong to the current user - done
+* Require Authentication: true
+* Require proper authorization: Booking must belong to the current user or the
+  Spot must belong to the current user
 * Request
   <!--!!START SILENT -->
   * Method: DELETE
@@ -1417,7 +1414,7 @@ Delete an existing booking.
     }
     ```
 
-* Error response: Couldn't find a Booking with the specified id - done
+* Error response: Couldn't find a Booking with the specified id
   * Status Code: 404
   * Headers:
     * Content-Type: application/json
@@ -1429,7 +1426,7 @@ Delete an existing booking.
     }
     ```
 
-* Error response: Bookings that have been started can't be deleted - done
+* Error response: Bookings that have been started can't be deleted
   * Status Code: 403
   * Headers:
     * Content-Type: application/json
@@ -1443,12 +1440,12 @@ Delete an existing booking.
 
 ## IMAGES
 
-### Delete a Spot Image - done
+### Delete a Spot Image
 
 Delete an existing image for a Spot.
 
-* Require Authentication: true - done
-* Require proper authorization: Spot must belong to the current user - done
+* Require Authentication: true
+* Require proper authorization: Spot must belong to the current user
 * Request
   <!--!!START SILENT -->
   * Method: DELETE
@@ -1460,7 +1457,7 @@ Delete an existing image for a Spot.
   <!--!!END_ADD -->
   * Body: none
 
-* Successful Response - done
+* Successful Response
   * Status Code: 200
   * Headers:
     * Content-Type: application/json
@@ -1472,7 +1469,7 @@ Delete an existing image for a Spot.
     }
     ```
 
-* Error response: Couldn't find a Spot Image with the specified id - done
+* Error response: Couldn't find a Spot Image with the specified id
   * Status Code: 404
   * Headers:
     * Content-Type: application/json
@@ -1484,12 +1481,12 @@ Delete an existing image for a Spot.
     }
     ```
 
-### Delete a Review Image - done
+### Delete a Review Image
 
 Delete an existing image for a Review.
 
-* Require Authentication: true - done
-* Require proper authorization: Review must belong to the current user - done
+* Require Authentication: true
+* Require proper authorization: Review must belong to the current user
 * Request
   <!--!!START SILENT -->
   * Method: DELETE
@@ -1513,7 +1510,7 @@ Delete an existing image for a Review.
     }
     ```
 
-* Error response: Couldn't find a Review Image with the specified id - done
+* Error response: Couldn't find a Review Image with the specified id
   * Status Code: 404
   * Headers:
     * Content-Type: application/json
@@ -1525,7 +1522,8 @@ Delete an existing image for a Review.
     }
     ```
 
-## Add Query Filters to Get All Spots - done
+## Add Query Filters to Get All Spots
+
 Return spots filtered by query parameters.
 
 * Require Authentication: false
