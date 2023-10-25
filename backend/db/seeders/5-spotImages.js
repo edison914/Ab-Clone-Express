@@ -1,6 +1,6 @@
 "use strict";
 
-const { SpotImage } = require("../backend/db/models");
+const { SpotImage } = require("../models");
 
 let options = {};
 if (process.env.NODE_ENV === "production") {
