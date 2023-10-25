@@ -551,19 +551,44 @@ router.post(`/:spotId/bookings`, requireAuth, validateDatesInput,  async (req, r
         const existingStartDate = new Date(existingBooking.startDate);
         const existingEndDate = new Date(existingBooking.endDate);
 
-        if (
-            (selectedStartDate <= existingEndDate && selectedStartDate >= existingStartDate) ||
-            (selectedEndDate >= existingStartDate && selectedEndDate <= existingEndDate) ||
-            (selectedStartDate <= existingStartDate && selectedEndDate >= existingEndDate)
-        ) {
+        //if new startDate is before current StartDate && new endDate is after current endDate - endDate and startDate within Erorr
+        if(selectedStartDate >= existingStartDate && selectedEndDate <= existingEndDate) {
             return res.status(403).json({
+            message: "Sorry, this spot is already booked for the specified dates",
+            errors: {
+                "endDate": "End date conflicts with an existing booking",
+                "startDate": "Start date conflicts with an existing booking"
+                }
+            });
+            }
+            //if new startDate is before current EndDate && new startDate after current startDate - startDate Error
+            if(selectedStartDate <= existingEndDate && selectedStartDate >= existingStartDate) {
+                return res.status(403).json({
                 message: "Sorry, this spot is already booked for the specified dates",
                 errors: {
                     "startDate": "Start date conflicts with an existing booking",
-                    "endDate": "End date conflicts with an existing booking"
-                }
-            });
-        }
+                    }
+                });
+            }
+            //if new endDate is after current startDate && new endDate is before current endDate - endDate Error
+            if(selectedEndDate >= existingStartDate && selectedEndDate <= existingEndDate) {
+                return res.status(403).json({
+                message: "Sorry, this spot is already booked for the specified dates",
+                errors: {
+                    "endDate": "End date conflicts with an existing booking",
+                    }
+                });
+            }
+            //if new startDate is before current StartDate && new endDate is after current endDate - endDate and startDate surrounding Erorr
+            if(selectedStartDate <= existingStartDate && selectedEndDate >= existingEndDate) {
+                return res.status(403).json({
+                message: "Sorry, this spot is already booked for the specified dates",
+                errors: {
+                    "endDate": "End date conflicts with an existing booking",
+                    "startDate": "Start date conflicts with an existing booking"
+                    }
+                });
+            }
     }
 
     // const conflictingBooking = await Booking.findOne( {
