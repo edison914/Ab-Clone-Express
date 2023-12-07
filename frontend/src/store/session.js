@@ -18,7 +18,7 @@ const removeUser = () => {
     }
 };
 
-//thunk actions to make POST request, if success, then dipatch with adduser action
+//thunk action to make POST request, if success, then dipatch with adduser action
 export const login = (user) => async (dispatch) => {
     const { credential, password } = user;
     const res = await csrfFetch (`/api/session`, {
@@ -29,7 +29,22 @@ export const login = (user) => async (dispatch) => {
 
     if (res.ok) {
         const data = await res.json()
-        dispatch(setUser(data))
+        //console.log(data)
+        dispatch(setUser(data.user))
+        return data;
+      } else {
+        const err = await res.json();
+        return err;
+    }
+}
+
+//thunk action to make get request for current session user
+export const restoreUser = () => async (dispatch) => {
+    const res = await csrfFetch (`/api/session`);
+    //console.log(res)
+    if (res.ok) {
+        const data = await res.json()
+        dispatch(setUser(data.user))
         return data;
       } else {
         const err = await res.json();
