@@ -7,8 +7,10 @@ import configureStore from './store';
 import { restoreCSRF, csrfFetch } from './store/csrf';
 import * as sessionActions from './store/session';
 
+//store is defined by invoking configureStore from store.js
 const store = configureStore();
 
+//if not in production mode, do the following
 if (import.meta.env.MODE !== 'production') {
   restoreCSRF();
 
@@ -17,6 +19,8 @@ if (import.meta.env.MODE !== 'production') {
   window.sessionActions = sessionActions;
 }
 
+//once the store is configured, pass the store as a prop in the provider
+//wrapp around the App so Redux can be used for all components inside the App
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <Provider store={store}>
