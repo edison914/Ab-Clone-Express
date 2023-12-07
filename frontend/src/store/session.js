@@ -76,6 +76,21 @@ export const signup = (user) => async (dispatch) => {
     }
   };
 
+//thunk action to remove a logined user
+export const logout = () => async(dispatch) => {
+    const res = await csrfFetch('/api/session', {
+        method: 'DELETE'
+    });
+    console.log(res)
+    if (res.ok) {
+    const data = await res.json()
+    dispatch(removeUser());
+    return data;
+    } else {
+    const err = await res.json();
+    return err;
+}
+}
 //initial state set to null at begining
 const initialState = {
     user: null
