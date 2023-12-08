@@ -3,7 +3,7 @@ import { useDispatch} from 'react-redux';
 //import { Navigate } from 'react-router-dom';
 import { useModal } from '../../context/Modal';
 import * as sessionActions from '../../store/session';
-
+import './SignupForm.css';
 
 function SignupFormModal() {
   const dispatch = useDispatch();
@@ -20,6 +20,7 @@ function SignupFormModal() {
   //if (sessionUser) return <Navigate to="/" replace={true} />;
 
   const handleSubmit = (e) => {
+
     e.preventDefault();
     if (password === confirmPassword) {
       setErrors({});
@@ -36,8 +37,10 @@ function SignupFormModal() {
         .catch(async (res) => {
           const data = await res.json();
           if (data?.errors) {
+
             setErrors(data.errors);
           }
+
         });
     }
     return setErrors({
@@ -46,8 +49,8 @@ function SignupFormModal() {
   };
 
   return (
-    <div className='form-container'>
-      <h1 className='form-signup-header'>Sign Up</h1>
+    <>
+      <h1 className='signup'>Sign Up</h1>
       <form className='form' onSubmit={handleSubmit}>
         <label className='form-label'>
           <input
@@ -59,7 +62,7 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.email && <p>{errors.email}</p>}
+        {errors.email && <p className='form-error-message'>{errors.email}</p>}
         <label className='form-label'>
           <input
             className='input'
@@ -70,7 +73,7 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.username && <p>{errors.username}</p>}
+        {errors.username && <p className='form-error-message'>{errors.username}</p>}
         <label className='form-label'>
           <input
             className='input'
@@ -81,7 +84,7 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.firstName && <p>{errors.firstName}</p>}
+        {errors.firstName && <p className='form-error-message'>{errors.firstName}</p>}
         <label className='form-label'>
           <input
             className='input'
@@ -92,7 +95,7 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.lastName && <p>{errors.lastName}</p>}
+        {errors.lastName && <p className='form-error-message'>{errors.lastName}</p>}
         <label className='form-label'>
           <input
             className='input'
@@ -103,7 +106,7 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.password && <p>{errors.password}</p>}
+        {errors.password && <p className='form-error-message'>{errors.password}</p>}
         <label className='form-label'>
           <input
             className='input'
@@ -114,14 +117,14 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.confirmPassword && <p className='form-confirmpassword-error'>{errors.confirmPassword}</p>}
+        {errors.confirmPassword && <p className='form-error-message'>{errors.confirmPassword}</p>}
         {email.length >0 && username.length >3 && firstName.length > 0
         && lastName.length>0 && password.length>5 && confirmPassword.length>0
         && (
           <button className='form-button' type="submit">Sign Up</button>
         )}
       </form>
-    </div>
+    </>
   );
 }
 

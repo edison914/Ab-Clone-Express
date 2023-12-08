@@ -26,7 +26,7 @@ function LoginFormModal() {
         if (data && data.message) {
           setErrors(data);
         }
-        console.log(errors)
+        //console.log(errors)
       });
   };
 
@@ -62,7 +62,7 @@ function LoginFormModal() {
             required
           />
         </label>
-        {credential.length >3 && password.length >6 && (
+        {credential.length >3 && password.length >5 && (
           <button className='form-button' type="submit">Log In</button>
         )}
         <button className='form-demo-login'

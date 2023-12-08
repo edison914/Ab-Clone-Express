@@ -1,9 +1,18 @@
+/* cant seem to set signup to the center */
+.signup {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
 .form {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 300px;
+    width: 400px;
 }
 
 .form-label {
@@ -24,17 +33,12 @@
 }
 
 .input {
-    margin-left: 5px;
-}
-
-/* cant seem to set signup to the center */
-.form-signup-header{
-    display: flex;
-    margin: 10px;
-    text-align: center;
     width: 200px;
+    background-color: #E8F0FE;
+    border-radius: 4px;
 }
 
-.form-confirmpassword-error {
-    color: #FF5A5F
+.form-error-message {
+    color: #FF5A5F;
+    margin: 20px;
 }
