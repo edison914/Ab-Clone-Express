@@ -1,0 +1,40 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 300px;
+}
+
+.form-label {
+    margin: 5px;
+    color: #E8F0FE;
+    margin-bottom: 10px;
+    font-family: 'Playpen Sans', cursive;
+}
+
+.form-button {
+    margin: 10px;
+    margin-bottom: 20px;
+    background-color:#FF5A5F ;
+    color: white;
+    cursor: pointer;
+    width: 208px;
+    border-radius: 4px;
+}
+
+.input {
+    margin-left: 5px;
+}
+
+/* cant seem to set signup to the center */
+.form-signup-header{
+    display: flex;
+    margin: 10px;
+    text-align: center;
+    width: 200px;
+}
+
+.form-confirmpassword-error {
+    color: #FF5A5F
+}

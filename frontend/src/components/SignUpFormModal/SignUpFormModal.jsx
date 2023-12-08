@@ -4,6 +4,7 @@ import { useDispatch} from 'react-redux';
 import { useModal } from '../../context/Modal';
 import * as sessionActions from '../../store/session';
 
+
 function SignupFormModal() {
   const dispatch = useDispatch();
   //const sessionUser = useSelector((state) => state.session.user);
@@ -46,12 +47,12 @@ function SignupFormModal() {
 
   return (
     <div className='form-container'>
-      <h1>Sign Up</h1>
+      <h1 className='form-signup-header'>Sign Up</h1>
       <form className='form' onSubmit={handleSubmit}>
         <label className='form-label'>
-          Email
           <input
             className='input'
+            placeholder='Email'
             type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -60,9 +61,9 @@ function SignupFormModal() {
         </label>
         {errors.email && <p>{errors.email}</p>}
         <label className='form-label'>
-          Username
           <input
             className='input'
+            placeholder='Username'
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
@@ -71,9 +72,9 @@ function SignupFormModal() {
         </label>
         {errors.username && <p>{errors.username}</p>}
         <label className='form-label'>
-          First Name
           <input
             className='input'
+            placeholder='First Name'
             type="text"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
@@ -82,9 +83,9 @@ function SignupFormModal() {
         </label>
         {errors.firstName && <p>{errors.firstName}</p>}
         <label className='form-label'>
-          Last Name
           <input
             className='input'
+            placeholder='Last Name'
             type="text"
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
@@ -93,9 +94,9 @@ function SignupFormModal() {
         </label>
         {errors.lastName && <p>{errors.lastName}</p>}
         <label className='form-label'>
-          Password
           <input
             className='input'
+            placeholder='Password'
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -104,17 +105,21 @@ function SignupFormModal() {
         </label>
         {errors.password && <p>{errors.password}</p>}
         <label className='form-label'>
-          Confirm Password
           <input
             className='input'
+            placeholder='Confirm Password'
             type="password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
           />
         </label>
-        {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
-        <button className='form-button' type="submit">Sign Up</button>
+        {errors.confirmPassword && <p className='form-confirmpassword-error'>{errors.confirmPassword}</p>}
+        {email.length >0 && username.length >3 && firstName.length > 0
+        && lastName.length>0 && password.length>5 && confirmPassword.length>0
+        && (
+          <button className='form-button' type="submit">Sign Up</button>
+        )}
       </form>
     </div>
   );
