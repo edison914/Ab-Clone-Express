@@ -30,20 +30,11 @@ function LoginFormModal() {
       });
   };
 
+  //create a hanlder to log in demo user when demo button is clicked.
   const handleDemoLogin = (e) => {
     e.preventDefault();
-    setCredential('Demouser')
-    setPassword('demouser')
-    return dispatch(sessionActions.login({ credential, password }))
+    return dispatch(sessionActions.login({ credential: 'Demouser', password: 'demouser' }))
       .then(closeModal)
-      .catch(async (res) => {
-        const data = await res.json();
-        console.log(data)
-        if (data && data.message) {
-          setErrors(data);
-        }
-        console.log(errors)
-    });
   }
 
   return (

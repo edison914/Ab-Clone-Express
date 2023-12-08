@@ -43,4 +43,10 @@
 
 .form-demo-login {
     margin: 10px;
+    margin-bottom: 20px;
+    background-color: #E8F0FE;
+    color: black;
+    cursor: pointer;
+    width: 208px;
+    border-radius: 4px;
 }

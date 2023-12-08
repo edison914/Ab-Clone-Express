@@ -9,7 +9,7 @@ function Navigation({ isLoaded }) {
   return (
     <ul className='navBar'>
       <NavLink exact to="/">
-        <img className='logo' src="../../public/logo.png" alt="Home" />
+        <img className='logo' src="/public/logo.png" alt="Home" />
       </NavLink>
       {isLoaded && (
         <li className="toggle" >
