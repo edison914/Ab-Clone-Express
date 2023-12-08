@@ -22,9 +22,11 @@ function LoginFormModal() {
       .then(closeModal)
       .catch(async (res) => {
         const data = await res.json();
-        if (data && data.errors) {
-          setErrors(data.errors);
+        console.log(data)
+        if (data && data.message) {
+          setErrors(data);
         }
+        console.log(errors)
       });
   };
 
@@ -32,28 +34,30 @@ function LoginFormModal() {
     <>
       <h1 className='login'>Log In</h1>
       <form className='form' onSubmit={handleSubmit}>
+        {errors.message && (
+          <p className='form-error-message'>The provided credentials were invalid</p>
+        )}
         <label className='form-label'>
-          Username or Email
           <input className='form-input '
             type="text"
             value={credential}
+            placeholder="Enter your username or email"
             onChange={(e) => setCredential(e.target.value)}
             required
           />
         </label>
         <label className='form-label'>
-          Password
           <input className='form-input '
             type="password"
             value={password}
+            placeholder="Password"
             onChange={(e) => setPassword(e.target.value)}
             required
           />
         </label>
-        {errors.credential && (
-          <p>{errors.credential}</p>
+        {credential.length >3 && password.length >6 && (
+          <button className='form-button' type="submit">Log In</button>
         )}
-        <button className='form-button' type="submit">Log In</button>
       </form>
     </>
 

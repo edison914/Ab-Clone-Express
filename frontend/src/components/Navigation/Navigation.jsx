@@ -8,11 +8,11 @@ function Navigation({ isLoaded }) {
 
   return (
     <ul className='navBar'>
-      <li>
-        <NavLink exact to="/">Home</NavLink>
-      </li>
+      <NavLink exact to="/">
+        <img className='logo' src="../../public/logo.png" alt="Home" />
+      </NavLink>
       {isLoaded && (
-        <li>
+        <li className="toggle" >
           <ProfileButton user={sessionUser} />
         </li>
       )}
