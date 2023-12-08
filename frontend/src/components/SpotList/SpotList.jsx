@@ -19,6 +19,10 @@ const AllSpotList = () => {
 
     }, [dispatch])
 
+    if (!allSpots) {
+        return <div>Loading...</div>;
+      }
+
     return (
         <nav className="spotlist">
             {allSpots.map((spot) => (
