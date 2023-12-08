@@ -1,10 +1,12 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import sessionReducer from './session';
+import spotReducer from './spot';
 
 //create a rootReducer to allow mutiple reducers to be used by combining them.
 const rootReducer = combineReducers({
-  session: sessionReducer
+  session: sessionReducer,
+  spots: spotReducer,
 });
 
 //create a enhancer to handle additional logger feature.
