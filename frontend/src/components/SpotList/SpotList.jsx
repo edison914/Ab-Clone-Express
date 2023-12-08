@@ -8,8 +8,7 @@ import './SpotList.css';
 
 const AllSpotList = () => {
     const allSpots = useSelector(state => state.spots.spots)
-    console.log(`allSpot`, allSpots)
-    //get all spots in an array
+    //console.log(`allSpot`, allSpots)
 
     const dispatch = useDispatch()
 
@@ -20,7 +19,7 @@ const AllSpotList = () => {
     }, [dispatch])
 
     if (!allSpots) {
-        return <div>Loading...</div>;
+        return <div>Loading...</div>
       }
 
     return (
@@ -28,20 +27,23 @@ const AllSpotList = () => {
             {allSpots.map((spot) => (
                 <div key={spot.id}>
                     <NavLink to={`/spots/${spot.id}`}>
-                        <img src={spot.previewImage}
+                        <img
+                             className='spot-img'
+                            src={spot.previewImage}
+                             title={spot.name}
                              alt={spot.name}
-                             style={{ width: '100px', height: '100px', margin: '5px' }}
+
                         />
                     </NavLink>
                     <div className="spot-info">
                         <div>
-                        City: {spot.city}
+                        {spot.city}, {spot.state}
                         </div>
                         <div>
-                        Rating: {spot.avgRating}
+                        Rating: {spot.avgRating ? spot.avgRating : 'NEW'}
                         </div>
                         <div>
-                        Cost:${spot.price}
+                        ${spot.price} night
                         </div>
                     </div>
                 </div>

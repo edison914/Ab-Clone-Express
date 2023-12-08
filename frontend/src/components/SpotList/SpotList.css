@@ -1,14 +1,21 @@
 .spotlist {
     display: flex;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-  }
-  
-  .spot-info {
-    text-align: center;
-    margin-top: 5px;
+    flex-wrap: wrap;
+    max-width: 2200px;
   }
 
-  .spot-info div {
+.spot-info {
+    text-align: center;
+    margin-top: 5px;
+}
+
+.spot-info div {
     margin-bottom: 5px;
-  }
+}
+
+.spot-img {
+    width: 400px;
+    height: 300px;
+    margin: 10px;
+    border-radius: 10px
+}

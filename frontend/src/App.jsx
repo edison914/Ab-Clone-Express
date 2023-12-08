@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import Navigation from './components/Navigation/Navigation';
 import * as sessionActions from './store/session';
 import AllSpotList from './components/SpotList/SpotList';
+import SpotDetail from './components/SpotDetail/SpotDetail';
 
 function Layout() {
   const dispatch = useDispatch();
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <AllSpotList />
+      },
+      {
+        path: '/spots/:spotId',
+        element: <SpotDetail />
       },
     ]
   }
