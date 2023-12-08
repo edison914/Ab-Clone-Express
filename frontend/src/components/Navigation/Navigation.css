@@ -5,11 +5,11 @@
     align-items: flex-start;
     top: 30px;
     right: 0;
-    /* align the drodown to the right */
+
     border: 2px solid black;
     padding: 5px;
     list-style-type: none;
-    /* remove the dot */
+
 }
 
 .hidden {
