@@ -30,6 +30,22 @@ function LoginFormModal() {
       });
   };
 
+  const handleDemoLogin = (e) => {
+    e.preventDefault();
+    setCredential('Demouser')
+    setPassword('demouser')
+    return dispatch(sessionActions.login({ credential, password }))
+      .then(closeModal)
+      .catch(async (res) => {
+        const data = await res.json();
+        console.log(data)
+        if (data && data.message) {
+          setErrors(data);
+        }
+        console.log(errors)
+    });
+  }
+
   return (
     <>
       <h1 className='login'>Log In</h1>
@@ -58,6 +74,12 @@ function LoginFormModal() {
         {credential.length >3 && password.length >6 && (
           <button className='form-button' type="submit">Log In</button>
         )}
+        <button className='form-demo-login'
+          type='button'
+          onClick={handleDemoLogin}
+        >
+          Log in as Demo User
+        </button>
       </form>
     </>
 
