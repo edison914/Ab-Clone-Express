@@ -1,9 +1,9 @@
-
-.form-container {
+.login {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    text-align: center;
 }
 
 .form {
@@ -21,6 +21,6 @@
     margin: 5px
 }
 
-.input {
+.form-input {
     margin-left: 5px;
 }
