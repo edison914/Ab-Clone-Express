@@ -21,28 +21,27 @@ const AllSpotList = () => {
 
     return (
         <nav className="spotlist">
-          {allSpots.map((spot) => (
-            <div key={spot.id}>
-              <NavLink to={`/spots/${spot.id}`}>
-                <img
-                  src={spot.previewImage}
-                  alt={spot.name}
-                  style={{ width: '100px', height: '100px', margin: '5px' }}
-                />
-              </NavLink>
-              <div className="spot-info">
-                <div>
-                  City: {spot.city}
+            {allSpots.map((spot) => (
+                <div key={spot.id}>
+                    <NavLink to={`/spots/${spot.id}`}>
+                        <img src={spot.previewImage}
+                             alt={spot.name}
+                             style={{ width: '100px', height: '100px', margin: '5px' }}
+                        />
+                    </NavLink>
+                    <div className="spot-info">
+                        <div>
+                        City: {spot.city}
+                        </div>
+                        <div>
+                        Rating: {spot.avgRating}
+                        </div>
+                        <div>
+                        Cost:${spot.price}
+                        </div>
+                    </div>
                 </div>
-                <div>
-                  Rating: {spot.avgRating}
-                </div>
-                <div>
-                  Cost:${spot.price}
-                </div>
-              </div>
-            </div>
-          ))}
+            ))}
         </nav>
     );
 };

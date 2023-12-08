@@ -13,24 +13,24 @@ module.exports = {
       [
         {
           spotId: 1,
-          url: `https://www.ab.com/eddie-home`,
+          url: `https://cdn.houseplansservices.com/content/hjuf6pe2lut8d35lthgk9maotb/w575.jpg?v=10`,
           preview: true,
         },
 
         {
           spotId: 2,
-          url: `https://www.ab.com/jason-mansion`,
+          url: `https://media-cldnry.s-nbcnews.com/image/upload/t_fit-760w,f_auto,q_auto:best/newscms/2019_24/1448814/how-size-doesnt-make-you-happier-today-main-190614.jpg`,
           preview: true,
         },
 
         {
           spotId: 3,
-          url: `https://www.ab.com/ashley-beach-house1`,
+          url: `https://mygate.com/wp-content/uploads/2023/07/110.jpg`,
           preview: true,
         },
         {
           spotId: 4,
-          url: `https://www.ab.com/eddie-secondhome`,
+          url: `https://res.akamaized.net/domain/image/upload/t_web/v1538713881/bigsmall_Mirvac_house2_twgogv.jpg`,
           preview: true,
         },
       ],
