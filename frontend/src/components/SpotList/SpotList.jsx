@@ -40,7 +40,7 @@ const AllSpotList = () => {
                             {spot.city}, {spot.state}
                             </div>
                             <div>
-                            <i className="fas fa-star" />{spot.avgRating ? spot.avgRating : 'NEW'}
+                            <i className="fas fa-star" />{spot.avgRating ? spot.avgRating.toFixed(1) : 'NEW'}
                             </div>
                         </div>
                         <div className='spot-price'>

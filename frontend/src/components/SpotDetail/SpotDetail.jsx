@@ -44,7 +44,7 @@ const SpotDetail = () => {
                 <div className='spotdetail-info-container'>
                     <div className='spotdetail-info-callout'>
                         <div>${spot.price}/night</div>
-                        <div><i className="fas fa-star" />{spot.avgRating}</div>
+                        <div><i className="fas fa-star" />{spot.avgRating ? spot.avgRating.toFixed(1) : 'NEW'}</div>
                         <div>{spot.numReviews} reviews</div>
                     </div>
                     <div>
