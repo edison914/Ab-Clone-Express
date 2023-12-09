@@ -1,7 +1,6 @@
 "use strict";
 
-const { User } = require("../models");
-const bcrypt = require("bcryptjs");
+const { Review } = require("../models");
 
 let options = {};
 if (process.env.NODE_ENV === "production") {
@@ -10,35 +9,55 @@ if (process.env.NODE_ENV === "production") {
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await User.bulkCreate(
+    await Review.bulkCreate(
       [
         {
-          email: "ed@gmail.com",
-          username: "Ed111",
-          firstName: `Eddie`,
-          lastName: `Ding`,
-          hashedPassword: bcrypt.hashSync("password"),
+          spotId: 1,
+          userId: 2,
+          review: `This place is beautiful.`,
+          stars: 4,
         },
         {
-          email: "jc@gmail.com",
-          username: "Jason222",
-          firstName: `Jason`,
-          lastName: `Cha`,
-          hashedPassword: bcrypt.hashSync("password2"),
+          spotId: 1,
+          userId: 3,
+          review: `This place is awesome.`,
+          stars: 5,
         },
         {
-          email: "al@gmail.com",
-          username: "Alu333",
-          firstName: `Ashley`,
-          lastName: `Lu`,
-          hashedPassword: bcrypt.hashSync("password3"),
+          spotId: 2,
+          userId: 1,
+          review: `This place is terrible.`,
+          stars: 1,
         },
         {
-          email: "demo-user@gmail.com",
-          username: "Demouser",
-          firstName: `Demo`,
-          lastName: `User`,
-          hashedPassword: bcrypt.hashSync("demouser"),
+          spotId: 2,
+          userId: 3,
+          review: `This place is ugly.`,
+          stars: 2,
+        },
+        {
+          spotId: 3,
+          userId: 1,
+          review: `This place is so so.`,
+          stars: 3,
+        },
+        {
+          spotId: 3,
+          userId: 2,
+          review: `This place is alright.`,
+          stars: 3,
+        },
+        {
+          spotId: 4,
+          userId: 2,
+          review: `This place is fine.`,
+          stars: 5,
+        },
+        {
+          spotId: 4,
+          userId: 3,
+          review: `This place is great.`,
+          stars: 5,
         },
       ],
       { validate: true }
@@ -46,12 +65,12 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    options.tableName = "Users";
+    options.tableName = "Reviews";
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(
       options,
       {
-        username: { [Op.in]: ["Ed111", "Jason222", "Alu333", "Demouser"] },
+        spotId: { [Op.in]: [1, 2, 3, 4] },
       },
       {}
     );
