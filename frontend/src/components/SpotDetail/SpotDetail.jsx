@@ -7,7 +7,7 @@ import './SpotDetail.css';
 
 const SpotDetail = () => {
     const {spotId} = useParams();
-    const spot = useSelector(state => state.spots.spotDetail)
+    const spot = useSelector(state => state.spots[spotId])
     //console.log(`allSpot`, spot)
     //console.log(spot.SpotImages)
     const dispatch = useDispatch()
@@ -29,23 +29,31 @@ const SpotDetail = () => {
     return (
         <div>
             <h1>{spot.name}</h1>
-            <h2>{spot.city}, {spot.state}, {spot.country}</h2>
-            <img
+            <h3>{spot.city}, {spot.state}, {spot.country}</h3>
+            {spot.SpotImages && <img
                 className='spotdetail-img'
                 src={spot.SpotImages[0].url}
                 title={spot.name}
                 alt={spot.name}
-            />
+            />}
             <div className='spotdetail-info'>
                 <div className='spotdetail-info-host'>
-                    <h2>Hosted by {spot.Owner.firstName} {spot.Owner.lastName}</h2>
+                {spot.Owner && <h2>Hosted by {spot.Owner.firstName} {spot.Owner.lastName}</h2>}
                     <p>{spot.description}</p>
                 </div>
                 <div className='spotdetail-info-container'>
                     <div className='spotdetail-info-callout'>
                         <div>${spot.price}/night</div>
-                        <div><i className="fas fa-star" />{spot.avgRating ? spot.avgRating.toFixed(1) : 'NEW'}</div>
-                        <div>{spot.numReviews} reviews</div>
+                        <div>
+                            <i className='fas fa-star' />
+                            {spot.avgRating ? spot.avgRating.toFixed(1) : 'NEW'}
+                            {spot.numReviews > 0 && (
+                                <>
+                                    <span> · </span>
+                                    {spot.numReviews === 1 ? '1 Review': `${spot.numReviews} Reviews`}
+                                </>
+                            )}
+                        </div>
                     </div>
                     <div>
                         <button className='spotdetail-reserve-button' onClick={handleReserveClick}>Reserve</button>
@@ -53,7 +61,19 @@ const SpotDetail = () => {
 
                 </div>
             </div>
-            <ReviewsById />
+            <div>
+                <h3 className='spotdetail-rating-dup'>
+                    <i className='fas fa-star' />
+                    {spot.avgRating ? spot.avgRating.toFixed(1) : 'NEW'}
+                    {spot.numReviews > 0 && (
+                        <>
+                            <span> · </span>
+                            {spot.numReviews === 1 ? '1 Review': `${spot.numReviews} Reviews`}
+                        </>
+                    )}
+                </h3>
+            </div>
+            <ReviewsById spotId={ spotId }/>
         </div>
     )
 };

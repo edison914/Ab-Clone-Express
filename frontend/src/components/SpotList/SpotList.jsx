@@ -7,7 +7,7 @@ import './SpotList.css';
 
 
 const AllSpotList = () => {
-    const allSpots = useSelector(state => state.spots.spots)
+    const allSpots = useSelector(state => Object.values(state.spots))
     //console.log(`allSpot`, allSpots)
 
     const dispatch = useDispatch()

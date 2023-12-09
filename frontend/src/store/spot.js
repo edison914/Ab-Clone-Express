@@ -40,7 +40,7 @@ export const getSpotsThunk = () => async (dispatch) => {
     //console.log(`is this even called?`, res)
     if (res.ok) {
         const data = await res.json()
-        console.log(data.Spots)
+        //console.log(data.Spots)
         dispatch(loadSpots(data.Spots))
         return data;
       } else {
@@ -65,18 +65,25 @@ export const getSpotDetailThunk = (spotId) => async (dispatch) => {
 
 
 const initialState = {
+
 }
 
 const spotReducer = (state = initialState, action) => {
     const newState = {...state}
     switch (action.type) {
         case LOAD_SPOTS: {
-            newState.spots = action.payload
+            action.payload.forEach(spot => {
+                newState[spot.id] = { ...newState[spot.id], ...spot};
+            });
             //console.log(`newState spots`, newState)
             return newState
         }
         case LOAD_SPOT_DETAIL: {
-            newState.spotDetail = action.payload
+            //newState.spotDetail = action.payload
+            //find the old current spot data by the id
+            //make a copy of current old spot data
+            //updating the old spot data with new fetched data
+            newState[action.payload.id] = { ...newState[action.payload.id], ...action.payload }
             //console.log(`newState spots`, newState)
             return newState
         }

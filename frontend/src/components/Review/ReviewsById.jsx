@@ -1,28 +1,35 @@
-// import { useParams } from 'react-router-dom';
-// import { useSelector, useDispatch } from 'react-redux';
-// import { getSpotDetailThunk } from '../../store/spot';
-// import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { getReviewsByIdThunk } from "../../store/review";
+import './ReviewsById.css';
 
-const ReviewsById = () => {
-    // const {spotId} = useParams();
-    // const spot = useSelector(state => state.spots.spotDetail)
-    // console.log(`allSpot`, spot)
-    // console.log(spot.SpotImages)
-    // const dispatch = useDispatch()
+const ReviewsById = ({spotId}) => {
 
-    // useEffect(() => {
-    //     //console.log(`is spotActions called?`)
-    //     dispatch(getSpotDetailThunk(spotId))
+    const reviews = useSelector(state => Object.values(state.reviews))
+    //console.log(reviews)
+    const dispatch = useDispatch();
 
-    // }, [dispatch, spotId])
+    useEffect(() => {
+        console.log(`is action called?`)
+        dispatch(getReviewsByIdThunk(spotId))
 
-    // if (!spot) {
-    //     return <div>Loading...</div>
-    //   }
+    }, [dispatch, spotId])
+
+    if (!reviews) {
+        return <div>Loading...</div>
+    }
+
+    const sortedReviews = reviews.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
     return (
         <div>
-            Reviews
+            {sortedReviews.map(review => (
+                    <div className='reviewsById-review-container' key={review.id}>
+                        <div>{review.User.firstName}</div>
+                        <div>{new Date(review.createdAt).toLocaleString('en-US', { month: 'long', year: 'numeric' })}</div>
+                        <div>{review.review}</div>
+                    </div>
+            ))}
         </div>
     )
 };
