@@ -1,0 +1,33 @@
+.spot-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-bottom: 2px solid #CCCCCC;
+}
+
+.spot-info-host h2 {
+    margin: 0;
+}
+
+.spot-info-callout {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.spot-info-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    width: 300px;
+    border: 2px solid black;
+    border-radius: 10px;
+
+}
+
+.spot-reserve-button {
+    background-color:#FF5A5F ;
+    color: white;
+    cursor: pointer;
+    width: 250px;
+    height: 30px;
+}

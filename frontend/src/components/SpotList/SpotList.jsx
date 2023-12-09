@@ -32,18 +32,19 @@ const AllSpotList = () => {
                             src={spot.previewImage}
                              title={spot.name}
                              alt={spot.name}
-
                         />
                     </NavLink>
                     <div className="spot-info">
-                        <div>
-                        {spot.city}, {spot.state}
+                        <div className='spot-city-and-rating'>
+                            <div>
+                            {spot.city}, {spot.state}
+                            </div>
+                            <div>
+                            <i className="fas fa-star" />{spot.avgRating ? spot.avgRating : 'NEW'}
+                            </div>
                         </div>
-                        <div>
-                        Rating: {spot.avgRating ? spot.avgRating : 'NEW'}
-                        </div>
-                        <div>
-                        ${spot.price} night
+                        <div className='spot-price'>
+                            ${spot.price} night
                         </div>
                     </div>
                 </div>

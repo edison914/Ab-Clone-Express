@@ -4,6 +4,7 @@ import { csrfFetch } from "./csrf";
 // const EDIT_SPOT = `spot/EDIT_SPOT`;
 // const REMOVE_SPOT = `spot/REMOVE_SPOT`;
 const LOAD_SPOTS = `spot/LOAD_SPOTS`
+const LOAD_SPOT_DETAIL = `spot/LOAD_SPOT_DETAIL`
 
 //action creators for handling both actions
 // const editSpot = (spot) => {
@@ -26,6 +27,13 @@ const loadSpots = (spots) => {
     }
 }
 
+const loadSpotDetail = (spotDetail) => {
+    return {
+        type: LOAD_SPOT_DETAIL,
+        payload: spotDetail
+    }
+}
+
 //thunk action to fetch all spots
 export const getSpotsThunk = () => async (dispatch) => {
     const res = await csrfFetch(`/api/spots`);
@@ -41,6 +49,21 @@ export const getSpotsThunk = () => async (dispatch) => {
     }
 }
 
+export const getSpotDetailThunk = (spotId) => async (dispatch) => {
+    const res = await csrfFetch(`/api/spots/${spotId}`);
+    //console.log(`is this even called?`, res)
+    if (res.ok) {
+        const data = await res.json()
+        console.log(data)
+        dispatch(loadSpotDetail(data))
+        return data;
+      } else {
+        const err = await res.json();
+        return err;
+    }
+}
+
+
 const initialState = {
 }
 
@@ -49,6 +72,11 @@ const spotReducer = (state = initialState, action) => {
     switch (action.type) {
         case LOAD_SPOTS: {
             newState.spots = action.payload
+            //console.log(`newState spots`, newState)
+            return newState
+        }
+        case LOAD_SPOT_DETAIL: {
+            newState.spotDetail = action.payload
             //console.log(`newState spots`, newState)
             return newState
         }

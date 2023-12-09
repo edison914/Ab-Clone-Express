@@ -7,6 +7,7 @@
 .spot-info {
     text-align: center;
     margin-top: 5px;
+    flex-direction: column;
 }
 
 .spot-info div {
@@ -18,4 +19,18 @@
     height: 300px;
     margin: 10px;
     border-radius: 10px
+}
+
+.spot-city-and-rating {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.spot-price {
+    display: flex;
+    margin-left: 20px;
+    font-weight: bold;
 }
