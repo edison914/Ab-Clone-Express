@@ -31,24 +31,24 @@ const SpotDetail = () => {
             <h1>{spot.name}</h1>
             <h2>{spot.city}, {spot.state}, {spot.country}</h2>
             <img
-                className='spot-img'
+                className='spotdetail-img'
                 src={spot.SpotImages[0].url}
                 title={spot.name}
                 alt={spot.name}
             />
-            <div className='spot-info'>
-                <div className='spot-info-host'>
+            <div className='spotdetail-info'>
+                <div className='spotdetail-info-host'>
                     <h2>Hosted by {spot.Owner.firstName} {spot.Owner.lastName}</h2>
                     <p>{spot.description}</p>
                 </div>
-                <div className='spot-info-container'>
-                    <div className='spot-info-callout'>
+                <div className='spotdetail-info-container'>
+                    <div className='spotdetail-info-callout'>
                         <div>${spot.price}/night</div>
                         <div><i className="fas fa-star" />{spot.avgRating}</div>
                         <div>{spot.numReviews} reviews</div>
                     </div>
                     <div>
-                        <button className='spot-reserve-button' onClick={handleReserveClick}>Reserve</button>
+                        <button className='spotdetail-reserve-button' onClick={handleReserveClick}>Reserve</button>
                     </div>
 
                 </div>

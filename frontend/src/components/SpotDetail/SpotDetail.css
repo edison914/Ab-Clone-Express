@@ -1,33 +1,35 @@
-.spot-info {
+.spotdetail-info {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     border-bottom: 2px solid #CCCCCC;
 }
 
-.spot-info-host h2 {
+.spotdetail-info-host h2 {
     margin: 0;
 }
 
-.spot-info-callout {
+.spotdetail-info-callout {
     display: flex;
     justify-content: space-evenly;
 }
 
-.spot-info-container {
+.spotdetail-info-container {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
     width: 300px;
     border: 2px solid black;
     border-radius: 10px;
-
+    margin: 5px;
 }
 
-.spot-reserve-button {
+.spotdetail-reserve-button {
+    margin-left: 20px;
     background-color:#FF5A5F ;
     color: white;
     cursor: pointer;
     width: 250px;
+    border-radius: 4px;
     height: 30px;
 }
