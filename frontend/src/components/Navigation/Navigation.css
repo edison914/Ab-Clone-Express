@@ -55,8 +55,9 @@
     height: 40px;
 }
 
-.navBar-create-new {
+.navBar-create-new-button {
     margin-right: 10px;
+    height: 40px
 }
 
 .togggle-container {

@@ -6,8 +6,14 @@
     color: white;
     cursor: pointer;
     width: 208px;
-    height: 30px;
+    height: 40px;
     border-radius: 4px;
+
+}
+
+.newspot-form-button-container {
+    display: flex;
+    justify-content: center;
 }
 
 .newspot-form-section-container {
@@ -20,4 +26,30 @@
 .newspot-form-caption {
     margin: 0;
     margin-bottom: 4px;
+}
+
+.newspot-form-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.newspot-form {
+    max-width:600px;
+}
+
+.newspot-form-required-input {
+    color: #FF5A5F
+}
+
+.newspot-form-city-state-container{
+    display: flex;
+    flex-direction: row;
+    align-items: space-between;
+}
+
+.newspot-form input {
+    height: 25px;
+    margin: 5px 0;
 }

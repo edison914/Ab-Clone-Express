@@ -20,7 +20,7 @@ function Navigation({ isLoaded }) {
       </NavLink>
       <div className='togggle-container'>
         {sessionUser && (
-          <button className ='navBar-create-new' onClick={handleCreateNewSpotForm}>
+          <button className ='navBar-create-new-button' onClick={handleCreateNewSpotForm}>
           Create a New Spot
           </button>
         )}

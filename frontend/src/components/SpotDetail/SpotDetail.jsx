@@ -32,7 +32,7 @@ const SpotDetail = () => {
             <h3>{spot.city}, {spot.state}, {spot.country}</h3>
             {spot.SpotImages && <img
                 className='spotdetail-img'
-                src={spot.SpotImages[0].url}
+                src={spot.SpotImages[0]?.url}
                 title={spot.name}
                 alt={spot.name}
             />}

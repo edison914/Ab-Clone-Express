@@ -1,5 +1,7 @@
 import { useState} from 'react'
-//import { useDispatch} from 'react-redux'
+import { useDispatch} from 'react-redux'
+import { useNavigate} from 'react-router-dom'
+import { addNewSpotThunk, addImgToSpotThunk } from '../../store/spot'
 import './NewSpot.css'
 
 function NewSpot () {
@@ -7,7 +9,9 @@ function NewSpot () {
     const [country, setCountry] = useState('');
     const [address, setAddress] = useState('')
     const [city, setCity] = useState('');
-    const [states, setStates] = useState('');
+    const [state, setState] = useState('');
+    const [latitude, setLatitude] = useState('');
+    const [longitude, setLongitude] = useState('');
     const [description, setDescription] = useState('');
     const [spotName, setSpotName] = useState('');
     const [price, setPrice] = useState();
@@ -17,34 +21,68 @@ function NewSpot () {
     const [url4, setUrl4] = useState();
     const [url5, setUrl5] = useState();
 
-    const handleSubmit = (e) => {
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
+        //createa new obj when form is submmitted
+        const spotData = {
+                address,
+                city,
+                state,
+                country,
+                lat: latitude,
+                lng: longitude,
+                name: spotName,
+                description,
+                price
+            }
 
-    //createa new obj when form is submmitted
-    //const newForm = {
-    //       id: nanoid(),
-    //       title,
-    //       body,
-    //       imageUrl
-    //     }
+        console.log(spotData)
 
-    //     dispatch(addArticle(newArticle))
+        const newSpotImage1 = {
+            url: url1,
+            preview: true
+        }
+        
+        let res = await dispatch(addNewSpotThunk(spotData));
+        //let res2 = await dispatch(addNewImageThunk(newSpotImage1));
+        console.log(`new added Spot`, res)
 
-    //     reset();
-    //   };
+        if (res.id) {
+            const spotId = res.id
+            let res2 = await dispatch(addImgToSpotThunk(newSpotImage1, spotId))
 
-    //   const reset = () => {
-    //     setTitle('');
-    //     setImageUrl('');
-    //     setBody('');
-    // };
-    }
+            console.log(`new added image`, res2)
+
+            navigate(`/spots/${res.id}`)
+        }
+
+    //    dispatch(addNewSpotImageThunk(newSpotImage1))
+
+        setCountry('');
+        setAddress('');
+        setCity('');
+        setState('');
+        setLatitude('');
+        setLongitude('');
+        setSpotName('');
+        setPrice('');
+        setUrl1('');
+        setUrl2('');
+        setUrl3('');
+        setUrl4('');
+        setUrl5('');
+    };
+
+
 
     return (
-        <div>
+        <div className='newspot-form-container'>
             <h1>Create a New Spot</h1>
 
-            <form onSubmit={handleSubmit} >
+            <form className='newspot-form' onSubmit={handleSubmit} >
                 <div className='newspot-form-section-container'>
                     <h3>Where&apos;s your place located?</h3>
                     <p className='newspot-form-caption'>Guests will only get your exact address once they booked a reservation.</p>
@@ -57,10 +95,12 @@ function NewSpot () {
                         placeholder='Country'
                         name='Country'
                         />
+                        {!country && (<div className='newspot-form-required-input'>Country is required</div>)}
                     </div>
 
                     <div>
                         <p>Street Address</p>
+
                         <input
                         type='text'
                         onChange={(e) => setAddress(e.target.value)}
@@ -68,25 +108,59 @@ function NewSpot () {
                         placeholder='Street Address'
                         name='Street Address'
                         />
+                        {!address && (<div className='newspot-form-required-input'>Address is required</div>)}
                     </div>
 
-                    <div>
-                        <span>City </span>
-                        <input
-                        type='text'
-                        onChange={(e) => setCity(e.target.value)}
-                        value={city}
-                        placeholder='City'
-                        name='City'
-                        />
-                        <span> State </span>
-                        <input
-                        type='text'
-                        onChange={(e) => setStates(e.target.value)}
-                        value={states}
-                        placeholder='state'
-                        name='state'
-                        />
+                    <div className='newspot-form-city-state-container'>
+                        <div>
+                            <span>City </span>
+
+                            <input
+                            type='text'
+                            onChange={(e) => setCity(e.target.value)}
+                            value={city}
+                            placeholder='City'
+                            name='City'
+                            />
+                            {!city && (<div className='newspot-form-required-input'>City is required</div>)}
+                        </div>
+                        <div>
+                            <span> State </span>
+
+                            <input
+                            type='text'
+                            onChange={(e) => setState(e.target.value)}
+                            value={state}
+                            placeholder='state'
+                            name='state'
+                            />
+                            {!state && (<div className='newspot-form-required-input'>State is required</div>)}
+                        </div>
+                    </div>
+                    <div className='newspot-form-city-state-container'>
+                        <div>
+                            <span>Latitude</span>
+                            <input
+                            type='text'
+                            onChange={(e) => setLatitude(e.target.value)}
+                            value={latitude}
+                            placeholder='Latitude'
+                            name='Latitude'
+                            />
+                            {!latitude && (<div className='newspot-form-required-input'>Latitude is required</div>)}
+                        </div>
+                        <div>
+                            <span> Longitude </span>
+
+                            <input
+                            type='text'
+                            onChange={(e) => setLongitude(e.target.value)}
+                            value={longitude}
+                            placeholder='Longitude'
+                            name='Longitude'
+                            />
+                            {!longitude && (<div className='newspot-form-required-input'>Longitude is required</div>)}
+                        </div>
                     </div>
                 </div>
 
@@ -100,6 +174,7 @@ function NewSpot () {
                         placeholder='Please write at least 30 characters'
                         rows='10'
                     ></textarea>
+                    {description.length < 30 && (<div className='newspot-form-required-input'>Description needs a minimum of 30 characters</div>)}
                 </div>
 
                 <div className='newspot-form-section-container'>
@@ -112,6 +187,7 @@ function NewSpot () {
                         placeholder='Name of your spot'
                         name='spotName'
                     />
+                    {!spotName && (<div className='newspot-form-required-input'>Name for the spot is required</div>)}
                 </div>
 
                 <div className='newspot-form-section-container'>
@@ -126,6 +202,7 @@ function NewSpot () {
                             placeholder='Price per night (USD)'
                             name='price'
                         />
+                        {!price && (<div className='newspot-form-required-input'>Price is required</div>)}
                     </div>
 
                 </div>
@@ -140,6 +217,7 @@ function NewSpot () {
                         placeholder='Preview Image URL'
                         name='url1'
                     />
+                    {!url1 && (<div className='newspot-form-required-input'>The preview image URL is required, and must end with png, jpg, or jpeg </div>)}
                     <input
                         type='text'
                         onChange={(e) => setUrl2(e.target.value)}
@@ -170,8 +248,8 @@ function NewSpot () {
                     />
                 </div>
 
-                <div>
-                    <button className='newspot-form-button' type='submit'>Create Spot</button>
+                <div className='newspot-form-button-container'>
+                    <button className='newspot-form-button' type='submit' onSubmit={handleSubmit}>Create Spot</button>
                 </div>
 
             </form>
