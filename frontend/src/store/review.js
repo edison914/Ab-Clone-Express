@@ -1,4 +1,5 @@
 import { csrfFetch } from "./csrf";
+import { getSpotDetailThunk } from "./spot";
 
 //const for action types so actions dont duplicate
 const LOAD_REVIEWS_BYSPOT = `review/LOAD_REVIEWS_BYSPOT`
@@ -50,6 +51,7 @@ export const addReviewThunk = (reviewForm, spotId) => async (dispatch) => {
         //IMPORTANT, since the returned reveiws are not the same as whats in the state in term of format,
         //dispatch another thunk action to fetch newly updated reviews by the Id instead!
         dispatch(getReviewsByIdThunk(spotId))
+        dispatch(getSpotDetailThunk(spotId))
         return res;
       } else {
         //console.log(`is this err called`)
