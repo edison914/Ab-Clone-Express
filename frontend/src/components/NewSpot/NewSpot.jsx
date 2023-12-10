@@ -45,7 +45,7 @@ function NewSpot () {
             url: url1,
             preview: true
         }
-        
+
         let res = await dispatch(addNewSpotThunk(spotData));
         //let res2 = await dispatch(addNewImageThunk(newSpotImage1));
         console.log(`new added Spot`, res)
@@ -75,7 +75,6 @@ function NewSpot () {
         setUrl4('');
         setUrl5('');
     };
-
 
 
     return (

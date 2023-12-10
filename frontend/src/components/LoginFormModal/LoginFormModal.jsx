@@ -22,12 +22,12 @@ function LoginFormModal() {
       .then(closeModal)
       .catch(async (res) => {
         const data = await res.json();
-        console.log(data)
+        //console.log(data)
         if (data && data.message) {
           setErrors(data);
         }
         //console.log(errors)
-      });
+    });
   };
 
   //create a hanlder to log in demo user when demo button is clicked.

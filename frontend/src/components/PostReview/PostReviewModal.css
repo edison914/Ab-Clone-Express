@@ -1,0 +1,25 @@
+.postreview-form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.postreview-submit-button {
+    margin: 10px;
+    margin-bottom: 20px;
+    background-color:#FF5A5F ;
+    color: white;
+    cursor: pointer;
+    width: 208px;
+    border-radius: 4px;
+    height: 30px
+}
+
+.postreview-rating {
+    margin: 20px;
+}
+
+.postreview-rating-inputbox {
+    width: 50x;
+    height: 30px;
+}

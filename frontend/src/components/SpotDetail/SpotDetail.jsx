@@ -1,22 +1,48 @@
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { getSpotDetailThunk } from '../../store/spot';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import ReviewsById from '../Review/ReviewsById';
 import './SpotDetail.css';
+import OpenModalButton from  '../OpenModalButton/OpenModalButton'
+import PostReviewModal from '../PostReview/PostReviewModal';
 
 const SpotDetail = () => {
     const {spotId} = useParams();
     const spot = useSelector(state => state.spots[spotId])
+    const currentUser = useSelector(state => state.session.user)
+    const allReviews = useSelector(state => Object.values(state.reviews))
+    const reviewsForCurrentSpot = allReviews.filter(review => review.spotId === Number(spotId))
+    //console.log(`currentUser`,currentUser)
+    //console.log(`spotOnwerId`, spot.Owner.id)
     //console.log(`allSpot`, spot)
     //console.log(spot.SpotImages)
+    //console.log(reviewsForCurrentSpot)
     const dispatch = useDispatch()
 
+    const [hasReviewed, setHasReviewed] = useState(false)
+
+    //fetch all the spot details info when loading a page
     useEffect(() => {
         //console.log(`is spotActions called?`)
         dispatch(getSpotDetailThunk(spotId))
 
     }, [dispatch, spotId])
+
+    //check the reviews to see if the current user id match one of the review userId
+    useEffect(() => {
+        if (currentUser && spot && reviewsForCurrentSpot) {
+            if (hasReviewed) {
+                return;
+            }
+
+            reviewsForCurrentSpot.forEach((review) => {
+                if (review.userId === currentUser?.id) {
+                    setHasReviewed(true);
+                }
+            });
+        }
+    }, [currentUser, spot, reviewsForCurrentSpot, hasReviewed]);
 
     if (!spot) {
         return <div>Loading...</div>
@@ -25,6 +51,7 @@ const SpotDetail = () => {
     const handleReserveClick = () => {
         alert (`Feature coming soon`)
     }
+
 
     return (
         <div>
@@ -72,6 +99,19 @@ const SpotDetail = () => {
                         </>
                     )}
                 </h3>
+            </div>
+            <div>
+                {/*
+                check if currentUser is Login
+                check if currentUser has already review the spot using useEffect to loop through reviewArr and setReview State
+                check if currentUser Id not equal to Spot Owner Id
+                */}
+                {currentUser && !hasReviewed && currentUser?.id !== spot?.Owner?.id && (
+                    <OpenModalButton
+                        modalComponent={<PostReviewModal spotId={ spotId} />}
+                        buttonText='Post Your Review'
+                    />
+                )}
             </div>
             <ReviewsById spotId={ spotId }/>
         </div>

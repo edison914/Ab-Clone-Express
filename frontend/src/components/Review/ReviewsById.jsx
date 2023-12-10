@@ -17,7 +17,7 @@ const ReviewsById = ({spotId}) => {
     const sortedReviews = reviews.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
     useEffect(() => {
-        console.log(`is action called?`)
+        //console.log(`is action called?`)
         dispatch(getReviewsByIdThunk(spotId))
 
     }, [dispatch, spotId])
