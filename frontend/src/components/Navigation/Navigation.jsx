@@ -1,21 +1,36 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import './Navigation.css';
 
+
 function Navigation({ isLoaded }) {
   const sessionUser = useSelector(state => state.session.user);
+  //console.log(sessionUser)
 
+  const navigate = useNavigate()
+
+  const handleCreateNewSpotForm = () => {
+    navigate(`/spots/newSpot`)
+  }
   return (
     <ul className='navBar'>
-      <NavLink exact to="/">
+      <NavLink to="/">
         <img className='logo' src="/logo.png" alt="Home" />
       </NavLink>
-      {isLoaded && (
-        <li className="toggle" >
-          <ProfileButton user={sessionUser} />
-        </li>
-      )}
+      <div className='togggle-container'>
+        {sessionUser && (
+          <button className ='navBar-create-new' onClick={handleCreateNewSpotForm}>
+          Create a New Spot
+          </button>
+        )}
+        {isLoaded && (
+          <li className="toggle" >
+            <ProfileButton user={sessionUser} />
+          </li>
+        )}
+      </div>
+
     </ul>
   );
 }

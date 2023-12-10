@@ -1,0 +1,23 @@
+
+.newspot-form-button{
+    margin: 10px;
+    margin-bottom: 20px;
+    background-color:#FF5A5F ;
+    color: white;
+    cursor: pointer;
+    width: 208px;
+    height: 30px;
+    border-radius: 4px;
+}
+
+.newspot-form-section-container {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 2px solid #CCCCCC;
+    padding-bottom: 20px;
+}
+
+.newspot-form-caption {
+    margin: 0;
+    margin-bottom: 4px;
+}

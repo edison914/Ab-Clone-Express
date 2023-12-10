@@ -5,9 +5,16 @@ import './ReviewsById.css';
 
 const ReviewsById = ({spotId}) => {
 
-    const reviews = useSelector(state => Object.values(state.reviews))
-    //console.log(reviews)
+    const allReviews = useSelector(state => Object.values(state.reviews))
+    const reviews = allReviews.filter(review => review.spotId === Number(spotId))
+    const spotOwnerId = useSelector(state => state.spots[spotId].ownerId)
+    //console.log(spotOwnerId)
+    const currentUserId= useSelector(state => state.session.user?.id)
+    //console.log(currentUserId)
     const dispatch = useDispatch();
+
+    //if reviews found, sort them from most recent to old
+    const sortedReviews = reviews.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
     useEffect(() => {
         console.log(`is action called?`)
@@ -15,12 +22,19 @@ const ReviewsById = ({spotId}) => {
 
     }, [dispatch, spotId])
 
+    //loading page for waiting for API fetch and update states
     if (!reviews) {
         return <div>Loading...</div>
     }
 
-    const sortedReviews = reviews.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    //no reviews and currentUser is not the owner, render below
+    if (reviews.length === 0 && currentUserId !== spotOwnerId) {
+        return <div>Be the first to post a review!</div>
+    }
 
+
+
+    //return the reviews when found
     return (
         <div>
             {sortedReviews.map(review => (
