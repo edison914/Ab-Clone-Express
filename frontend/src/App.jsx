@@ -6,6 +6,7 @@ import * as sessionActions from './store/session';
 import AllSpotList from './components/SpotList/SpotList';
 import SpotDetail from './components/SpotDetail/SpotDetail';
 import NewSpot from './components/NewSpot/NewSpot';
+import './index.css'
 
 function Layout() {
   const dispatch = useDispatch();
@@ -19,12 +20,12 @@ function Layout() {
   }, [dispatch]);
 
   return (
-    <>
+    <div className='app-container'>
       {/* always redender the nvaigationBar and pass the isload state to the navigation component */}
       <Navigation isLoaded={isLoaded} />
       {/* if isLoaded is true then render all the children router that matches */}
       {isLoaded && <Outlet />}
-    </>
+    </div>
   );
 }
 

@@ -60,7 +60,7 @@ const SpotDetail = () => {
             <div className='spotdetail-pictures-container'>
                 <div className='spotdetail-right-picture-container'>
                     {spot.SpotImages && <img
-                        className='spotdetail-img'
+                        className='spotdetail-img-left'
                         src={spot.SpotImages[0]?.url}
                         title={spot.name}
                         alt={spot.name}
@@ -68,25 +68,25 @@ const SpotDetail = () => {
                 </div>
                 <div className='spotdetail-left-pictures-container'>
                     {spot.SpotImages && <img
-                        className='spotdetail-img'
+                        className='spotdetail-img-right'
                         src={spot.SpotImages[1]?.url}
                         title={spot.name}
                         alt={spot.name}
                     />}
                     {spot.SpotImages && <img
-                        className='spotdetail-img'
+                        className='spotdetail-img-right'
                         src={spot.SpotImages[2]?.url}
                         title={spot.name}
                         alt={spot.name}
                     />}
                     {spot.SpotImages && <img
-                        className='spotdetail-img'
+                        className='spotdetail-img-right'
                         src={spot.SpotImages[3]?.url}
                         title={spot.name}
                         alt={spot.name}
                     />}
                     {spot.SpotImages && <img
-                        className='spotdetail-img'
+                        className='spotdetail-img-right'
                         src={spot.SpotImages[4]?.url}
                         title={spot.name}
                         alt={spot.name}
