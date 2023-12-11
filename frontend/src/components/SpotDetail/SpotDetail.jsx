@@ -67,25 +67,25 @@ const SpotDetail = () => {
                     />}
                 </div>
                 <div className='spotdetail-left-pictures-container'>
-                    {spot.SpotImages?.length > 0 && <img
+                    {spot.SpotImages?.length > 1 && <img
                         className='spotdetail-img-right'
                         src={spot.SpotImages[1]?.url}
                         title={spot.name}
                         alt={spot.name}
                     />}
-                    {spot.SpotImages?.length > 1 && <img
+                    {spot.SpotImages?.length > 2 && <img
                         className='spotdetail-img-right'
                         src={spot.SpotImages[2]?.url}
                         title={spot.name}
                         alt={spot.name}
                     />}
-                    {spot.SpotImages?.length> 2 && <img
+                    {spot.SpotImages?.length> 3 && <img
                         className='spotdetail-img-right'
                         src={spot.SpotImages[3]?.url}
                         title={spot.name}
                         alt={spot.name}
                     />}
-                    {spot.SpotImages?.length> 3 && <img
+                    {spot.SpotImages?.length> 4 && <img
                         className='spotdetail-img-right'
                         src={spot.SpotImages[4]?.url}
                         title={spot.name}
