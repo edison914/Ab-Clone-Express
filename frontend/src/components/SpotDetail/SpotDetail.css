@@ -47,16 +47,17 @@
 .spotdetail-right-pictures-container {
     flex: 1;
     max-width: 50%;
+    flex-wrap: nowrap;
 }
 
 .spotdetail-img-left {
-    width: 500px;
+    width: 600px;
     height: 500px;
     margin: 5px;
     border-radius: 10px
 }
 .spotdetail-img-right {
-    width: 240px;
+    width: 290px;
     height: 240px;
     margin: 7.5px;
     border-radius: 10px
