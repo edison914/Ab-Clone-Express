@@ -85,7 +85,6 @@ export const addNewSpotThunk = (spotData) => async (dispatch) => {
         return data;
       } else {
         const err = await res.json();
-        console.timeLog(err)
         return err;
     }
 }
@@ -108,6 +107,23 @@ export const addImgToSpotThunk = (img, spotId) => async (dispatch) => {
     }
 }
 
+export const UpdateSpotThunk = (spotData, spotId) => async (dispatch) => {
+    const res = await csrfFetch(`/api/spots/${spotId}`, {
+        method: "PUT",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(spotData)
+      })
+    //console.log(`is this even called?`, res)
+    if (res.ok) {
+        const data = await res.json()
+        //console.log(data)
+        dispatch(loadSpotDetail(data))
+        return data;
+      } else {
+        const err = await res.json();
+        return err;
+    }
+}
 
 const initialState = {
 

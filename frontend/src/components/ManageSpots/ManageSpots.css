@@ -1,0 +1,13 @@
+.managespot-buttons-container {
+    display: flex;
+}
+
+.managespot-button {
+    margin: 10px;
+    margin-bottom: 20px;
+    background-color:#999999;
+    color: white;
+    cursor: pointer;
+    width: 100px;
+    border-radius: 4px;
+}
