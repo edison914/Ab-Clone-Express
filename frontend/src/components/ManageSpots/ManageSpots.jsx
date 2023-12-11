@@ -4,6 +4,10 @@ import { useEffect } from 'react';
 import { getSpotsThunk } from '../../store/spot';
 import { NavLink, useNavigate } from 'react-router-dom';
 import './ManageSpots.css'
+import OpenModalButton from  '../OpenModalButton/OpenModalButton'
+import DeleteSpot from '../DeleteSpotModal/DeleteSpotModal';
+
+
 function ManageSpots () {
     const sessionUser = useSelector((state) => state.session.user)
     const allSpots = useSelector(state => Object.values(state.spots))
@@ -18,12 +22,6 @@ function ManageSpots () {
         navigate(`/spots/${spotId}/Update`)
     }
 
-    // const handleDeleteSpot = (e) => {
-    //e.preventDefault();
-    // return dispatch(sessionActions.login({ credential: 'Demouser', password: 'demouser' }))
-    //     .then(closeModal)
-    //}
-
     const ownerSpots = allSpots.filter((spot) => spot.ownerId === sessionUser.id);
 
     if (!allSpots) {
@@ -31,11 +29,11 @@ function ManageSpots () {
     }
 
     // console.log(sessionUser.id)
-    // console.log(ownerSpots)
+
     return (
         <div>
             <h1>
-                Manage spot page
+                Manage Spots
             </h1>
             {ownerSpots.length === 0 &&
                 <NavLink to='/spots/newSpot'>Create a new Spot</NavLink>
@@ -76,13 +74,11 @@ function ManageSpots () {
                                 >
                                     Update
                                 </button>
-                                <button
-                                    className='managespot-button'
-                                    type='button'
-                                    //onClick={handleDeleteSpot(spot.id)}
-                                >
-                                    Delete
-                                </button>
+
+                                <OpenModalButton className='managespot-button'
+                                    modalComponent={<DeleteSpot spotId={spot.id} />}
+                                    buttonText='Delete'
+                                />
                             </div>
 
                         </div>
