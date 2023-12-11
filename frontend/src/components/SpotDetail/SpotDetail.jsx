@@ -132,6 +132,7 @@ const SpotDetail = () => {
                     )}
                 </h3>
             </div>
+
             <div>
                 {/*
                 check if currentUser is Login
@@ -145,6 +146,8 @@ const SpotDetail = () => {
                     />
                 )}
             </div>
+
+            {/* render all the reviews asscociated with the Spot */}
             <ReviewsById spotId={ spotId }/>
         </div>
     )

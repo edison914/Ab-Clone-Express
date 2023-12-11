@@ -2,6 +2,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { getReviewsByIdThunk } from "../../store/review";
 import './ReviewsById.css';
+import OpenModalButton from  '../OpenModalButton/OpenModalButton'
+import DeleteReviewModal from '../DeleteReview/DeleteReviewModal';
 
 const ReviewsById = ({spotId}) => {
 
@@ -10,7 +12,7 @@ const ReviewsById = ({spotId}) => {
     const spotOwnerId = useSelector(state => state.spots[spotId].ownerId)
     //console.log(spotOwnerId)
     const currentUserId= useSelector(state => state.session.user?.id)
-    //console.log(currentUserId)
+    //console.log(`current userId`, currentUserId)
     const dispatch = useDispatch();
 
     //if reviews found, sort them from most recent to old
@@ -32,7 +34,7 @@ const ReviewsById = ({spotId}) => {
         return <div>Be the first to post a review!</div>
     }
 
-
+    //console.log(`current review Id`, sortedReviews[0].id)
 
     //return the reviews when found
     return (
@@ -42,6 +44,14 @@ const ReviewsById = ({spotId}) => {
                         <div>{review.User.firstName}</div>
                         <div>{new Date(review.createdAt).toLocaleString('en-US', { month: 'long', year: 'numeric' })}</div>
                         <div>{review.review}</div>
+                        <div>
+                            {currentUserId === review?.User?.id && (
+                            <OpenModalButton
+                                modalComponent={<DeleteReviewModal reviewId={review.id} />}
+                                buttonText='Delete'
+                            />
+                            )}
+                        </div>
                     </div>
             ))}
         </div>

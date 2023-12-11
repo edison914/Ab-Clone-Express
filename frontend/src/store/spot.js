@@ -63,7 +63,7 @@ export const getSpotDetailThunk = (spotId) => async (dispatch) => {
     //console.log(`is this even called?`, res)
     if (res.ok) {
         const data = await res.json()
-        console.log(data)
+        //console.log(data)
         dispatch(loadSpotDetail(data))
         return data;
       } else {
@@ -99,7 +99,7 @@ export const addImgToSpotThunk = (img, spotId) => async (dispatch) => {
     //console.log(`is this even called?`, res)
     if (res.ok) {
         const data = await res.json()
-        console.log(data)
+        //console.log(data)
         dispatch(addImgtoSpot(spotId, data.url))
         return data;
       } else {

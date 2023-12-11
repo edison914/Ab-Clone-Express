@@ -52,7 +52,7 @@ function UpdateSpot () {
 
 
         let res = await dispatch(UpdateSpotThunk(spotData, spotId));
-        console.log(`updated spot`, res)
+        //console.log(`updated spot`, res)
 
         setCountry('');
         setAddress('');

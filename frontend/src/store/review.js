@@ -3,6 +3,7 @@ import { getSpotDetailThunk } from "./spot";
 
 //const for action types so actions dont duplicate
 const LOAD_REVIEWS_BYSPOT = `review/LOAD_REVIEWS_BYSPOT`
+const REMOVE_REVIEW = `review/REMOVE_REVIEW`;
 //const ADD_REVIEW_BYSPOT = `review/ADD_REVIEW_BYSPOT`
 
 //action creators for handling both actions
@@ -14,12 +15,12 @@ const loadReviewsBySpot = (reviews) => {
     }
 }
 
-// const addReviewBySpot = (review) => {
-//     return {
-//         type: ADD_REVIEW_BYSPOT,
-//         payload: review
-//     }
-// }
+const removeReview = (reviewId) => {
+    return {
+        type: REMOVE_REVIEW,
+        payload: reviewId
+    }
+};
 
 
 //thunk action to fetch all reviews
@@ -28,7 +29,7 @@ export const getReviewsByIdThunk = (spotId) => async (dispatch) => {
     //console.log(`is this even called?`, res)
     if (res.ok) {
         const reviews = await res.json()
-        console.log(`res1 return`, reviews)
+        //console.log(`res1 return`, reviews)
         dispatch(loadReviewsBySpot(reviews.Reviews))
         return reviews;
       } else {
@@ -60,6 +61,22 @@ export const addReviewThunk = (reviewForm, spotId) => async (dispatch) => {
     }
 }
 
+//
+export const DeleteReviewThunk = (reviewId) => async (dispatch) => {
+    const res = await csrfFetch(`/api/reviews/${reviewId}`, {
+        method: "DELETE",
+      })
+    //console.log(`is this even called?`, res)
+    if (res.ok) {
+        const data = await res.json()
+        //console.log(data)
+        dispatch(removeReview(reviewId))
+        return data;
+      } else {
+        const err = await res.json();
+        return err;
+    }
+}
 
 const initialState = {
 
@@ -72,6 +89,11 @@ const reviewReducer = (state = initialState, action) => {
             action.payload.forEach(review => {
                 newState[review.id] = { ...newState[review.id], ...review}
             })
+            return newState
+        }
+        case REMOVE_REVIEW: {
+            //action.payload is the reviewId
+            delete newState[action.payload]
             return newState
         }
         default:
