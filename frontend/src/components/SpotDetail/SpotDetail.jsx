@@ -57,12 +57,44 @@ const SpotDetail = () => {
         <div>
             <h1>{spot.name}</h1>
             <h3>{spot.city}, {spot.state}, {spot.country}</h3>
-            {spot.SpotImages && <img
-                className='spotdetail-img'
-                src={spot.SpotImages[0]?.url}
-                title={spot.name}
-                alt={spot.name}
-            />}
+            <div className='spotdetail-pictures-container'>
+                <div className='spotdetail-right-picture-container'>
+                    {spot.SpotImages && <img
+                        className='spotdetail-img'
+                        src={spot.SpotImages[0]?.url}
+                        title={spot.name}
+                        alt={spot.name}
+                    />}
+                </div>
+                <div className='spotdetail-left-pictures-container'>
+                    {spot.SpotImages && <img
+                        className='spotdetail-img'
+                        src={spot.SpotImages[1]?.url}
+                        title={spot.name}
+                        alt={spot.name}
+                    />}
+                    {spot.SpotImages && <img
+                        className='spotdetail-img'
+                        src={spot.SpotImages[2]?.url}
+                        title={spot.name}
+                        alt={spot.name}
+                    />}
+                    {spot.SpotImages && <img
+                        className='spotdetail-img'
+                        src={spot.SpotImages[3]?.url}
+                        title={spot.name}
+                        alt={spot.name}
+                    />}
+                    {spot.SpotImages && <img
+                        className='spotdetail-img'
+                        src={spot.SpotImages[4]?.url}
+                        title={spot.name}
+                        alt={spot.name}
+                    />}
+                </div>
+            </div>
+
+
             <div className='spotdetail-info'>
                 <div className='spotdetail-info-host'>
                 {spot.Owner && <h2>Hosted by {spot.Owner.firstName} {spot.Owner.lastName}</h2>}
