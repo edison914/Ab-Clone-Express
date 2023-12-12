@@ -21,19 +21,15 @@ function UpdateSpot () {
         dispatch(getSpotsThunk())
     },[dispatch])
 
-    const [country, setCountry] = useState(selectedSpot.country);
-    const [address, setAddress] = useState(selectedSpot.address)
-    const [city, setCity] = useState(selectedSpot.city);
-    const [state, setState] = useState(selectedSpot.state);
-    const [latitude, setLatitude] = useState(selectedSpot.lat);
-    const [longitude, setLongitude] = useState(selectedSpot.lng);
-    const [description, setDescription] = useState(selectedSpot.description);
-    const [spotName, setSpotName] = useState(selectedSpot.name);
-    const [price, setPrice] = useState(selectedSpot.price);
-
-    if(!selectedSpot) {
-        return <p>loading....</p>
-    }
+    const [country, setCountry] = useState(selectedSpot?.country);
+    const [address, setAddress] = useState(selectedSpot?.address)
+    const [city, setCity] = useState(selectedSpot?.city);
+    const [state, setState] = useState(selectedSpot?.state);
+    const [latitude, setLatitude] = useState(selectedSpot?.lat);
+    const [longitude, setLongitude] = useState(selectedSpot?.lng);
+    const [description, setDescription] = useState(selectedSpot?.description);
+    const [spotName, setSpotName] = useState(selectedSpot?.name);
+    const [price, setPrice] = useState(selectedSpot?.price);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -52,7 +48,7 @@ function UpdateSpot () {
 
 
         let res = await dispatch(UpdateSpotThunk(spotData, spotId));
-        //console.log(`updated spot`, res)
+        console.log(`updated spot`, res)
 
         setCountry('');
         setAddress('');
@@ -67,6 +63,10 @@ function UpdateSpot () {
             navigate(`/spots/${spotId}`)
         }
     };
+
+    if(!selectedSpot) {
+        return <p>Loading....</p>
+    }
 
     return (
         <div className='newspot-form-container'>
@@ -164,7 +164,7 @@ function UpdateSpot () {
                         placeholder='Please write at least 30 characters'
                         rows='10'
                     ></textarea>
-                    {description.length < 30 && (<div className='newspot-form-required-input'>Description needs a minimum of 30 characters</div>)}
+                    {description?.length < 30 && (<div className='newspot-form-required-input'>Description needs a minimum of 30 characters</div>)}
                 </div>
 
                 <div className='newspot-form-section-container'>
