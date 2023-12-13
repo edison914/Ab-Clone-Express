@@ -130,12 +130,12 @@ function NewSpot () {
                             <span className='input-state-span'> State </span>
 
                             <input
-                            className='input-state'
-                            type='text'
-                            onChange={(e) => setState(e.target.value)}
-                            value={state}
-                            placeholder='state'
-                            name='state'
+                                className='input-state'
+                                type='text'
+                                onChange={(e) => setState(e.target.value)}
+                                value={state}
+                                placeholder='state'
+                                name='state'
                             />
                             {!state && (<div className='newspot-form-required-input'>State is required</div>)}
                         </div>

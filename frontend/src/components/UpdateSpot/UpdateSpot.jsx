@@ -79,11 +79,12 @@ function UpdateSpot () {
                     <div>
                         <p>Country</p>
                         <input
-                        type='text'
-                        onChange={(e) => setCountry(e.target.value)}
-                        value={country}
-                        placeholder='Country'
-                        name='Country'
+                            className='input-country'
+                            type='text'
+                            onChange={(e) => setCountry(e.target.value)}
+                            value={country}
+                            placeholder='Country'
+                            name='Country'
                         />
                         {!country && (<div className='newspot-form-required-input'>Country is required</div>)}
                     </div>
@@ -92,6 +93,7 @@ function UpdateSpot () {
                         <p>Street Address</p>
 
                         <input
+                        className='input-address'
                         type='text'
                         onChange={(e) => setAddress(e.target.value)}
                         value={address}
@@ -103,9 +105,10 @@ function UpdateSpot () {
 
                     <div className='newspot-form-city-state-container'>
                         <div>
-                            <span>City </span>
+                            <span > City </span>
 
                             <input
+                            className='input-city'
                             type='text'
                             onChange={(e) => setCity(e.target.value)}
                             value={city}
@@ -115,9 +118,10 @@ function UpdateSpot () {
                             {!city && (<div className='newspot-form-required-input'>City is required</div>)}
                         </div>
                         <div>
-                            <span> State </span>
+                            <span className='input-state-span'> State </span>
 
                             <input
+                            className='input-state'
                             type='text'
                             onChange={(e) => setState(e.target.value)}
                             value={state}
@@ -129,25 +133,27 @@ function UpdateSpot () {
                     </div>
                     <div className='newspot-form-city-state-container'>
                         <div>
-                            <span>Latitude</span>
+                            <span>Latitude </span>
                             <input
-                            type='text'
-                            onChange={(e) => setLatitude(e.target.value)}
-                            value={latitude}
-                            placeholder='Latitude'
-                            name='Latitude'
+                                className='input-lat'
+                                type='text'
+                                onChange={(e) => setLatitude(e.target.value)}
+                                value={latitude}
+                                placeholder='Latitude'
+                                name='Latitude'
                             />
                             {!latitude && (<div className='newspot-form-required-input'>Latitude is required</div>)}
                         </div>
                         <div>
-                            <span> Longitude </span>
+                            <span className='input-state-lng'> Longitude </span>
 
                             <input
-                            type='text'
-                            onChange={(e) => setLongitude(e.target.value)}
-                            value={longitude}
-                            placeholder='Longitude'
-                            name='Longitude'
+                                className='input-lng'
+                                type='text'
+                                onChange={(e) => setLongitude(e.target.value)}
+                                value={longitude}
+                                placeholder='Longitude'
+                                name='Longitude'
                             />
                             {!longitude && (<div className='newspot-form-required-input'>Longitude is required</div>)}
                         </div>
