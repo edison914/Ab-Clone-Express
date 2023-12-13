@@ -5,7 +5,7 @@ import './DeleteReviewModal.css'
 import { DeleteReviewThunk } from '../../store/review';
 
 function DeleteReviewModal ({reviewId}) {
-    //console.log(`reviewId`,reviewId)
+    //console.log(``,reviewId)
     const dispatch = useDispatch();
 
     const [errors, setErrors] = useState({});

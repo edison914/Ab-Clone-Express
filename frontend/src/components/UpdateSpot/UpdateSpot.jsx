@@ -55,15 +55,15 @@ function UpdateSpot () {
 
         let res = await dispatch(UpdateSpotThunk(spotData, spotId))
             .catch(async (res) => {
-            const data = await res.json();
-            console.log(`data`,data)
-            if (data && data.message) {
-                setErrors(data.errors);
-                console.log(`errors`, errors)
-                if (data.message === `value too long for type character varying(255)`) {
-                    //console.log(data.message)
-                    setErrors({description: data.message})
-                }
+                const data = await res.json();
+                console.log(`data`,data)
+                if (data && data.message) {
+                    setErrors(data.errors);
+                    console.log(`errors`, errors)
+                    if (data.message === `value too long for type character varying(255)`) {
+                        //console.log(data.message)
+                        setErrors({description: data.message})
+                    }
                 return;
             }
         });

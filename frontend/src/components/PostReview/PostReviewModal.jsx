@@ -23,12 +23,14 @@ function PostNewReviewModal ({spotId}) {
         return dispatch(addReviewThunk(reviewForm, spotId))
           .then(closeModal)
           .catch(async (res) => {
-            //const data = await res.json();
-            //console.log(data)
-            if (res && res.message) {
-                setErrors(res);
+            const data = await res.json();
+            console.log(data)
+            if (data && data.message) {
+                setErrors(data.errors);
+                console.log(`errors`, errors)
             }
-            //console.log(errors)
+            console.log(errors)
+            return;
         });
     };
 
@@ -39,6 +41,7 @@ function PostNewReviewModal ({spotId}) {
                 {errors.message && (
                 <p className=''>{errors.message}</p>
             )}
+            {errors.review && (<div className='newspot-form-required-input'>{errors.review}</div>)}
             <form className='form' onSubmit={handleSubmit}>
                 <textarea className='postreview-form-input'
                     value={review}
@@ -53,7 +56,7 @@ function PostNewReviewModal ({spotId}) {
                     onChange={(e) => setRating(e.target.value)}
 
                 <rating/> */}
-
+                {errors.stars && (<div className='newspot-form-required-input'>{errors.stars}</div>)}
                 <div className='postreview-rating'>
                     <input
                         className='postreview-rating-inputbox'
@@ -72,7 +75,7 @@ function PostNewReviewModal ({spotId}) {
                 <button className='postreview-submit-button'
                     type='button'
                     onClick={handleSubmit}
-                    disabled={review.length > 9 && rating !== ''}
+                    disabled={review.length < 10 || rating === ''}
                 >
                     Submit Your Review
                 </button>

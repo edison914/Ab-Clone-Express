@@ -15,6 +15,16 @@
     height: 30px
 }
 
+.postreview-submit-button:disabled {
+    margin: 10px;
+    margin-bottom: 20px;
+    background-color: #E8F0FE ;
+    color: white;
+    width: 208px;
+    cursor: not-allowed;
+    border-radius: 4px;
+}
+
 .postreview-rating {
     margin: 20px;
 }
@@ -28,4 +38,3 @@
     width: 300px;
     height: 120px;
 }
-
