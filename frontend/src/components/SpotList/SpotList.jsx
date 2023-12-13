@@ -26,27 +26,28 @@ const AllSpotList = () => {
         <nav className="spotlist">
             {allSpots.map((spot) => (
                 <div key={spot.id}>
-                    <NavLink to={`/spots/${spot.id}`}>
+                    <NavLink className='spot-nav' to={`/spots/${spot.id}`} >
                         <img
                              className='spot-img'
                             src={spot.previewImage}
                              title={spot.name}
                              alt={spot.name}
                         />
-                    </NavLink>
-                    <div className="spot-info">
-                        <div className='spot-city-and-rating'>
-                            <div>
-                            {spot.city}, {spot.state}
+                        <div className="spot-info">
+                            <div className='spot-city-and-rating'>
+                                <div>
+                                {spot.city}, {spot.state}
+                                </div>
+                                <div>
+                                <i className="fas fa-star" />{spot.avgRating ? spot.avgRating.toFixed(1) : 'NEW'}
+                                </div>
                             </div>
-                            <div>
-                            <i className="fas fa-star" />{spot.avgRating ? spot.avgRating.toFixed(1) : 'NEW'}
-                            </div>
-                        </div>
-                        <div className='spot-price'>
-                            ${spot.price} night
+                            <div className='spot-price'>
+                                ${spot.price} night
                         </div>
                     </div>
+                    </NavLink>
+
                 </div>
             ))}
         </nav>

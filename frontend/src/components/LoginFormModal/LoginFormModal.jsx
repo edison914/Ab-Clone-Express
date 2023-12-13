@@ -37,6 +37,8 @@ function LoginFormModal() {
       .then(closeModal)
   }
 
+  const handleDisableLogin = credential.length < 4 || password.length < 6
+
   return (
     <>
       <h1 className='login'>Log In</h1>
@@ -62,10 +64,14 @@ function LoginFormModal() {
             required
           />
         </label>
-        {credential.length >3 && password.length >5 && (
-          <button className='form-button' type="submit">Log In</button>
-        )}
-        <button className='form-demo-login'
+
+        <button
+          className='login-form-button'
+          type="submit"
+          disabled={handleDisableLogin}
+        >Log In</button>
+
+        <button className='login-form-demo-login'
           type='button'
           onClick={handleDemoLogin}
         >

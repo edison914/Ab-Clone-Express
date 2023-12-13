@@ -21,13 +21,23 @@
     font-family: 'Playpen Sans', cursive;
 }
 
-.form-button {
+.login-form-button {
     margin: 10px;
     margin-bottom: 20px;
     background-color:#FF5A5F ;
     color: white;
     cursor: pointer;
     width: 208px;
+    border-radius: 4px;
+}
+
+.login-form-button:disabled {
+    margin: 10px;
+    margin-bottom: 20px;
+    background-color: #E8F0FE ;
+    color: white;
+    width: 208px;
+    cursor: not-allowed;
     border-radius: 4px;
 }
 
@@ -41,7 +51,7 @@
     color: #FF5A5F
 }
 
-.form-demo-login {
+.login-form-demo-login {
     margin: 10px;
     margin-bottom: 20px;
     background-color: #E8F0FE;
