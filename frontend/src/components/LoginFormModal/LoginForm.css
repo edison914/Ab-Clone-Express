@@ -12,6 +12,7 @@
     align-items: center;
     justify-content: center;
     width: 300px;
+
 }
 
 .form-label {
@@ -27,24 +28,26 @@
     background-color:#FF5A5F ;
     color: white;
     cursor: pointer;
-    width: 208px;
+    width: 250px;
     border-radius: 4px;
+    height: 30px;
 }
 
 .login-form-button:disabled {
     margin: 10px;
     margin-bottom: 20px;
     background-color: #E8F0FE ;
-    color: white;
-    width: 208px;
+    color: black;
+    width: 250px;
     cursor: not-allowed;
     border-radius: 4px;
 }
 
 .form-input {
-    width: 200px;
+    width: 242px;
     background-color: #E8F0FE;
     border-radius: 4px;
+    height: 30px;
 }
 
 .form-error-message {
@@ -54,9 +57,10 @@
 .login-form-demo-login {
     margin: 10px;
     margin-bottom: 20px;
-    background-color: #E8F0FE;
-    color: black;
+    background-color: #767676;
+    color: white;
     cursor: pointer;
-    width: 208px;
+    width: 250px;
     border-radius: 4px;
+    height: 30px;
 }

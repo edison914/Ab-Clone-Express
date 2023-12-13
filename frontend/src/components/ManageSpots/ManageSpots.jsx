@@ -36,7 +36,7 @@ function ManageSpots () {
                 Manage Spots
             </h1>
             {ownerSpots.length === 0 &&
-                <NavLink to='/spots/newSpot'>Create a new Spot</NavLink>
+                <NavLink className='managespot-newspot' to='/spots/newSpot'>Create a new Spot</NavLink>
             }
             <div className="spotlist">
                 {ownerSpots.length > 0 &&

@@ -20,13 +20,12 @@
 }
 
 .profile-dropdown li:hover {
-    background-color: #CCCCCC;
+    background-color: #767676;
   }
 
 .hidden {
     display: none;
   }
-
 
 .navBar {
     display: flex;
