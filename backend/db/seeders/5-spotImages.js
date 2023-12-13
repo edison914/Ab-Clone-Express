@@ -13,7 +13,7 @@ module.exports = {
       [
         {
           spotId: 1,
-          url: `https://images.pexels.com/photos/1302242/pexels-photo-1302242.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1`,
+          url: `https://images.pexels.com/photos/2598683/pexels-photo-2598683.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2`,
           preview: true,
         },
         {
