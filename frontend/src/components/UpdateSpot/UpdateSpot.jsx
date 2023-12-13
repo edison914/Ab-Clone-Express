@@ -70,7 +70,7 @@ function UpdateSpot () {
 
     return (
         <div className='newspot-form-container'>
-            <h1>Update Your Spot</h1>
+            <h1 className='title'>Update Your Spot</h1>
 
             <form className='newspot-form' onSubmit={handleSubmit} >
                 <div className='newspot-form-section-container'>

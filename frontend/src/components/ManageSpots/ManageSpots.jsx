@@ -32,7 +32,7 @@ function ManageSpots () {
 
     return (
         <div>
-            <h1>
+            <h1 className='title'>
                 Manage Spots
             </h1>
             {ownerSpots.length === 0 &&
@@ -43,28 +43,32 @@ function ManageSpots () {
                     ownerSpots.map((spot) => (
                         <div key={spot.id}>
 
-                            <NavLink to={`/spots/${spot.id}`}>
+                            <NavLink className='spot-nav' to={`/spots/${spot.id}`}>
                                 <img
                                     className='spot-img'
                                     src={spot.previewImage}
                                     title={spot.name}
                                     alt={spot.name}
                                 />
+
+                                <div className="spot-info">
+                                    <div className='spot-city-and-rating'>
+                                            <div>
+                                            {spot.city}, {spot.state}
+                                            </div>
+                                            <div>
+                                            <i className="fas fa-star" />{spot.avgRating ? spot.avgRating.toFixed(1) : 'NEW'}
+                                            </div>
+                                    </div>
+
+                                    <div className='spot-price'>
+                                            ${spot.price} night
+                                    </div>
+                                </div>
+
                             </NavLink>
 
-                            <div className="spot-info">
-                                <div className='spot-city-and-rating'>
-                                    <div>
-                                    {spot.city}, {spot.state}
-                                    </div>
-                                    <div>
-                                    <i className="fas fa-star" />{spot.avgRating ? spot.avgRating.toFixed(1) : 'NEW'}
-                                    </div>
-                                </div>
-                                <div className='spot-price'>
-                                    ${spot.price} night
-                                </div>
-                            </div>
+
 
                             <div className='managespot-buttons-container'>
                                 <button

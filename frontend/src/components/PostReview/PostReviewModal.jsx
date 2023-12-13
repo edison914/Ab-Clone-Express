@@ -40,7 +40,7 @@ function PostNewReviewModal ({spotId}) {
                 <p className=''>{errors.message}</p>
             )}
             <form className='form' onSubmit={handleSubmit}>
-                <textarea className='form-input'
+                <textarea className='postreview-form-input'
                     value={review}
                     onChange={(e) => setReview(e.target.value)}
                     name='review'
@@ -68,14 +68,15 @@ function PostNewReviewModal ({spotId}) {
                     <label htmlFor="rating">Stars</label>
                 </div>
 
-                {review.length > 9 && rating !== '' &&
-                    <button className='postreview-submit-button'
+
+                <button className='postreview-submit-button'
                     type='button'
                     onClick={handleSubmit}
-                    >
+                    disabled={review.length > 9 && rating !== ''}
+                >
                     Submit Your Review
-                    </button>
-                }
+                </button>
+
 
             </form>
         </div>

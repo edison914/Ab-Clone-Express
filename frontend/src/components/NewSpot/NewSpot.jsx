@@ -79,7 +79,7 @@ function NewSpot () {
 
     return (
         <div className='newspot-form-container'>
-            <h1>Create a New Spot</h1>
+            <h1 className='title'>Create a New Spot</h1>
 
             <form className='newspot-form' onSubmit={handleSubmit} >
                 <div className='newspot-form-section-container'>

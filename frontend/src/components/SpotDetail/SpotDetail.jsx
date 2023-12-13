@@ -54,44 +54,43 @@ const SpotDetail = () => {
 
 
     return (
-        <div>
-            <h1>{spot.name}</h1>
-            <h3>{spot.city}, {spot.state}, {spot.country}</h3>
+        <div className='spotdetail'>
+            <h1 className='spotdetail-title'>{spot.name}</h1>
+            <h3 className='spotdetail-city-state'>{spot.city}, {spot.state}, {spot.country}</h3>
             <div className='spotdetail-pictures-container'>
-                <div className='spotdetail-right-picture-container'>
-                    {spot.SpotImages && <img
-                        className='spotdetail-img-left'
-                        src={spot.SpotImages[0]?.url}
-                        title={spot.name}
-                        alt={spot.name}
-                    />}
-                </div>
-                <div className='spotdetail-left-pictures-container'>
-                    {spot.SpotImages?.length > 1 && <img
-                        className='spotdetail-img-right'
-                        src={spot.SpotImages[1]?.url}
-                        title={spot.name}
-                        alt={spot.name}
-                    />}
-                    {spot.SpotImages?.length > 2 && <img
-                        className='spotdetail-img-right'
-                        src={spot.SpotImages[2]?.url}
-                        title={spot.name}
-                        alt={spot.name}
-                    />}
-                    {spot.SpotImages?.length> 3 && <img
-                        className='spotdetail-img-right'
-                        src={spot.SpotImages[3]?.url}
-                        title={spot.name}
-                        alt={spot.name}
-                    />}
-                    {spot.SpotImages?.length> 4 && <img
-                        className='spotdetail-img-right'
-                        src={spot.SpotImages[4]?.url}
-                        title={spot.name}
-                        alt={spot.name}
-                    />}
-                </div>
+
+                {spot.SpotImages && <img
+                    className='spotdetail-img-left'
+                    src={spot.SpotImages[0]?.url}
+                    title={spot.name}
+                    alt={spot.name}
+                />}
+
+                {spot.SpotImages?.length > 1 && <img
+                    className='spotdetail-img-right-2'
+                    src={spot.SpotImages[1]?.url}
+                    title={spot.name}
+                    alt={spot.name}
+                />}
+                {spot.SpotImages?.length > 2 && <img
+                    className='spotdetail-img-right-3'
+                    src={spot.SpotImages[2]?.url}
+                    title={spot.name}
+                    alt={spot.name}
+                />}
+                {spot.SpotImages?.length> 3 && <img
+                    className='spotdetail-img-right-4'
+                    src={spot.SpotImages[3]?.url}
+                    title={spot.name}
+                    alt={spot.name}
+                />}
+                {spot.SpotImages?.length> 4 && <img
+                    className='spotdetail-img-right-5'
+                    src={spot.SpotImages[4]?.url}
+                    title={spot.name}
+                    alt={spot.name}
+                />}
+
             </div>
 
 
@@ -114,7 +113,7 @@ const SpotDetail = () => {
                             )}
                         </div>
                     </div>
-                    <div>
+                    <div className='spotdetail-reserve-button-container'>
                         <button className='spotdetail-reserve-button' onClick={handleReserveClick}>Reserve</button>
                     </div>
 

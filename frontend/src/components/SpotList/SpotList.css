@@ -15,7 +15,7 @@
 }
 
 .spot-img {
-    width: 400px;
+    width: 470px;
     height: 300px;
     margin: 10px;
     border-radius: 10px
@@ -37,6 +37,5 @@
 
 .spot-nav {
     text-decoration: none;
-    color: black
+    color: black;
 }
-

@@ -3,6 +3,7 @@
     flex-direction: row;
     justify-content: space-between;
     border-bottom: 2px solid #CCCCCC;
+    padding: 10px 0px;
 }
 
 .spotdetail-info-host h2 {
@@ -22,43 +23,77 @@
     border: 2px solid black;
     border-radius: 10px;
     margin: 5px;
+    padding: 10px;
 }
 
 .spotdetail-reserve-button {
-    margin-left: 20px;
     background-color:#FF5A5F ;
     color: white;
     cursor: pointer;
-    width: 250px;
+    width: 270px;
     border-radius: 4px;
     height: 30px;
+    margin: 10px 10px 0 10px;
+}
+
+.spotdetail-reserve-button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .spotdetail-pictures-container {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.spotdetail-left-pictures-container {
-    flex: 1;
-    max-width: 50%;
-}
-
-.spotdetail-right-pictures-container {
-    flex: 1;
-    max-width: 50%;
-    flex-wrap: nowrap;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas:
+    'left left right2 right3'
+    'left left right4 right5';
+    max-width: 700px;
 }
 
 .spotdetail-img-left {
-    width: 600px;
+    width: 715px;
     height: 500px;
-    margin: 5px;
-    border-radius: 10px
+    border-radius: 5px;
+    grid-area: left;
+    margin: 10px 10px 10px 0;
 }
-.spotdetail-img-right {
-    width: 290px;
+
+.spotdetail-img-right-2 {
+    width: 350px;
     height: 240px;
-    margin: 7.5px;
-    border-radius: 10px
+    border-radius: 5px;
+    grid-area: right2;
+    margin: 10px;
+}
+.spotdetail-img-right-3 {
+    width: 350px;
+    height: 240px;
+    border-radius: 5px;
+    grid-area: right3;
+    margin: 10px;
+}
+.spotdetail-img-right-4 {
+    width: 350px;
+    height: 240px;
+    border-radius: 5px;
+    grid-area: right4;
+    margin: 10px;
+}
+.spotdetail-img-right-5 {
+    width: 350px;
+    height: 240px;
+    border-radius: 5px;
+    grid-area: right5;
+    margin: 10px;
+}
+
+.spotdetail {
+    margin: 0 10px;
+
+}
+
+.spotdetail-city-state {
+    margin: 0px;
 }

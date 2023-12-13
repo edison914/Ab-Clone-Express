@@ -1,5 +1,11 @@
 /* TODO: Add sitewide styles */
 body {
     font-family: 'Playpen Sans', cursive;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
 }
 
+#modal-content {
+    border-radius: 4px;
+}
