@@ -48,6 +48,10 @@ function UpdateSpot () {
                 price
             }
 
+        if (description.length < 30) {
+            setErrors({ description: 'Description must be at least 30 characters.' });
+            return;
+        }
 
         let res = await dispatch(UpdateSpotThunk(spotData, spotId))
             .catch(async (res) => {
@@ -177,7 +181,7 @@ function UpdateSpot () {
                         placeholder='Please write at least 30 characters'
                         rows='10'
                     ></textarea>
-                    {description?.length < 30 && (<div className='newspot-form-required-input'>Description needs a minimum of 30 characters</div>)}
+                    {errors?.description && (<div className='newspot-form-required-input'>{errors?.description}</div>)}
                 </div>
 
                 <div className='newspot-form-section-container'>

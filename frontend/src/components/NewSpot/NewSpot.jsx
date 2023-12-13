@@ -54,6 +54,11 @@ function NewSpot () {
             return;
         }
 
+        if (description.length < 30) {
+            setErrors({ description: 'Description must be at least 30 characters.' });
+            return;
+        }
+
         let res = await dispatch(addNewSpotThunk(spotData))
             .catch(async (res) => {
 
@@ -73,26 +78,30 @@ function NewSpot () {
 
         if (res?.id) {
             const spotId = res.id
+            const imgArr = [url1, url2, url3, url4, url5]
 
-            let res2 = await dispatch(addImgToSpotThunk(newSpotImage1, spotId))
+            //cant not use forEach with await. need to await Promise.All instead
+            await Promise.all(imgArr.map(async (img) => {
+                if (img !== '') {
+                    await dispatch(addImgToSpotThunk(newSpotImage1, spotId));
+                }
+            }));
 
-                console.log(`new added image`, res2)
+            setCountry('');
+            setAddress('');
+            setCity('');
+            setState('');
+            setLatitude('');
+            setLongitude('');
+            setSpotName('');
+            setPrice('');
+            setUrl1('');
+            setUrl2('');
+            setUrl3('');
+            setUrl4('');
+            setUrl5('');
 
-                setCountry('');
-                setAddress('');
-                setCity('');
-                setState('');
-                setLatitude('');
-                setLongitude('');
-                setSpotName('');
-                setPrice('');
-                setUrl1('');
-                setUrl2('');
-                setUrl3('');
-                setUrl4('');
-                setUrl5('');
-
-                navigate(`/spots/${res.id}`)
+            navigate(`/spots/${res.id}`)
         }
 
     //    dispatch(addNewSpotImageThunk(newSpotImage1))
