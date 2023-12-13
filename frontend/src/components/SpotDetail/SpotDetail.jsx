@@ -138,7 +138,9 @@ const SpotDetail = () => {
                 check if currentUser has already review the spot using useEffect to loop through reviewArr and setReview State
                 check if currentUser Id not equal to Spot Owner Id
                 */}
-                {currentUser && !hasReviewed && currentUser?.id !== spot?.Owner?.id && (
+
+                {/* hasReviewed is not updated when the post is deleted, hence the postReviewModal doesnt show when a user hasnt posted one */}
+                {(currentUser && !hasReviewed && currentUser?.id !== spot?.Owner?.id) && (
                     <OpenModalButton
                         modalComponent={<PostReviewModal spotId={ spotId} />}
                         buttonText='Post Your Review'
@@ -147,7 +149,7 @@ const SpotDetail = () => {
             </div>
 
             {/* render all the reviews asscociated with the Spot */}
-            <ReviewsById spotId={ spotId }/>
+            <ReviewsById spotId={ spotId } setHasReviewed={setHasReviewed}/>
         </div>
     )
 };

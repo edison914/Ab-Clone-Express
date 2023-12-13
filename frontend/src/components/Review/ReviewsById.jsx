@@ -5,7 +5,7 @@ import './ReviewsById.css';
 import OpenModalButton from  '../OpenModalButton/OpenModalButton'
 import DeleteReviewModal from '../DeleteReview/DeleteReviewModal';
 
-const ReviewsById = ({spotId}) => {
+const ReviewsById = ({spotId, setHasReviewed}) => {
 
     const allReviews = useSelector(state => Object.values(state.reviews))
     const reviews = allReviews.filter(review => review.spotId === Number(spotId))
@@ -47,7 +47,7 @@ const ReviewsById = ({spotId}) => {
                         <div>
                             {currentUserId === review?.User?.id && (
                             <OpenModalButton
-                                modalComponent={<DeleteReviewModal reviewId={review.id} />}
+                                modalComponent={<DeleteReviewModal reviewId={review.id} spotId= {spotId} setHasReviewed={setHasReviewed}/>}
                                 buttonText='Delete'
                             />
                             )}

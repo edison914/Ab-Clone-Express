@@ -2,20 +2,20 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useModal } from '../../context/Modal';
 import './DeleteReviewModal.css'
-import { DeleteReviewThunk } from '../../store/review';
+import { DeleteReviewThunk} from '../../store/review';
 
-function DeleteReviewModal ({reviewId}) {
+function DeleteReviewModal ({reviewId, setHasReviewed, spotId}) {
     //console.log(``,reviewId)
     const dispatch = useDispatch();
-
     const [errors, setErrors] = useState({});
     const { closeModal } = useModal();
     const handleConfirmSubmit = (e) => {
         e.preventDefault();
         setErrors({});
 
-        return dispatch(DeleteReviewThunk(reviewId))
+        return dispatch(DeleteReviewThunk(reviewId, spotId))
           .then(closeModal)
+          .then(setHasReviewed)
           .catch(async (res) => {
             if (res && res.message) {
                 setErrors(res);

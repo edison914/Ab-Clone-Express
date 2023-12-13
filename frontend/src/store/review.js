@@ -62,7 +62,7 @@ export const addReviewThunk = (reviewForm, spotId) => async (dispatch) => {
 }
 
 //
-export const DeleteReviewThunk = (reviewId) => async (dispatch) => {
+export const DeleteReviewThunk = (reviewId, spotId) => async (dispatch) => {
     const res = await csrfFetch(`/api/reviews/${reviewId}`, {
         method: "DELETE",
       })
@@ -71,6 +71,8 @@ export const DeleteReviewThunk = (reviewId) => async (dispatch) => {
         const data = await res.json()
         //console.log(data)
         dispatch(removeReview(reviewId))
+        dispatch(getReviewsByIdThunk(spotId))
+        dispatch(getSpotDetailThunk(spotId))
         return data;
       } else {
         const err = await res.json();
