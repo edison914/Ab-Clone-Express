@@ -43,13 +43,50 @@
     color: #FF5A5F
 }
 
-.newspot-form-city-state-container{
+/* .newspot-form-city-state-container{
     display: flex;
     flex-direction: row;
     align-items: space-between;
-}
+
+} */
 
 .newspot-form input {
     height: 25px;
     margin: 5px 0;
+}
+
+.newspot-form-section-container p {
+    margin: 0px
+}
+
+.input-country {
+    width: 590px;
+}
+
+.input-address {
+    width: 590px;
+}
+
+.input-state {
+    width: 240px;
+}
+
+.input-city {
+    width: 240px;
+}
+
+.input-lat {
+    width: 211px;
+}
+
+.input-lng {
+    width: 211px;
+}
+
+.input-state-span {
+    margin-left: 17px;
+}
+
+.input-state-lng {
+    margin-left: 12px;
 }

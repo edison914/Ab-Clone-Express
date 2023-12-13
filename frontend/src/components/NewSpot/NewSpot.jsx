@@ -88,11 +88,12 @@ function NewSpot () {
                     <div>
                         <p>Country</p>
                         <input
-                        type='text'
-                        onChange={(e) => setCountry(e.target.value)}
-                        value={country}
-                        placeholder='Country'
-                        name='Country'
+                            className='input-country'
+                            type='text'
+                            onChange={(e) => setCountry(e.target.value)}
+                            value={country}
+                            placeholder='Country'
+                            name='Country'
                         />
                         {!country && (<div className='newspot-form-required-input'>Country is required</div>)}
                     </div>
@@ -101,6 +102,7 @@ function NewSpot () {
                         <p>Street Address</p>
 
                         <input
+                        className='input-address'
                         type='text'
                         onChange={(e) => setAddress(e.target.value)}
                         value={address}
@@ -112,9 +114,10 @@ function NewSpot () {
 
                     <div className='newspot-form-city-state-container'>
                         <div>
-                            <span>City </span>
+                            <span> City </span>
 
                             <input
+                            className='input-city'
                             type='text'
                             onChange={(e) => setCity(e.target.value)}
                             value={city}
@@ -124,9 +127,10 @@ function NewSpot () {
                             {!city && (<div className='newspot-form-required-input'>City is required</div>)}
                         </div>
                         <div>
-                            <span> State </span>
+                            <span className='input-state-span'> State </span>
 
                             <input
+                            className='input-state'
                             type='text'
                             onChange={(e) => setState(e.target.value)}
                             value={state}
@@ -138,9 +142,10 @@ function NewSpot () {
                     </div>
                     <div className='newspot-form-city-state-container'>
                         <div>
-                            <span>Latitude</span>
+                            <span> Latitude </span>
                             <input
                             type='text'
+                            className='input-lat'
                             onChange={(e) => setLatitude(e.target.value)}
                             value={latitude}
                             placeholder='Latitude'
@@ -149,9 +154,10 @@ function NewSpot () {
                             {!latitude && (<div className='newspot-form-required-input'>Latitude is required</div>)}
                         </div>
                         <div>
-                            <span> Longitude </span>
+                            <span className='input-state-lng'> Longitude </span>
 
                             <input
+                            className='input-lng'
                             type='text'
                             onChange={(e) => setLongitude(e.target.value)}
                             value={longitude}
