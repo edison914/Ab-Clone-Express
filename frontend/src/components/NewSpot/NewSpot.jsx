@@ -44,10 +44,7 @@ function NewSpot () {
             }
         //console.log(spotData)
 
-        const newSpotImage1 = {
-            url: url1,
-            preview: true
-        }
+
 
         if (!url1) {
             setImgError('The preview image URL is required, and must end with png, jpg, or jpeg');
@@ -78,14 +75,20 @@ function NewSpot () {
 
         if (res?.id) {
             const spotId = res.id
-            const imgArr = [url1, url2, url3, url4, url5]
+            const urlArr = [url1, url2, url3, url4, url5]
 
-            //cant not use forEach with await. need to await Promise.All instead
-            await Promise.all(imgArr.map(async (img) => {
-                if (img !== '') {
-                    await dispatch(addImgToSpotThunk(newSpotImage1, spotId));
+            //cant not use forEach with await. need to await Promise.All or const for of instead
+            for (const url of urlArr) {
+
+                const newSpotImage = {
+                    url,
+                    preview: true
                 }
-            }));
+
+                if (url) {
+                    await dispatch(addImgToSpotThunk(newSpotImage, spotId));
+                }
+            }
 
             setCountry('');
             setAddress('');
