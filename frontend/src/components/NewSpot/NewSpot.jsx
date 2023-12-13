@@ -20,12 +20,16 @@ function NewSpot () {
     const [url3, setUrl3] = useState();
     const [url4, setUrl4] = useState();
     const [url5, setUrl5] = useState();
+    const [errors, setErrors] = useState({});
+    const [imgError, setImgError] = useState(false);
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setErrors({});
+        setImgError('');
         //createa new obj when form is submmitted
         const spotData = {
                 address,
@@ -38,42 +42,62 @@ function NewSpot () {
                 description,
                 price
             }
-
-        console.log(spotData)
+        //console.log(spotData)
 
         const newSpotImage1 = {
             url: url1,
             preview: true
         }
 
-        let res = await dispatch(addNewSpotThunk(spotData));
-        //let res2 = await dispatch(addNewImageThunk(newSpotImage1));
-        console.log(`new added Spot`, res)
+        if (!url1) {
+            setImgError('The preview image URL is required, and must end with png, jpg, or jpeg');
+            return;
+        }
 
-        if (res.id) {
+        let res = await dispatch(addNewSpotThunk(spotData))
+            .catch(async (res) => {
+
+            const data = await res.json();
+            console.log(`data`,data)
+            if (data && data.message) {
+                setErrors(data.errors);
+                //console.log(`errors`, errors)
+                if (data.message === `value too long for type character varying(255)`) {
+                    //console.log(data.message)
+                    setErrors({description: data.message})
+                }
+
+                return;
+            }
+        });
+
+        if (res?.id) {
             const spotId = res.id
+
             let res2 = await dispatch(addImgToSpotThunk(newSpotImage1, spotId))
 
-            console.log(`new added image`, res2)
+                console.log(`new added image`, res2)
 
-            navigate(`/spots/${res.id}`)
+                setCountry('');
+                setAddress('');
+                setCity('');
+                setState('');
+                setLatitude('');
+                setLongitude('');
+                setSpotName('');
+                setPrice('');
+                setUrl1('');
+                setUrl2('');
+                setUrl3('');
+                setUrl4('');
+                setUrl5('');
+
+                navigate(`/spots/${res.id}`)
         }
 
     //    dispatch(addNewSpotImageThunk(newSpotImage1))
 
-        setCountry('');
-        setAddress('');
-        setCity('');
-        setState('');
-        setLatitude('');
-        setLongitude('');
-        setSpotName('');
-        setPrice('');
-        setUrl1('');
-        setUrl2('');
-        setUrl3('');
-        setUrl4('');
-        setUrl5('');
+
     };
 
 
@@ -95,7 +119,7 @@ function NewSpot () {
                             placeholder='Country'
                             name='Country'
                         />
-                        {!country && (<div className='newspot-form-required-input'>Country is required</div>)}
+                        {errors?.country && (<div className='newspot-form-required-input'>{errors?.country}</div>)}
                     </div>
 
                     <div>
@@ -109,7 +133,7 @@ function NewSpot () {
                         placeholder='Street Address'
                         name='Street Address'
                         />
-                        {!address && (<div className='newspot-form-required-input'>Address is required</div>)}
+                        {errors?.address && (<div className='newspot-form-required-input'>{errors?.address}</div>)}
                     </div>
 
                     <div className='newspot-form-city-state-container'>
@@ -124,7 +148,7 @@ function NewSpot () {
                             placeholder='City'
                             name='City'
                             />
-                            {!city && (<div className='newspot-form-required-input'>City is required</div>)}
+                            {errors?.city && (<div className='newspot-form-required-input'>{errors?.city}</div>)}
                         </div>
                         <div>
                             <span className='input-state-span'> State </span>
@@ -137,7 +161,7 @@ function NewSpot () {
                                 placeholder='state'
                                 name='state'
                             />
-                            {!state && (<div className='newspot-form-required-input'>State is required</div>)}
+                            {errors?.state && (<div className='newspot-form-required-input'>{errors?.state}</div>)}
                         </div>
                     </div>
                     <div className='newspot-form-city-state-container'>
@@ -151,7 +175,7 @@ function NewSpot () {
                             placeholder='Latitude'
                             name='Latitude'
                             />
-                            {!latitude && (<div className='newspot-form-required-input'>Latitude is required</div>)}
+                            {errors?.lat && (<div className='newspot-form-required-input'>{errors?.lat}</div>)}
                         </div>
                         <div>
                             <span className='input-state-lng'> Longitude </span>
@@ -164,7 +188,7 @@ function NewSpot () {
                             placeholder='Longitude'
                             name='Longitude'
                             />
-                            {!longitude && (<div className='newspot-form-required-input'>Longitude is required</div>)}
+                            {errors?.lng && (<div className='newspot-form-required-input'>{errors?.lng}</div>)}
                         </div>
                     </div>
                 </div>
@@ -179,7 +203,7 @@ function NewSpot () {
                         placeholder='Please write at least 30 characters'
                         rows='10'
                     ></textarea>
-                    {description.length < 30 && (<div className='newspot-form-required-input'>Description needs a minimum of 30 characters</div>)}
+                    {errors?.description && (<div className='newspot-form-required-input'>{errors?.description}</div>)}
                 </div>
 
                 <div className='newspot-form-section-container'>
@@ -192,7 +216,7 @@ function NewSpot () {
                         placeholder='Name of your spot'
                         name='spotName'
                     />
-                    {!spotName && (<div className='newspot-form-required-input'>Name for the spot is required</div>)}
+                    {errors?.name && (<div className='newspot-form-required-input'>{errors?.name}</div>)}
                 </div>
 
                 <div className='newspot-form-section-container'>
@@ -207,7 +231,7 @@ function NewSpot () {
                             placeholder='Price per night (USD)'
                             name='price'
                         />
-                        {!price && (<div className='newspot-form-required-input'>Price is required</div>)}
+                        {errors?.price && (<div className='newspot-form-required-input'>{errors?.price}</div>)}
                     </div>
 
                 </div>
@@ -222,7 +246,7 @@ function NewSpot () {
                         placeholder='Preview Image URL'
                         name='url1'
                     />
-                    {!url1 && (<div className='newspot-form-required-input'>The preview image URL is required, and must end with png, jpg, or jpeg </div>)}
+                    {imgError && (<div className='newspot-form-required-input'>{imgError}</div>)}
                     <input
                         type='text'
                         onChange={(e) => setUrl2(e.target.value)}

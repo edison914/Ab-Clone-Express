@@ -78,15 +78,17 @@ export const addNewSpotThunk = (spotData) => async (dispatch) => {
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify(spotData)
       })
-    //console.log(`is this even called?`, res)
+    console.log(`is this even called?`, res)
+
     if (res.ok) {
         const data = await res.json()
-        //console.log(data)
+        console.log(`is the good response called?`,data)
         dispatch(loadSpotDetail(data))
         return data;
       } else {
         const err = await res.json();
-        return err;
+        console.log(`is the bad error called`,err)
+        return err.errors;
     }
 }
 

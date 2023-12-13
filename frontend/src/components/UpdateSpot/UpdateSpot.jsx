@@ -30,9 +30,11 @@ function UpdateSpot () {
     const [description, setDescription] = useState(selectedSpot?.description);
     const [spotName, setSpotName] = useState(selectedSpot?.name);
     const [price, setPrice] = useState(selectedSpot?.price);
+    const [errors, setErrors] = useState({});
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setErrors({});
         //createa new obj when form is submmitted
         const spotData = {
                 address,
@@ -47,20 +49,25 @@ function UpdateSpot () {
             }
 
 
-        let res = await dispatch(UpdateSpotThunk(spotData, spotId));
-        console.log(`updated spot`, res)
+        let res = await dispatch(UpdateSpotThunk(spotData, spotId))
+            .catch(async (res) => {
+            const data = await res.json();
+            console.log(`data`,data)
+            if (data && data.message) {
+                setErrors(data.errors);
+                console.log(`errors`, errors)
+                if (data.message === `value too long for type character varying(255)`) {
+                    //console.log(data.message)
+                    setErrors({description: data.message})
+                }
+                return;
+            }
+        });
 
-        setCountry('');
-        setAddress('');
-        setCity('');
-        setState('');
-        setLatitude('');
-        setLongitude('');
-        setSpotName('');
-        setPrice('');
+        //console.log(`updated spot`, res)
 
-        if (!res.message) {
-            navigate(`/spots/${spotId}`)
+        if (res?.id) {
+            navigate(`/spots/${res.id}`)
         }
     };
 
@@ -86,7 +93,7 @@ function UpdateSpot () {
                             placeholder='Country'
                             name='Country'
                         />
-                        {!country && (<div className='newspot-form-required-input'>Country is required</div>)}
+                        {errors?.country && (<div className='newspot-form-required-input'>{errors?.country}</div>)}
                     </div>
 
                     <div>
@@ -100,7 +107,7 @@ function UpdateSpot () {
                         placeholder='Street Address'
                         name='Street Address'
                         />
-                        {!address && (<div className='newspot-form-required-input'>Address is required</div>)}
+                        {errors?.address && (<div className='newspot-form-required-input'>{errors?.address}</div>)}
                     </div>
 
                     <div className='newspot-form-city-state-container'>
@@ -115,7 +122,7 @@ function UpdateSpot () {
                             placeholder='City'
                             name='City'
                             />
-                            {!city && (<div className='newspot-form-required-input'>City is required</div>)}
+                             {errors?.city && (<div className='newspot-form-required-input'>{errors?.city}</div>)}
                         </div>
                         <div>
                             <span className='input-state-span'> State </span>
@@ -128,7 +135,7 @@ function UpdateSpot () {
                             placeholder='state'
                             name='state'
                             />
-                            {!state && (<div className='newspot-form-required-input'>State is required</div>)}
+                            {errors?.state && (<div className='newspot-form-required-input'>{errors?.state}</div>)}
                         </div>
                     </div>
                     <div className='newspot-form-city-state-container'>
@@ -142,7 +149,7 @@ function UpdateSpot () {
                                 placeholder='Latitude'
                                 name='Latitude'
                             />
-                            {!latitude && (<div className='newspot-form-required-input'>Latitude is required</div>)}
+                            {errors?.lat && (<div className='newspot-form-required-input'>{errors?.lat}</div>)}
                         </div>
                         <div>
                             <span className='input-state-lng'> Longitude </span>
@@ -155,7 +162,7 @@ function UpdateSpot () {
                                 placeholder='Longitude'
                                 name='Longitude'
                             />
-                            {!longitude && (<div className='newspot-form-required-input'>Longitude is required</div>)}
+                            {errors?.lng && (<div className='newspot-form-required-input'>{errors?.lng}</div>)}
                         </div>
                     </div>
                 </div>
@@ -183,7 +190,7 @@ function UpdateSpot () {
                         placeholder='Name of your spot'
                         name='spotName'
                     />
-                    {!spotName && (<div className='newspot-form-required-input'>Name for the spot is required</div>)}
+                    {errors?.name && (<div className='newspot-form-required-input'>{errors?.name}</div>)}
                 </div>
 
                 <div className='newspot-form-section-container'>
@@ -198,7 +205,7 @@ function UpdateSpot () {
                             placeholder='Price per night (USD)'
                             name='price'
                         />
-                        {!price && (<div className='newspot-form-required-input'>Price is required</div>)}
+                        {errors?.price && (<div className='newspot-form-required-input'>{errors?.price}</div>)}
                     </div>
                 </div>
 
