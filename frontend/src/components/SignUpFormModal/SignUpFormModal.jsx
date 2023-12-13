@@ -118,11 +118,15 @@ function SignupFormModal() {
           />
         </label>
         {errors.confirmPassword && <p className='form-error-message'>{errors.confirmPassword}</p>}
-        {email.length >0 && username.length >3 && firstName.length > 0
-        && lastName.length>0 && password.length>5 && confirmPassword.length>0
-        && (
-          <button className='form-button' type="submit">Sign Up</button>
-        )}
+
+        <button
+            className='signup-form-button'
+            type="submit"
+            disabled={username.length < 4}
+            >
+              Sign Up
+        </button>
+
       </form>
     </>
   );
