@@ -21,7 +21,7 @@ module.exports = {
           lng: 77.3064,
           name: `Eddie's Crib`,
           description: `Eddie's sweet sweet home`,
-          price: 500,
+          price: 10000,
         },
         {
           ownerId: 1,
@@ -33,11 +33,11 @@ module.exports = {
           lng: 74.3043,
           name: `Eddie's Crib 2 in Nowhere`,
           description: `Eddie's not so sweet home`,
-          price: 200,
+          price: 788,
         },
         {
           ownerId: 1,
-          address: "20 Peachtree Drive",
+          address: "40 Peachtree Drive",
           city: `Uniontown`,
           state: `Pennsylvania`,
           country: `United States of America`,
@@ -45,11 +45,11 @@ module.exports = {
           lng: -14.2324,
           name: `Eddie's Vaction Home in Forest`,
           description: `Eddie's cabine. Great place to do hunting and fishing`,
-          price: 199,
+          price: 245,
         },
         {
           ownerId: 1,
-          address: "255 Inverness Street",
+          address: "9255 Inverness Street",
           city: `Galloway`,
           state: `Ohio`,
           country: `United States of America`,
@@ -73,7 +73,7 @@ module.exports = {
         },
         {
           ownerId: 2,
-          address: "39 Alton Street",
+          address: "679 Alton Street",
           city: `Newtown`,
           state: `Indiana`,
           country: `United States of America`,
@@ -85,7 +85,7 @@ module.exports = {
         },
         {
           ownerId: 3,
-          address: "333 Ashley Blvd",
+          address: "313 Ashley Blvd",
           city: `Los Angeles`,
           state: `California`,
           country: `United States of America`,
@@ -97,7 +97,7 @@ module.exports = {
         },
         {
           ownerId: 4,
-          address: "422 Rose Court",
+          address: "5426 Rose Court",
           city: `Victoria`,
           state: `Texas`,
           country: `United States of America`,
@@ -116,7 +116,7 @@ module.exports = {
           lat: 33.2323,
           lng: 130.1122,
           name: `Demo's vaction home in Georgia`,
-          description: `A really nice place that is located in the beautiful state of Texas`,
+          description: `THe place has a very nice golf course. I also love the bar there`,
           price: 249,
         },
         {
