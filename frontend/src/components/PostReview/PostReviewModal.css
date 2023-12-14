@@ -20,7 +20,7 @@
     margin-bottom: 20px;
     background-color: #E8F0FE ;
     color: black;
-    width: 208px;
+    width: 300px;
     cursor: not-allowed;
     border-radius: 4px;
 }
@@ -37,4 +37,22 @@
 .postreview-form-input {
     width: 300px;
     height: 120px;
+}
+
+
+.rating-input {
+    display: flex;
+    margin-right: 4px;
+    margin: 20px;
+    font-size: 20px
+  }
+
+
+.rating-input .filled {
+    color: #FF5A5F;
+    font-size: 20px;
+}
+.rating-input .empty {
+    color: #E8F0FE ;
+    font-size: 20px;
 }

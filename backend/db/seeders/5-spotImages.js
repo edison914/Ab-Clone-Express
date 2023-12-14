@@ -111,6 +111,156 @@ module.exports = {
           url: `https://images.pexels.com/photos/5007356/pexels-photo-5007356.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1`,
           preview: true,
         },
+        {
+          spotId: 5,
+          url: `https://images.pexels.com/photos/7031406/pexels-photo-7031406.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1`,
+          preview: true,
+        },
+        {
+          spotId: 5,
+          url: `https://images.pexels.com/photos/6283961/pexels-photo-6283961.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1`,
+          preview: true,
+        },
+        {
+          spotId: 5,
+          url: `https://images.pexels.com/photos/6527069/pexels-photo-6527069.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1`,
+          preview: true,
+        },
+        {
+          spotId: 5,
+          url: `https://images.pexels.com/photos/6492397/pexels-photo-6492397.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1`,
+          preview: true,
+        },
+        {
+          spotId: 5,
+          url: `https://images.pexels.com/photos/7031406/pexels-photo-7031406.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1`,
+          preview: true,
+        },
+        {
+          spotId: 6,
+          url: `https://images.pexels.com/photos/7061674/pexels-photo-7061674.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1`,
+          preview: true,
+        },
+        {
+          spotId: 6,
+          url: `https://images.pexels.com/photos/3816397/pexels-photo-3816397.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1`,
+          preview: true,
+        },
+        {
+          spotId: 6,
+          url: `https://images.pexels.com/photos/6580224/pexels-photo-6580224.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1`,
+          preview: true,
+        },
+        {
+          spotId: 6,
+          url: `https://images.pexels.com/photos/5745989/pexels-photo-5745989.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1`,
+          preview: true,
+        },
+        {
+          spotId: 6,
+          url: `https://images.pexels.com/photos/221506/pexels-photo-221506.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1`,
+          preview: true,
+        },
+        {
+          spotId: 7,
+          url: `https://images.pexels.com/photos/6129989/pexels-photo-6129989.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1`,
+          preview: true,
+        },
+        {
+          spotId: 7,
+          url: `https://images.pexels.com/photos/6129994/pexels-photo-6129994.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1`,
+          preview: true,
+        },
+        {
+          spotId: 7,
+          url: `https://images.pexels.com/photos/6129992/pexels-photo-6129992.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1`,
+          preview: true,
+        },
+        {
+          spotId: 7,
+          url: `https://images.pexels.com/photos/6129982/pexels-photo-6129982.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1`,
+          preview: true,
+        },
+        {
+          spotId: 7,
+          url: `https://images.pexels.com/photos/5172301/pexels-photo-5172301.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1`,
+          preview: true,
+        },
+        {
+          spotId: 8,
+          url: `https://images.pexels.com/photos/12877726/pexels-photo-12877726.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1`,
+          preview: true,
+        },
+        {
+          spotId: 8,
+          url: `https://images.pexels.com/photos/5117917/pexels-photo-5117917.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1`,
+          preview: true,
+        },
+        {
+          spotId: 8,
+          url: `https://images.pexels.com/photos/3201920/pexels-photo-3201920.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1`,
+          preview: true,
+        },
+        {
+          spotId: 8,
+          url: `https://images.pexels.com/photos/764998/pexels-photo-764998.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1`,
+          preview: true,
+        },
+        {
+          spotId: 8,
+          url: `https://images.pexels.com/photos/14741183/pexels-photo-14741183.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1`,
+          preview: true,
+        },
+        {
+          spotId: 9,
+          url: `https://images.pexels.com/photos/9400977/pexels-photo-9400977.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1`,
+          preview: true,
+        },
+        {
+          spotId: 9,
+          url: `https://images.pexels.com/photos/6875493/pexels-photo-6875493.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1`,
+          preview: true,
+        },
+        {
+          spotId: 9,
+          url: `https://images.pexels.com/photos/6130052/pexels-photo-6130052.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1`,
+          preview: true,
+        },
+        {
+          spotId: 9,
+          url: `https://images.pexels.com/photos/5740342/pexels-photo-5740342.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1`,
+          preview: true,
+        },
+        {
+          spotId: 9,
+          url: `https://images.pexels.com/photos/12565208/pexels-photo-12565208.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1`,
+          preview: true,
+        },
+        {
+          spotId: 10,
+          url: `https://images.pexels.com/photos/4783887/pexels-photo-4783887.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1`,
+          preview: true,
+        },
+        {
+          spotId: 10,
+          url: `https://images.pexels.com/photos/14025040/pexels-photo-14025040.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1`,
+          preview: true,
+        },
+        {
+          spotId: 10,
+          url: `https://images.pexels.com/photos/14024794/pexels-photo-14024794.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1`,
+          preview: true,
+        },
+        {
+          spotId: 10,
+          url: `https://images.pexels.com/photos/14036443/pexels-photo-14036443.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1`,
+          preview: true,
+        },
+        {
+          spotId: 10,
+          url: `https://images.pexels.com/photos/15176820/pexels-photo-15176820/free-photo-of-hotels-on-seashore.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1`,
+          preview: true,
+        },
       ],
       { validate: true }
     );
