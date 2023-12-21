@@ -13,7 +13,9 @@ export default defineConfig(({ mode }) => ({
   ],
   server: {
     proxy: {
-      '/api': 'https://ab-express-dev-version.onrender.com'
+      '/api': `https://ab-express-dev-version.onrender.com`
+
+
     },
   }
 }));
