@@ -1,6 +1,6 @@
 # `Airbnb Express Sequelize Sever`
 
-Airbnb Express Sequelize Server is a fullstack app that I developed that simulates basic functionality of a typical booking site. The app was devleoped using Sequelize and Express.js as the backend and React.js packaged in vite as the frontend. The demo provides user with features such as sign-up, sign-in, broswer existing spots, review spot detail, create a spot, and leave a review.
+Airbnb Express Sequelize Server is a fullstack app that I developed that simulates basic functionality of a typical booking site. The app was devleoped using Sequelize and Express.js as the backend, and React.js as the frontend. The use of Vue.js as the primary front-end tooling and build system. The demo provides user with features such as sign-up, sign-in, broswer existing spots, review spot detail, create a spot, and leave a review.
 
 <img width="1481" alt="Screenshot 2023-12-14 at 2 05 16 PM" src="https://github.com/edison914/project-ab-express-sequelize-with-auth/assets/101605994/6ce11cce-1177-4097-af78-c4b592804fb2">
 
