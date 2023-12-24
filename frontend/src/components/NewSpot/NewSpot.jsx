@@ -60,7 +60,7 @@ function NewSpot () {
             .catch(async (res) => {
 
             const data = await res.json();
-            console.log(`data`,data)
+            //console.log(`data`,data)
             if (data && data.message) {
                 setErrors(data.errors);
                 //console.log(`errors`, errors)
