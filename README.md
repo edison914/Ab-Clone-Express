@@ -11,8 +11,11 @@ Airbnb Express Sequelize Server is a fullstack app that I developed that simulat
 The server allows the new user to sign up an account using the sign-up link in the Navigation bar when current session of the user is = 'null'. A popup modal is then shown when sign-up link is clicked. All info on the forms are required to be properly filled out in order to create a user, else the server will return errors from the express backend. The sign-up button is also grey out unless all info are filled out.
 
 *CURD of Spots*
+The server allows user to browse through various spots on the home page. It display the spots owned when the current loged in user Id is equal to the spots' owner Id. It also alows users to update various spots based on whether the userId equal to the ownerId of the spots.
 
-*CURD of Review*
+
+*CURD of Reviews*
+The server allows user to browse various reviews based on the particular spot Id. It displays all spots under the spot detail page. It also alows users to create or update reviews through a popup Modal, based on whether the userId is not equal to the ownerId of the spot and whether the user has already created a review for the current spot.
 
 *Future Features*
 CURD Action of booking.
