@@ -30,15 +30,16 @@ function PostNewReviewModal ({spotId}) {
           .then(closeModal)
           .catch(async (res) => {
             const data = await res.json();
-            console.log(data)
+            //console.log(data)
             if (data && data.message) {
                 setErrors(data.errors);
-                console.log(`errors`, errors)
+                //console.log(`errors`, errors)
             }
-            console.log(errors)
+            //console.log(errors)
             return;
         });
     };
+
 
 
     return (

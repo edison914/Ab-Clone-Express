@@ -62,7 +62,7 @@ router.post('/', validateLogin, async (req, res, next) => {
 
     //create and set a Token cookie for the user that is stored in the browser. //login
     await setTokenCookie (res, safeUser);
-
+ 
     //return a response with user info to confirm login successfully.
     return res.json({user: safeUser});
 
