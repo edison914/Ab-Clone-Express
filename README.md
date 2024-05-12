@@ -10,12 +10,12 @@ Airbnb Express Sequelize Server is a fullstack app that I developed that simulat
 *Sign-up*
 The server allows the new user to sign up an account using the sign-up link in the Navigation bar when current session of the user is = 'null'. A popup modal is then shown when sign-up link is clicked. All info on the forms are required to be properly filled out in order to create a user, else the server will return errors from the express backend. The sign-up button is also grey out unless all info are filled out.
 
-*CURD of Spots*
+*CRUD of Spots*
 
-*CURD of Review*
+*CRUD of Review*
 
 *Future Features*
-CURD Action of booking.
+CRUD Action of booking.
 Implmentation of Google API for locations
 Implementation of pictures storages in AWS
 
