@@ -40,7 +40,7 @@ A sample structure:
       id: 1,
       spotId: 1,
       userId: 1,
-      reviews: `This place is beantuful`
+      reviews: `This place is beantuful.`
       stars: 4,
       .......
     }
@@ -65,7 +65,7 @@ A sample structure:
     }
   },
   bookings: { //to store all spots related info.
-    `This state is to be implemented/used in later features. Not currently use`
+    `This state is to be implemented/used in later features. Not currently use.`
   }
 }
 ```
